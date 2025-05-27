@@ -5,7 +5,7 @@ This first version will provide sample recordings of several parameters accordin
 The app is currently under development. 
 As soon as the first version is finalized there will be an official release version, published to the repository in form of an .exe file.
 
-For downloading the app please follow this link to the OSF Project: https://doi.org/10.17605/OSF.IO/PTQG4
+For downloading the app please follow this link to the OSF Project: https://doi.org/10.17605/OSF.IO/PTQG4.
 Under Files/Github you can download single Pythonfiles or soucre material.
 Please pay attention to the MIT License terms.
 
