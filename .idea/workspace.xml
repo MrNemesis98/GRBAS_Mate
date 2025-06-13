@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e8a1b1a-7cc2-4927-8424-4d3eb0f31b62" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/first_GUI_Layout.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/ico/button_main_nav_home.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/ico/button_main_nav_study.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI_Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI_Style_Sheets.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Style_Sheets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI_Text_Manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Text_Manager.py" afterDir="false" />
-    </list>
+    <list default="true" id="5e8a1b1a-7cc2-4927-8424-4d3eb0f31b62" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -104,7 +96,7 @@
       <updated>1747672598569</updated>
       <workItem from="1747672599917" duration="4833000" />
       <workItem from="1747814734804" duration="14000" />
-      <workItem from="1749834814144" duration="8649000" />
+      <workItem from="1749834814144" duration="8738000" />
     </task>
     <servers />
   </component>
