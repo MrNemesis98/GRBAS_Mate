@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e8a1b1a-7cc2-4927-8424-4d3eb0f31b62" name="Changes" comment="" />
+    <list default="true" id="5e8a1b1a-7cc2-4927-8424-4d3eb0f31b62" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/button_main_nav_audio.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/button_main_nav_description.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/button_main_nav_settings_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/button_main_nav_settings_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/button_main_nav_training.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/listen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/self_study.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI_Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI_Style_Sheets.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Style_Sheets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI_Text_Manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Text_Manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/button_main_nav_home.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/ico/button_main_nav_home.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/button_main_nav_study.png" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,27 +45,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Python.GUI_Main.executor": "Run",
-    "Python.GUI_Style_Sheets.executor": "Run",
-    "Python.example_GUI.executor": "Run",
-    "Python.example_responsive_GUI.executor": "Run",
-    "Python.example_round_window.executor": "Run",
-    "Python.first_GUI_Layout.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/NEMESIS/Documents/PycharmProjects/GitHub/GRBAS_Mate/GUI_Main.py",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Python.GUI_Main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.GUI_Style_Sheets.executor&quot;: &quot;Run&quot;,
+    &quot;Python.example_GUI.executor&quot;: &quot;Run&quot;,
+    &quot;Python.example_responsive_GUI.executor&quot;: &quot;Run&quot;,
+    &quot;Python.example_round_window.executor&quot;: &quot;Run&quot;,
+    &quot;Python.first_GUI_Layout.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/NEMESIS/Documents/PycharmProjects/GitHub/GRBAS_Mate/GUI_Main.py&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="GUI_Main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="GRBAS_Mate" />
@@ -97,6 +111,7 @@
       <workItem from="1747672599917" duration="4833000" />
       <workItem from="1747814734804" duration="14000" />
       <workItem from="1749834814144" duration="8738000" />
+      <workItem from="1750338822851" duration="6380000" />
     </task>
     <servers />
   </component>
@@ -112,6 +127,6 @@
     <SUITE FILE_PATH="coverage/GRBAS_Mate$example_round_window.coverage" NAME="example_round_window Coverage Results" MODIFIED="1749839454672" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GRBAS_Mate$first_GUI_Layout.coverage" NAME="first_GUI_Layout Coverage Results" MODIFIED="1749835924421" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GRBAS_Mate$example_responsive_GUI.coverage" NAME="example_responsive_GUI Coverage Results" MODIFIED="1747674829353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/GRBAS_Mate$GUI_Main.coverage" NAME="GUI_Main Coverage Results" MODIFIED="1749843475929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/GRBAS_Mate$GUI_Main.coverage" NAME="GUI_Main Coverage Results" MODIFIED="1750347688876" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
