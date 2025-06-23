@@ -63,6 +63,7 @@ class SimpleGUI(QWidget):
     def on_button_click(self):
         self.label.setText("Button wurde geklickt!")
 
+
 # Main Application
 app = QApplication(sys.argv)
 gui = SimpleGUI()

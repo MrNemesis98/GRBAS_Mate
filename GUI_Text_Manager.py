@@ -3,4 +3,4 @@ def window_title():
 
 
 def label_main_headline_background():
-    return "     GRBAS_Mate / ɡʁæps mæɪtʰ"
+    return "     GRBAS_Mate   [ɡʁæps mæɪtʰ]"

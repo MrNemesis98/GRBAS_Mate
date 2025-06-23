@@ -50,11 +50,15 @@ def label_main_headline_background():
         color: rgba(244,244,246,255);
         font-size: 30px;
         font-weight: bold;
-        background-color: rgba(15,16,40,255);
+        background: qlineargradient(
+            spread:pad, x1:1, y1:0, x2:1, y2:1,
+            stop:0 rgba(10,37,54,255),  
+            stop:1 rgba(25,30,36,255)
+            );
         border-bottom: 2px solid rgb(64,72,82);
         border-top-left-radius: 100px;
         padding: 8px;
-        }
+    }
     """
     return sst
 
@@ -88,49 +92,139 @@ def button_main_ctrl_exit():
     return sst
 
 
-def buttons_main_nav():
-    sst = """
-            QPushButton {
-                background-color: rgba(25,30,36,255);
-                border: 2px solid rgba(25,30,36,255);
-                border-radius: 8px;
-            }
-            QPushButton:hover {
-                background-color: rgba(41,51,63,255);
-                border: 2px solid rgba(41,51,63,255);
-            }
-            QPushButton:pressed {
-                background-color: rgba(25,30,36,255);
-                border: 2px solid rgba(25,30,36,255);
-            }
-        """
+# Main Navigation Bar (5 Buttons) --------------------------------------------------------------------------------------
+# [Home, Description, Study, Training, Settings]
+def button_main_nav_home(pressed):
+    if pressed:
+        sst = """QPushButton {
+                    background-color: rgba(107,109,113,255);
+                    background-image: url(./src/gui/ico/button_main_nav_home_1.png);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    border: 2px solid rgba(25,30,36,255);
+                    border-radius: 8px;
+                }"""
+    else:
+        sst = """
+                QPushButton {
+                    background-color: rgba(25,30,36,255);
+                    background-image: url(./src/gui/ico/button_main_nav_home_0.png);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    border: 2px solid rgba(25,30,36,255);
+                    border-radius: 8px;
+                }
+                QPushButton:hover {
+                    background-color: rgba(41,51,63,255);
+                }
+            """
     return sst
 
 
-def button_main_nav_settings():
-    sst = """
-            QPushButton {
-                background-color: rgba(25,30,36,255);
-                border: 2px solid rgba(25,30,36,255);
-                border-radius: 8px;
-                background-image: url(./src/gui/ico/button_main_nav_settings_1.png);
-                background-repeat: no-repeat;
-                background-position: center;
-                
-            }
-            QPushButton:hover {
-                background-color: rgba(41,51,63,255);
-                border: 2px solid rgba(41,51,63,255);
-                background-image: url(./src/gui/ico/button_main_nav_settings_2.png);
-                background-repeat: no-repeat;
-                background-position: center;
-            }
-            QPushButton:pressed {
-                background-color: rgba(25,30,36,255);
-                border: 2px solid rgba(25,30,36,255);
-                background-image: url(./src/gui/ico/button_main_nav_settings_2.png);
-                background-repeat: no-repeat;
-                background-position: center;
-            }
-        """
+def button_main_nav_description(pressed):
+    if pressed:
+        sst = """QPushButton {
+                    background-color: rgba(107,109,113,255);
+                    background-image: url(./src/gui/ico/button_main_nav_description_1.png);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    border: 2px solid rgba(25,30,36,255);
+                    border-radius: 8px;
+                }"""
+    else:
+        sst = """
+                QPushButton {
+                    background-color: rgba(25,30,36,255);
+                    background-image: url(./src/gui/ico/button_main_nav_description_0.png);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    border: 2px solid rgba(25,30,36,255);
+                    border-radius: 8px;
+                }
+                QPushButton:hover {
+                    background-color: rgba(41,51,63,255);
+                }
+            """
+    return sst
+
+
+def button_main_nav_study(pressed):
+    if pressed:
+        sst = """QPushButton {
+                    background-color: rgba(107,109,113,255);
+                    background-image: url(./src/gui/ico/button_main_nav_study_1.png);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    border: 2px solid rgba(25,30,36,255);
+                    border-radius: 8px;
+                }"""
+    else:
+        sst = """
+                QPushButton {
+                    background-color: rgba(25,30,36,255);
+                    background-image: url(./src/gui/ico/button_main_nav_study_0.png);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    border: 2px solid rgba(25,30,36,255);
+                    border-radius: 8px;
+                }
+                QPushButton:hover {
+                    background-color: rgba(41,51,63,255);
+                }
+            """
+    return sst
+
+
+def button_main_nav_training(pressed):
+    if pressed:
+        sst = """QPushButton {
+                    background-color: rgba(107,109,113,255);
+                    background-image: url(./src/gui/ico/button_main_nav_training_1.png);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    border: 2px solid rgba(25,30,36,255);
+                    border-radius: 8px;
+                }"""
+    else:
+        sst = """
+                QPushButton {
+                    background-color: rgba(25,30,36,255);
+                    background-image: url(./src/gui/ico/button_main_nav_training_0.png);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    border: 2px solid rgba(25,30,36,255);
+                    border-radius: 8px;
+                }
+                QPushButton:hover {
+                    background-color: rgba(41,51,63,255);
+                }
+            """
+    return sst
+
+
+def button_main_nav_settings(pressed):
+    if pressed:
+        sst = """QPushButton {
+                    background-color: rgba(107,109,113,255);
+                    background-image: url(./src/gui/ico/button_main_nav_settings_2.png);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    border: 2px solid rgba(25,30,36,255);
+                    border-radius: 8px;
+                }"""
+    else:
+        sst = """
+                QPushButton {
+                    background-color: rgba(25,30,36,255);
+                    background-image: url(./src/gui/ico/button_main_nav_settings_0.png);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    border: 2px solid rgba(25,30,36,255);
+                    border-radius: 8px;
+                }
+                QPushButton:hover {
+                    background-color: rgba(41,51,63,255);
+                    background-image: url(./src/gui/ico/button_main_nav_settings_1.png);
+                }
+            """
     return sst

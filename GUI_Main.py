@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QVBoxLayout
 from PyQt5.QtGui import QPalette, QColor, QIcon
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTimer
 
 # icons for buttons: https://icons8.de/icons/set/free-icons--style-glyph-neue
 
@@ -68,57 +68,68 @@ class MainWindow(QWidget):
         # user guide
 
         # Main Navigation Bar (5 Buttons) ------------------------------------------------------------------------------
+        # [Home, Description, Study, Training, Settings]
         self.button_main_nav_home = QPushButton(self)
         self.button_main_nav_home.setGeometry(5, 110, 90, 90)
-        self.button_main_nav_home.setStyleSheet(GSS.buttons_main_nav())
-        self.button_main_nav_home.setIcon(QIcon("./src/gui/ico/button_main_nav_home.png"))
-        self.button_main_nav_home.setIconSize(self.button_main_nav_home.size())
-        """
-        self.button_main_nav_home.released.connect(
-            lambda: self.button_main_nav_home.setIcon(QIcon("./src/gui/ico/button_main_nav_home.png"))
-            if self.button_main_nav_home.underMouse()
-            else self.button_main_nav_home.setIcon(QIcon("./src/gui/ico/button_main_nav_study.png")))
-        self.button_main_nav_home.pressed.connect(
-           self.button_main_nav_home.setIcon(QIcon("./src/gui/ico/button_main_nav_home.png")))"""
-        # self.button_main_nav_home.setText("Home")
+        self.button_main_nav_home.clicked.connect(lambda: QTimer.singleShot(50, self.menu_home))
 
         self.button_main_nav_description = QPushButton(self)
         self.button_main_nav_description.setGeometry(5, 210, 90, 90)
-        self.button_main_nav_description.setStyleSheet(GSS.buttons_main_nav())
-        self.button_main_nav_description.setIcon(QIcon("./src/gui/ico/button_main_nav_description.png"))
-        self.button_main_nav_description.setIconSize(self.button_main_nav_description.size())
+        self.button_main_nav_description.clicked.connect(lambda: QTimer.singleShot(50, self.menu_description()))
 
         self.button_main_nav_study = QPushButton(self)
         self.button_main_nav_study.setGeometry(5, 310, 90, 90)
-        self.button_main_nav_study.setStyleSheet(GSS.buttons_main_nav())
-        self.button_main_nav_study.setIcon(QIcon("./src/gui/ico/button_main_nav_audio.png"))
-        self.button_main_nav_study.setIconSize(self.button_main_nav_study.size())
-        # self.button_main_nav_home.setText("Home")
+        self.button_main_nav_study.clicked.connect(self.menu_study)
 
         self.button_main_nav_training = QPushButton(self)
         self.button_main_nav_training.setGeometry(5, 410, 90, 90)
-        self.button_main_nav_training.setStyleSheet(GSS.buttons_main_nav())
-        self.button_main_nav_training.setIcon(QIcon("./src/gui/ico/button_main_nav_training.png"))
-        self.button_main_nav_training.setIconSize(self.button_main_nav_study.size())
+        self.button_main_nav_training.clicked.connect(self.menu_training)
 
         self.button_main_nav_settings = QPushButton(self)
         self.button_main_nav_settings.setGeometry(5, 620, 90, 90)
-        self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings())
-        # self.button_main_nav_settings.setIcon(QIcon("./src/gui/ico/button_main_nav_settings_1.png"))
-        # self.button_main_nav_settings.setIconSize(self.button_main_nav_study.size())
+        self.button_main_nav_settings.clicked.connect(self.menu_settings)
 
-    def eventFilter(self, obj, event):
-        if obj == self.label_main_background:
-            if event.type() == event.MouseButtonPress and event.button() == Qt.LeftButton:
-                self.gui_pos = event.globalPos() - self.frameGeometry().topLeft()
-                return True
-            elif event.type() == event.MouseMove and self.gui_pos:
-                self.move(event.globalPos() - self.gui_pos)
-                return True
-            elif event.type() == event.MouseButtonRelease:
-                self.gui_pos = None
-                return True
-        return super().eventFilter(obj, event)
+        self.menu_settings()
+
+    def menu_home(self):
+        print("Home")
+        self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=True))
+        self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
+        self.button_main_nav_study.setStyleSheet(GSS.button_main_nav_study(pressed=False))
+        self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
+        self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+
+    def menu_description(self):
+        print("Description")
+        self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
+        self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=True))
+        self.button_main_nav_study.setStyleSheet(GSS.button_main_nav_study(pressed=False))
+        self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
+        self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+
+    def menu_study(self):
+        print("Study")
+        self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
+        self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
+        self.button_main_nav_study.setStyleSheet(GSS.button_main_nav_study(pressed=True))
+        self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
+        self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+
+    def menu_training(self):
+        print("Training")
+        self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
+        self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
+        self.button_main_nav_study.setStyleSheet(GSS.button_main_nav_study(pressed=False))
+        self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=True))
+        self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+
+    def menu_settings(self):
+        print("Settings")
+        self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
+        self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
+        self.button_main_nav_study.setStyleSheet(GSS.button_main_nav_study(pressed=False))
+        self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
+        self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=True))
 
 
 app = QApplication(sys.argv)
