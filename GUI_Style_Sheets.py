@@ -35,10 +35,12 @@ def label_main_background():
     QLabel {
         color: rgb(30, 30, 30);
         background-color: rgba(33,39,47,255);
-        font-size: 18px;
-        font-weight: bold;
-        border-top-left-radius: 100px;
-        padding: 8px;
+        background: qlineargradient(
+            spread:pad, x1:0, y1:0, x2:5.5, y2:5.5,
+            stop:0 rgba(33,39,47,255),  
+            stop:1 rgba(25,30,36,255)
+            );
+        border-top-left-radius: 80px;
         }
     """
     return sst
@@ -48,7 +50,7 @@ def label_main_headline_background():
     sst = """
     QLabel {
         color: rgba(244,244,246,255);
-        font-size: 30px;
+        font-size: 20px;
         font-weight: bold;
         background: qlineargradient(
             spread:pad, x1:1, y1:0, x2:1, y2:1,
@@ -56,7 +58,7 @@ def label_main_headline_background():
             stop:1 rgba(25,30,36,255)
             );
         border-bottom: 2px solid rgb(64,72,82);
-        border-top-left-radius: 100px;
+        border-top-left-radius: 80px;
         padding: 8px;
     }
     """
@@ -73,20 +75,92 @@ def label_main_nav_bar_background():
     return sst
 
 
-def button_main_ctrl_exit():
+def label_menu_title(main_ctrl):
+    if main_ctrl:
+        sst = """
+            QLabel {
+                color: rgb(11, 131, 156);
+                background-color: rgba(33,39,47,255);
+                font-size: 35px;
+                font-weight: bold;
+                }
+            """
+    else:
+        sst = """
+            QLabel {
+                color: rgb(220, 220, 220);
+                background-color: rgba(33,39,47,255);
+                font-size: 35px;
+                font-weight: bold;
+                }
+            """
+    return sst
+
+
+def label_text_1():
     sst = """
-            QPushButton {
-                background-color: rgb(70, 130, 180);
-                border: 2px solid rgb(90, 90, 90);
-                border-radius: 8px;
+        QLabel {
+            color: rgb(220, 220, 220);
+            background-color: rgba(41,51,63,255);
+            font-size: 25px;
+            border-radius: 20px;
+            padding: 20px;
+            }
+        """
+    return sst
+
+
+# Main GUI Controls (4 Buttons) ----------------------------------------------------------------------------------------
+# [Info, FAQ, Minimize, Exit]
+def button_main_ctrl_info(pressed):
+    if pressed:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_info_2.png) 0 0 0 0 stretch stretch;
+                }"""
+    else:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_info_0.png) 0 0 0 0 stretch stretch;
+                }
+                QPushButton:hover {
+                    border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_info_1.png) 0 0 0 0 stretch stretch;
+                }
+            """
+    return sst
+
+
+def button_main_ctrl_faq(pressed):
+    if pressed:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_faq_2.png) 0 0 0 0 stretch stretch;
+                }"""
+    else:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_faq_0.png) 0 0 0 0 stretch stretch;
+                }
+                QPushButton:hover {
+                    border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_faq_1.png) 0 0 0 0 stretch stretch;
+                }
+            """
+    return sst
+
+
+def button_main_ctrl_minimize():
+    sst = """QPushButton {
+                border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_minimize_0.png) 0 0 0 0 stretch stretch;
             }
             QPushButton:hover {
-                background-color: rgb(100, 160, 210);
-                border: 2px solid rgb(90, 90, 90);
+                border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_minimize_1.png) 0 0 0 0 stretch stretch;
             }
-            QPushButton:pressed {
-                background-color: rgb(50, 110, 160);
-                border: 2px solid rgb(90, 90, 90);
+        """
+    return sst
+
+
+def button_main_ctrl_exit():
+    sst = """QPushButton {
+                border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_exit_0.png) 0 0 0 0 stretch stretch;
+            }
+            QPushButton:hover {
+                border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_exit_1.png) 0 0 0 0 stretch stretch;
             }
         """
     return sst
@@ -98,7 +172,8 @@ def button_main_nav_home(pressed):
     if pressed:
         sst = """QPushButton {
                     background-color: rgba(107,109,113,255);
-                    background-image: url(./src/gui/ico/button_main_nav_home_1.png);
+                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_home_1.png) 
+                    0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;
                     border: 2px solid rgba(25,30,36,255);
@@ -108,7 +183,8 @@ def button_main_nav_home(pressed):
         sst = """
                 QPushButton {
                     background-color: rgba(25,30,36,255);
-                    background-image: url(./src/gui/ico/button_main_nav_home_0.png);
+                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_home_0.png) 
+                    0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;
                     border: 2px solid rgba(25,30,36,255);
@@ -125,7 +201,8 @@ def button_main_nav_description(pressed):
     if pressed:
         sst = """QPushButton {
                     background-color: rgba(107,109,113,255);
-                    background-image: url(./src/gui/ico/button_main_nav_description_1.png);
+                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_description_1.png) 
+                    0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;
                     border: 2px solid rgba(25,30,36,255);
@@ -135,7 +212,8 @@ def button_main_nav_description(pressed):
         sst = """
                 QPushButton {
                     background-color: rgba(25,30,36,255);
-                    background-image: url(./src/gui/ico/button_main_nav_description_0.png);
+                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_description_0.png) 
+                    0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;
                     border: 2px solid rgba(25,30,36,255);
@@ -152,7 +230,8 @@ def button_main_nav_study(pressed):
     if pressed:
         sst = """QPushButton {
                     background-color: rgba(107,109,113,255);
-                    background-image: url(./src/gui/ico/button_main_nav_study_1.png);
+                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_study_1.png) 
+                    0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;
                     border: 2px solid rgba(25,30,36,255);
@@ -162,7 +241,8 @@ def button_main_nav_study(pressed):
         sst = """
                 QPushButton {
                     background-color: rgba(25,30,36,255);
-                    background-image: url(./src/gui/ico/button_main_nav_study_0.png);
+                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_study_0.png) 
+                    0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;
                     border: 2px solid rgba(25,30,36,255);
@@ -179,7 +259,8 @@ def button_main_nav_training(pressed):
     if pressed:
         sst = """QPushButton {
                     background-color: rgba(107,109,113,255);
-                    background-image: url(./src/gui/ico/button_main_nav_training_1.png);
+                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_training_1.png) 
+                    0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;
                     border: 2px solid rgba(25,30,36,255);
@@ -189,7 +270,8 @@ def button_main_nav_training(pressed):
         sst = """
                 QPushButton {
                     background-color: rgba(25,30,36,255);
-                    background-image: url(./src/gui/ico/button_main_nav_training_0.png);
+                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_training_0.png) 
+                    0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;
                     border: 2px solid rgba(25,30,36,255);
@@ -206,7 +288,8 @@ def button_main_nav_settings(pressed):
     if pressed:
         sst = """QPushButton {
                     background-color: rgba(107,109,113,255);
-                    background-image: url(./src/gui/ico/button_main_nav_settings_2.png);
+                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_settings_2.png) 
+                    0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;
                     border: 2px solid rgba(25,30,36,255);
@@ -216,7 +299,8 @@ def button_main_nav_settings(pressed):
         sst = """
                 QPushButton {
                     background-color: rgba(25,30,36,255);
-                    background-image: url(./src/gui/ico/button_main_nav_settings_0.png);
+                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_settings_0.png) 
+                    0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;
                     border: 2px solid rgba(25,30,36,255);
@@ -224,7 +308,8 @@ def button_main_nav_settings(pressed):
                 }
                 QPushButton:hover {
                     background-color: rgba(41,51,63,255);
-                    background-image: url(./src/gui/ico/button_main_nav_settings_1.png);
+                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_settings_1.png) 
+                    0 0 0 0 stretch stretch;
                 }
             """
     return sst

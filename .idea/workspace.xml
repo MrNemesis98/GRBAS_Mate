@@ -5,8 +5,53 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e8a1b1a-7cc2-4927-8424-4d3eb0f31b62" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/GRBAS_Mate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GRBAS_Mate.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_ctrl/button_main_ctrl_exit_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_ctrl/button_main_ctrl_exit_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_ctrl/button_main_ctrl_exit_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_ctrl/button_main_ctrl_faq_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_ctrl/button_main_ctrl_faq_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_ctrl/button_main_ctrl_faq_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_ctrl/button_main_ctrl_info_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_ctrl/button_main_ctrl_info_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_ctrl/button_main_ctrl_info_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_ctrl/button_main_ctrl_minimize_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_ctrl/button_main_ctrl_minimize_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_ctrl/button_main_ctrl_minimize_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_nav_bar/button_main_nav_audio_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_nav_bar/button_main_nav_audio_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_nav_bar/button_main_nav_description_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_nav_bar/button_main_nav_description_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_nav_bar/button_main_nav_home_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_nav_bar/button_main_nav_home_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_nav_bar/button_main_nav_settings_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_nav_bar/button_main_nav_settings_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_nav_bar/button_main_nav_settings_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_nav_bar/button_main_nav_study_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_nav_bar/button_main_nav_study_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_nav_bar/button_main_nav_training_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_nav_bar/button_main_nav_training_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_nav_bar/listen_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/main_nav_bar/listen_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI_Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI_Style_Sheets.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Style_Sheets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI_Text_Manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Text_Manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/button_main_nav_audio_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/button_main_nav_audio_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/button_main_nav_description_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/button_main_nav_description_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/button_main_nav_home_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/button_main_nav_home_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/button_main_nav_settings_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/button_main_nav_settings_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/button_main_nav_settings_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/button_main_nav_study_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/button_main_nav_study_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/button_main_nav_training_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/button_main_nav_training_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/listen_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ico/listen_1.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +68,8 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitLabMergeRequestsSettings"><![CDATA[{}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{}]]></component>
+  <component name="GitLabMergeRequestsSettings">{}</component>
+  <component name="GithubPullRequestsUISettings">{}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -85,8 +130,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.200" />
-        <option value="bundled-python-sdk-86178adc3299-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.200" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
+        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
       </set>
     </attachedChunks>
   </component>
@@ -104,6 +149,7 @@
       <workItem from="1750338822851" duration="6499000" />
       <workItem from="1750702561111" duration="6498000" />
       <workItem from="1750773149055" duration="499000" />
+      <workItem from="1751909380927" duration="12107000" />
     </task>
     <servers />
   </component>
@@ -116,9 +162,9 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/GRBAS_Mate$example_GUI.coverage" NAME="example_GUI Coverage Results" MODIFIED="1749835920282" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GRBAS_Mate$GUI_Style_Sheets.coverage" NAME="GUI_Style_Sheets Coverage Results" MODIFIED="1749840172704" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/GRBAS_Mate$GUI_Main.coverage" NAME="GUI_Main Coverage Results" MODIFIED="1750773592247" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/GRBAS_Mate$example_round_window.coverage" NAME="example_round_window Coverage Results" MODIFIED="1749839454672" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GRBAS_Mate$first_GUI_Layout.coverage" NAME="first_GUI_Layout Coverage Results" MODIFIED="1749835924421" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GRBAS_Mate$example_responsive_GUI.coverage" NAME="example_responsive_GUI Coverage Results" MODIFIED="1747674829353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/GRBAS_Mate$example_round_window.coverage" NAME="example_round_window Coverage Results" MODIFIED="1749839454672" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GRBAS_Mate$GUI_Main.coverage" NAME="GUI_Main Coverage Results" MODIFIED="1751921780919" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
