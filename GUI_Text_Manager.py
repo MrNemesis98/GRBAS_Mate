@@ -69,3 +69,42 @@ def label_text_1(menu):
 
     else:
         return "Unkown Value!"
+
+
+def label_text_2(menu):
+    if menu.lower() == "info":
+        return "Version Information"
+
+    elif menu.lower() == "faq":
+        return "User Guide"
+
+    elif menu.lower() == "home":
+        text = """
+                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    The GRBAS scale is a tool for assessing voice disorders. It is often used to evaluate the severity 
+                    of dysphonia, measure and document the success of therapy, and assist experts in making a diagnosis. 
+                </p>
+                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                The abbreviation GRBAS stands for the following five characteristics, the severity of which is assessed 
+                in dysphonic voices. The assessment of these characteristics is based on a scoring system with values 
+                ranging from 0 (no deviation from normal voice patterns) to 3 (severe deviation).
+                </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                
+                </p>
+                """
+        return text
+
+    elif menu.lower() == "description":
+        return "Parameter Descriptions"
+
+    elif menu.lower() == "study":
+        return "Study Mode"
+
+    elif menu.lower() == "training":
+        return "Training Mode"
+
+    elif menu.lower() == "settings":
+        return "Settings"
+
+    else:
+        return "Unkown Value!"
