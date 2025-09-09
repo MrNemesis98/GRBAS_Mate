@@ -106,6 +106,24 @@ class MainWindow(QWidget):
         self.button_main_nav_settings.setGeometry(10, 720, 60, 60)
         self.button_main_nav_settings.clicked.connect(self.menu_settings)
 
+        # Parameter Elements (8 Buttons) -------------------------------------------------------------------------------
+        # [Start, Instability, Fluency, Grade, Roughness, Breathyness, Asthenia, Strain]
+        self.button_param_start = QPushButton(self)
+        self.button_param_start.setGeometry(80, self.height()-80, 160, 80)
+        self.button_param_start.setStyleSheet(GSS.button_param_start(selected=False, border_radius=1))
+        self.button_param_start.setText("  Start")
+
+        self.button_param_instability = QPushButton(self)
+        self.button_param_instability.setGeometry(240, self.height()-80, 90, 80)
+
+
+        self.button_param_fluency = QPushButton(self)
+        self.button_param_grade = QPushButton(self)
+        self.button_param_roughness = QPushButton(self)
+        self.button_param_breathyness = QPushButton(self)
+        self.button_param_asthenia = QPushButton(self)
+        self.button_param_strain = QPushButton(self)
+
         # MENU INTERNAL ***************************************************************************************+++++++++
         # Text Labels --------------------------------------------------------------------------------------------------
         self.label_menu_title = QLabel(self)
@@ -163,12 +181,23 @@ class MainWindow(QWidget):
     # Menu independent functions ***************************************************************************************
     def hide_all_menu_internal_elements(self):
         self.label_menu_title.hide()
+
         self.label_text_1.hide()
         self.label_text_2.hide()
         self.label_text_3.hide()
         self.label_text_4.hide()
+
         self.button_switch_right.hide()
         self.button_switch_left.hide()
+
+        self.button_param_start.hide()
+        self.button_param_instability.hide()
+        self.button_param_fluency.hide()
+        self.button_param_grade.hide()
+        self.button_param_roughness.hide()
+        self.button_param_breathyness.hide()
+        self.button_param_asthenia.hide()
+        self.button_param_strain.hide()
 
     # Menu Layouts *****************************************************************************************************
     def menu_info(self):
@@ -229,11 +258,11 @@ class MainWindow(QWidget):
         self.label_text_1.setText(GTM.label_text_1(menu="home"))
         self.label_text_1.show()
 
-        self.label_text_2.setGeometry(1350, 220, 1000, 320)
+        self.label_text_2.setGeometry(self.width()-20, 220, 1000, 320)
         self.label_text_2.setText(GTM.label_text_2(menu="home"))
         self.label_text_2.show()
 
-        self.label_text_3.setGeometry(1350, 220, 1000, 320)
+        self.label_text_3.setGeometry(self.width()-20, 220, 1000, 320)
         self.label_text_3.setText(GTM.label_text_3(menu="home"))
         self.label_text_3.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
         self.label_text_3.setOpenExternalLinks(True)
@@ -268,6 +297,18 @@ class MainWindow(QWidget):
         self.label_menu_title.setText(GTM.label_menu_title(menu="description"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
         self.label_menu_title.show()
+        QTimer.singleShot(500, lambda: self.animation_label_fade(
+            in_or_out="in", label_object=self.label_text_1))
+
+        self.label_text_1.setGeometry(130, 220, 1000, 320)
+        self.label_text_1.setText(GTM.label_text_1(menu="description"))
+        self.label_text_1.show()
+
+        self.button_param_start.show()
+        self.button_param_start.setStyleSheet(GSS.button_param_start(selected=True, border_radius=0))
+
+        self.button_param_instability.show()
+        self.button_param_instability.setStyleSheet(GSS.button_param_start(selected=False))
 
     def menu_study(self):
         print("Study")
@@ -358,7 +399,7 @@ class MainWindow(QWidget):
                              start_geom.height())
         else:
             start_geom = label_object.geometry()
-            end_geom = QRect(self.width() - 25,
+            end_geom = QRect(self.width() - 20,
                              start_geom.y(),
                              start_geom.width(),
                              start_geom.height())
@@ -379,8 +420,6 @@ class MainWindow(QWidget):
         if not self.system_status.startswith("menu_home"):
             pass
         else:
-            print("entering switch to label 1")
-
             # Pre-Consequence
             disconnect_button(self.button_switch_right)
             disconnect_button(self.button_switch_left)
@@ -415,8 +454,6 @@ class MainWindow(QWidget):
         if not self.system_status.startswith("menu_home"):
             pass
         else:
-            print("entering switch to label 2")
-
             # Pre-Consequence
             disconnect_button(self.button_switch_right)
             disconnect_button(self.button_switch_left)
@@ -452,8 +489,6 @@ class MainWindow(QWidget):
         if not self.system_status.startswith("menu_home"):
             pass
         else:
-            print("entering switch to label 3")
-
             # Pre-Consequence
             disconnect_button(self.button_switch_right)
             disconnect_button(self.button_switch_left)

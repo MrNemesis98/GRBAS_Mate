@@ -356,3 +356,47 @@ def button_switch_left(active, waiting=False):
                 }
             """
     return sst
+
+
+def button_param_start(selected=False, border_radius=0):
+    border_corner = ""
+    if border_radius == 1:
+        border_corner = "border-top-left-radius: 80px;"
+    elif border_radius == 2:
+        border_corner = "border-top-right-radius: 80px;"
+
+    if selected:
+        sst = f"""QPushButton {{
+                                background-color: #0D3D4B;
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                {border_corner}
+                                font-size: 25px;
+                                font-weight: bold;
+                                color: #FFFFFF;
+                            }}"""
+    else:
+        sst = f"""QPushButton{{
+                            background-color: #29333F;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            {border_corner}
+                            font-size: 25px;
+                            font-weight: bold;
+                            color: #6B6D71;
+                        }}
+                QPushButton:hover {{
+                            background-color: #29333F;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            {border_corner}
+                            font-size: 25px;
+                            font-weight: bold;
+                            color: #FFFFFF;
+                }}"""
+    if border_radius == 1:
+        sst = """QPushButton {border-top-left-radius: 80px;}"""
+    elif border_radius == 2:
+        sst = """QPushButton {border-top-right-radius: 80px;}"""
+
+    return sst

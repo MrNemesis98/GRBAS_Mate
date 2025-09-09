@@ -5,14 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e8a1b1a-7cc2-4927-8424-4d3eb0f31b62" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_left_0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_left_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_left_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_left_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_right_0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_right_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_right_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_right_3.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI_Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI_Style_Sheets.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Style_Sheets.py" afterDir="false" />
@@ -120,7 +112,7 @@
       <workItem from="1756687895421" duration="316000" />
       <workItem from="1756715759596" duration="11489000" />
       <workItem from="1756903364842" duration="7019000" />
-      <workItem from="1757401160556" duration="17978000" />
+      <workItem from="1757401160556" duration="24519000" />
     </task>
     <servers />
   </component>
@@ -136,6 +128,6 @@
     <SUITE FILE_PATH="coverage/GRBAS_Mate$example_round_window.coverage" NAME="example_round_window Coverage Results" MODIFIED="1749839454672" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GRBAS_Mate$first_GUI_Layout.coverage" NAME="first_GUI_Layout Coverage Results" MODIFIED="1749835924421" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GRBAS_Mate$example_responsive_GUI.coverage" NAME="example_responsive_GUI Coverage Results" MODIFIED="1747674829353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/GRBAS_Mate$GUI_Main.coverage" NAME="GUI_Main Coverage Results" MODIFIED="1757424809471" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/GRBAS_Mate$GUI_Main.coverage" NAME="GUI_Main Coverage Results" MODIFIED="1757431089159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

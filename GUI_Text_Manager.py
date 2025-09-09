@@ -56,7 +56,21 @@ def label_text_1(menu):
         return text
 
     elif menu.lower() == "description":
-        return "Parameter Descriptions"
+        text = """
+                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
+                Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                </p>
+                </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                There is also the possibility to jump straight to the dedicated recording menu for the parameter 
+                you’ve selected.
+                </p>
+                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                If you want to skip the descriptions you can access the recordings in the training mode menu
+                (third option on the left navigational bar).
+                </p>
+                """
+        return text
 
     elif menu.lower() == "study":
         return "Study Mode"
