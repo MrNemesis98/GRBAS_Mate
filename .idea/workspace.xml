@@ -5,51 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e8a1b1a-7cc2-4927-8424-4d3eb0f31b62" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/rec/param/A/example_m_A_levels_0123_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/A/p042_m_vs_A_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/A/p043_f_vs_A_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/A/p044_m_vs_A_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/A/p045_f_vs_A_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/B/example_m_B_levels_0123_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/B/p054_m_vs_B_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/B/p055_m_vs_B_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/B/p056_f_vs_B_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/B/p057_f_vs_B_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/F/example_fm_F_levels_0123.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/F/p78_1_m_s_F_3.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/F/p78_2_m_s_F_3.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/F/p79_1_f_s_F_3.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/F/p79_2_f_s_F_3.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/G/example_f_G_levels_0123_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/G/p018_m_vs_G_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/G/p019_m_vs_G_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/G/p020_f_vs_G_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/G/p021_f_vs_G_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/I/example_fm_I_levels_0123.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/I/p74_1_f_s_I_3.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/I/p74_2_f_s_I_3.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/I/p75_1_m_s_I_3.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/I/p75_2_m_s_I_3.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/R/example_f_R_levels_0123_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/R/p030_f_vs_R_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/R/p031_m_vs_R_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/R/p032_m_vs_R_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/R/p033_f_vs_R_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/S/example_f_S_levels_0123_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/S/p066_f_vs_S_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/S/p067_m_vs_S_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/S/p070_m_vs_S_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/param/S/p071_f_vs_S_3_db.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/sd/abductor-adductor-tremor-spasmodic-dysphonia-3.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/sd/abductor-spasmodic-dysphonia-1.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/sd/abductor-spasmodic-dysphonia-2.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/sd/adductor-spasmodic-dysphonia-4.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/sd/adductor-spasmodic-dysphonia-4_cut.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/sd/adductor-spasmodic-dysphonia-5.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/sd/adductor-spasmodic-dysphonia-6.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rec/sd/adductor-tremor-spasmodic-dysphonia-7.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_left_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_left_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_left_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_left_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_right_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_right_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_right_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ico/miscellaneous/button_switch_right_3.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI_Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI_Style_Sheets.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Style_Sheets.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI_Text_Manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Text_Manager.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -153,6 +119,8 @@
       <workItem from="1755895266354" duration="1192000" />
       <workItem from="1756687895421" duration="316000" />
       <workItem from="1756715759596" duration="11489000" />
+      <workItem from="1756903364842" duration="7019000" />
+      <workItem from="1757401160556" duration="17978000" />
     </task>
     <servers />
   </component>
@@ -168,6 +136,6 @@
     <SUITE FILE_PATH="coverage/GRBAS_Mate$example_round_window.coverage" NAME="example_round_window Coverage Results" MODIFIED="1749839454672" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GRBAS_Mate$first_GUI_Layout.coverage" NAME="first_GUI_Layout Coverage Results" MODIFIED="1749835924421" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GRBAS_Mate$example_responsive_GUI.coverage" NAME="example_responsive_GUI Coverage Results" MODIFIED="1747674829353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/GRBAS_Mate$GUI_Main.coverage" NAME="GUI_Main Coverage Results" MODIFIED="1756747003467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/GRBAS_Mate$GUI_Main.coverage" NAME="GUI_Main Coverage Results" MODIFIED="1757424809471" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

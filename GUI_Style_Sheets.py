@@ -313,3 +313,46 @@ def button_main_nav_settings(pressed):
                 }
             """
     return sst
+
+
+# Miscellaneous Buttons ------------------------------------------------------------------------------------------------
+def button_switch_right(active, waiting=False):
+    if waiting:
+        sst = """QPushButton {
+                            border-image: url(./src/gui/ico/miscellaneous/button_switch_right_3.png) 
+                            0 0 0 0 stretch stretch;
+                        }"""
+    elif not active:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/miscellaneous/button_switch_right_0.png) 0 0 0 0 stretch stretch;
+                }"""
+    else:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/miscellaneous/button_switch_right_1.png) 0 0 0 0 stretch stretch;
+                }
+                QPushButton:hover {
+                    border-image: url(./src/gui/ico/miscellaneous/button_switch_right_2.png) 0 0 0 0 stretch stretch;
+                }
+            """
+    return sst
+
+
+def button_switch_left(active, waiting=False):
+    if waiting:
+        sst = """QPushButton {
+                            border-image: url(./src/gui/ico/miscellaneous/button_switch_left_3.png) 
+                            0 0 0 0 stretch stretch;
+                        }"""
+    elif not active:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/miscellaneous/button_switch_left_0.png) 0 0 0 0 stretch stretch;
+                }"""
+    else:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/miscellaneous/button_switch_left_1.png) 0 0 0 0 stretch stretch;
+                }
+                QPushButton:hover {
+                    border-image: url(./src/gui/ico/miscellaneous/button_switch_left_2.png) 0 0 0 0 stretch stretch;
+                }
+            """
+    return sst
