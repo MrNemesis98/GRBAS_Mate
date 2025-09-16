@@ -109,13 +109,12 @@ class MainWindow(QWidget):
         # Parameter Elements (8 Buttons) -------------------------------------------------------------------------------
         # [Start, Instability, Fluency, Grade, Roughness, Breathyness, Asthenia, Strain]
         self.button_param_start = QPushButton(self)
-        self.button_param_start.setGeometry(80, self.height()-80, 160, 80)
-        self.button_param_start.setStyleSheet(GSS.button_param_start(selected=False, border_radius=1))
-        self.button_param_start.setText("  Start")
+        self.button_param_start.setGeometry(80, self.height()-80, 160, 70)
+        self.button_param_start.setStyleSheet(GSS.button_param_start(selected=False))
+        self.button_param_start.setText("Intro")
 
         self.button_param_instability = QPushButton(self)
-        self.button_param_instability.setGeometry(240, self.height()-80, 90, 80)
-
+        self.button_param_instability.setGeometry(350, self.height()-80, 60, 70)
 
         self.button_param_fluency = QPushButton(self)
         self.button_param_grade = QPushButton(self)
@@ -158,6 +157,8 @@ class MainWindow(QWidget):
         # Buttons (menu internal)
         self.button_switch_right = QPushButton(self)
         self.button_switch_left = QPushButton(self)
+        self.button_switch_down = QPushButton(self)
+        self.button_switch_up = QPushButton(self)
 
         # Animations ---------------------------------------------------------------------------------------------------
         self._anim_label_fade = None
@@ -189,6 +190,8 @@ class MainWindow(QWidget):
 
         self.button_switch_right.hide()
         self.button_switch_left.hide()
+        self.button_switch_down.hide()
+        self.button_switch_up.hide()
 
         self.button_param_start.hide()
         self.button_param_instability.hide()
@@ -304,11 +307,26 @@ class MainWindow(QWidget):
         self.label_text_1.setText(GTM.label_text_1(menu="description"))
         self.label_text_1.show()
 
+        self.button_switch_left.setGeometry(1170, 345, 70, 70)
+        self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=False))
+        self.button_switch_left.show()
+
+        self.button_switch_right.setGeometry(1260, 345, 70, 70)
+        self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=True))
+        self.button_switch_right.show()
+
         self.button_param_start.show()
-        self.button_param_start.setStyleSheet(GSS.button_param_start(selected=True, border_radius=0))
+        self.button_param_start.setStyleSheet(GSS.button_param_start(selected=True))
 
         self.button_param_instability.show()
-        self.button_param_instability.setStyleSheet(GSS.button_param_start(selected=False))
+        self.button_param_instability.setStyleSheet(GSS.button_param_I(selected=False))
+        self.button_param_instability.setText("I")
+
+        self.button_switch_down.setGeometry(1290, 720, 70, 70)
+        self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False))
+        self.button_switch_down.show()
+        self.button_switch_up.setGeometry(1000, 700, 70, 70)
+        self.button_switch_up.hide()
 
     def menu_study(self):
         print("Study")
@@ -433,7 +451,13 @@ class MainWindow(QWidget):
             else:
                 QTimer.singleShot(0, lambda: self.animation_label_fade(
                     in_or_out="in", label_object=self.label_text_1))
+                QTimer.singleShot(0, lambda: self.animation_label_fade(
+                    in_or_out="in", label_object=self.label_text_2))
+                QTimer.singleShot(0, lambda: self.animation_label_fade(
+                    in_or_out="in", label_object=self.label_text_3))
                 self.label_text_1.show()
+                self.label_text_2.show()
+                self.label_text_3.show()
 
             # Consequences:
             def execute_consequences():

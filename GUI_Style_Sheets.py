@@ -358,45 +358,131 @@ def button_switch_left(active, waiting=False):
     return sst
 
 
-def button_param_start(selected=False, border_radius=0):
-    border_corner = ""
-    if border_radius == 1:
-        border_corner = "border-top-left-radius: 80px;"
-    elif border_radius == 2:
-        border_corner = "border-top-right-radius: 80px;"
+def button_switch_down(active, waiting=False):
+    if waiting:
+        sst = """QPushButton {
+                            border-image: url(./src/gui/ico/miscellaneous/button_switch_down_3.png) 
+                            0 0 0 0 stretch stretch;
+                        }"""
+    elif not active:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/miscellaneous/button_switch_down_0.png) 0 0 0 0 stretch stretch;
+                }"""
+    else:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/miscellaneous/button_switch_down_1.png) 0 0 0 0 stretch stretch;
+                }
+                QPushButton:hover {
+                    border-image: url(./src/gui/ico/miscellaneous/button_switch_down_2.png) 0 0 0 0 stretch stretch;
+                }
+            """
+    return sst
+
+
+def button_switch_up(active, waiting=False):
+    if waiting:
+        sst = """QPushButton {
+                            border-image: url(./src/gui/ico/miscellaneous/button_switch_up_3.png) 
+                            0 0 0 0 stretch stretch;
+                        }"""
+    elif not active:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/miscellaneous/button_switch_up_0.png) 0 0 0 0 stretch stretch;
+                }"""
+    else:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/miscellaneous/button_switch_up_1.png) 0 0 0 0 stretch stretch;
+                }
+                QPushButton:hover {
+                    border-image: url(./src/gui/ico/miscellaneous/button_switch_up_2.png) 0 0 0 0 stretch stretch;
+                }
+            """
+    return sst
+
+
+def button_param_start(selected=False):
 
     if selected:
         sst = f"""QPushButton {{
-                                background-color: #0D3D4B;
+                                background-color: rgba(41,51,63,255);
                                 background-repeat: no-repeat;
                                 background-position: center;
-                                {border_corner}
                                 font-size: 25px;
                                 font-weight: bold;
-                                color: #FFFFFF;
+                                color: #0B839C;
+                                border: 0px;
+                                border-top-left-radius: 35px;
+                                border-top-right-radius: 35px;
+                                border-bottom-left-radius: 35px;
+                                border-bottom-right-radius: 35px;
                             }}"""
     else:
         sst = f"""QPushButton{{
-                            background-color: #29333F;
+                            background-color: #191E24;
                             background-repeat: no-repeat;
                             background-position: center;
-                            {border_corner}
                             font-size: 25px;
                             font-weight: bold;
                             color: #6B6D71;
+                            border: 0px;
+                            border-top-left-radius: 35px;
+                            border-top-right-radius: 35px;
+                            border-bottom-left-radius: 35px;
+                            border-bottom-right-radius: 35px;
                         }}
                 QPushButton:hover {{
-                            background-color: #29333F;
+                            background-color: #191E24;
                             background-repeat: no-repeat;
                             background-position: center;
-                            {border_corner}
                             font-size: 25px;
                             font-weight: bold;
                             color: #FFFFFF;
+                            border: 0px;
+                            border-top-left-radius: 35px;
+                            border-top-right-radius: 35px;
+                            border-bottom-left-radius: 35px;
+                            border-bottom-right-radius: 35px;
                 }}"""
-    if border_radius == 1:
-        sst = """QPushButton {border-top-left-radius: 80px;}"""
-    elif border_radius == 2:
-        sst = """QPushButton {border-top-right-radius: 80px;}"""
+
+    return sst
+
+
+def button_param_I(selected=False):
+
+    if selected:
+        sst = f"""QPushButton {{
+                                background-color: rgba(41,51,63,255);
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                font-size: 25px;
+                                font-weight: bold;
+                                color: #FFFFFF;
+                                border: 0px;
+                                border-top-left-radius: 35px;
+                                border-bottom-left-radius: 35px;
+                            }}"""
+    else:
+        sst = f"""QPushButton{{
+                            background-color: #191E24;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            font-size: 25px;
+                            font-weight: bold;
+                            color: #6B6D71;
+                            border: 0px;
+                            border-top-left-radius: 35px;
+                            border-bottom-left-radius: 35px;
+                        }}
+                QPushButton:hover {{
+                            background-color: #191E24;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            font-size: 25px;
+                            font-weight: bold;
+                            color: #FFFFFF;
+                            border: 0px;
+                            border-top-left-radius: 35px;
+                            border-bottom-left-radius: 35px;
+                }}"""
 
     return sst
