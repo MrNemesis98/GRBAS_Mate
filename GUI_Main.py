@@ -1,11 +1,8 @@
 import sys
-import threading
 
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QVBoxLayout, QGraphicsOpacityEffect
-from PyQt5.QtCore import QPropertyAnimation, QRect, QEasingCurve, QTimer, QAbstractAnimation, QEventLoop
-from PyQt5.QtGui import QPalette, QColor, QIcon
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QGraphicsOpacityEffect
+from PyQt5.QtCore import QPropertyAnimation, QRect, QEasingCurve, QAbstractAnimation, QEventLoop
 from PyQt5.QtCore import Qt, QTimer, QPoint
-import time
 
 # icons for buttons: https://icons8.de/icons/set/free-icons--style-glyph-neue
 
@@ -67,12 +64,10 @@ class MainWindow(QWidget):
         self.button_main_ctrl_info = QPushButton(self)
         self.button_main_ctrl_info.setGeometry(1180, 20, 40, 40)
         self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
-        self.button_main_ctrl_info.clicked.connect(self.menu_info)
 
         self.button_main_ctrl_faq = QPushButton(self)
         self.button_main_ctrl_faq.setGeometry(1230, 20, 40, 40)
         self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
-        self.button_main_ctrl_faq.clicked.connect(self.menu_faq)
 
         self.button_main_ctrl_minimize = QPushButton(self)
         self.button_main_ctrl_minimize.setGeometry(1280, 25, 30, 30)
@@ -88,40 +83,58 @@ class MainWindow(QWidget):
         # [Home, Description, Study, Training, Settings]
         self.button_main_nav_home = QPushButton(self)
         self.button_main_nav_home.setGeometry(10, 110, 60, 60)
-        self.button_main_nav_home.clicked.connect(self.menu_home)
 
         self.button_main_nav_description = QPushButton(self)
         self.button_main_nav_description.setGeometry(10, 210, 60, 60)
-        self.button_main_nav_description.clicked.connect(self.menu_description)
 
         self.button_main_nav_study = QPushButton(self)
         self.button_main_nav_study.setGeometry(10, 310, 60, 60)
-        self.button_main_nav_study.clicked.connect(self.menu_study)
 
         self.button_main_nav_training = QPushButton(self)
         self.button_main_nav_training.setGeometry(10, 410, 60, 60)
-        self.button_main_nav_training.clicked.connect(self.menu_training)
 
         self.button_main_nav_settings = QPushButton(self)
         self.button_main_nav_settings.setGeometry(10, 720, 60, 60)
-        self.button_main_nav_settings.clicked.connect(self.menu_settings)
+
+        self.disconnect_main_menu_buttons(connect_instead=True)
 
         # Parameter Elements (8 Buttons) -------------------------------------------------------------------------------
         # [Start, Instability, Fluency, Grade, Roughness, Breathyness, Asthenia, Strain]
         self.button_param_start = QPushButton(self)
-        self.button_param_start.setGeometry(80, self.height()-80, 160, 70)
-        self.button_param_start.setStyleSheet(GSS.button_param_start(selected=False))
+        self.button_param_start.setGeometry(130, self.height()-80, 160, 70)
         self.button_param_start.setText("Intro")
 
         self.button_param_instability = QPushButton(self)
-        self.button_param_instability.setGeometry(350, self.height()-80, 60, 70)
+        self.button_param_instability.setGeometry(460, self.height()-80, 60, 70)
+        self.button_param_instability.setText("I")
 
         self.button_param_fluency = QPushButton(self)
+        self.button_param_fluency.setGeometry(520, self.height() - 80, 60, 70)
+        self.button_param_fluency.setText("F")
+
+        self.button_param_extension = QPushButton(self)
+        self.button_param_extension.setGeometry(580, self.height() - 80, 60, 70)
+        self.button_param_extension.setText("-")
+
         self.button_param_grade = QPushButton(self)
+        self.button_param_grade.setGeometry(640, self.height() - 80, 60, 70)
+        self.button_param_grade.setText("G")
+
         self.button_param_roughness = QPushButton(self)
+        self.button_param_roughness.setGeometry(700, self.height()-80, 60, 70)
+        self.button_param_roughness.setText("R")
+
         self.button_param_breathyness = QPushButton(self)
+        self.button_param_breathyness.setGeometry(760, self.height() - 80, 60, 70)
+        self.button_param_breathyness.setText("B")
+
         self.button_param_asthenia = QPushButton(self)
+        self.button_param_asthenia.setGeometry(820, self.height() - 80, 60, 70)
+        self.button_param_asthenia.setText("A")
+
         self.button_param_strain = QPushButton(self)
+        self.button_param_strain.setGeometry(880, self.height() - 80, 60, 70)
+        self.button_param_strain.setText("S")
 
         # MENU INTERNAL ***************************************************************************************+++++++++
         # Text Labels --------------------------------------------------------------------------------------------------
@@ -196,6 +209,7 @@ class MainWindow(QWidget):
         self.button_param_start.hide()
         self.button_param_instability.hide()
         self.button_param_fluency.hide()
+        self.button_param_extension.hide()
         self.button_param_grade.hide()
         self.button_param_roughness.hide()
         self.button_param_breathyness.hide()
@@ -285,7 +299,7 @@ class MainWindow(QWidget):
 
     def menu_description(self):
         print("Description")
-        self.system_status = "menu_description"
+        self.system_status = "menu_description_1"
         self.hide_all_menu_internal_elements()
 
         self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
@@ -300,33 +314,39 @@ class MainWindow(QWidget):
         self.label_menu_title.setText(GTM.label_menu_title(menu="description"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
         self.label_menu_title.show()
-        QTimer.singleShot(500, lambda: self.animation_label_fade(
-            in_or_out="in", label_object=self.label_text_1))
 
         self.label_text_1.setGeometry(130, 220, 1000, 320)
-        self.label_text_1.setText(GTM.label_text_1(menu="description"))
-        self.label_text_1.show()
+        self.label_text_1.hide()
+
+        """
+        self.label_text_4.setGeometry(230, 600, 300, 70)
+        self.label_text_4.setText(GTM.label_text_4(menu="description", var_1=1))
+        self.label_text_4.hide()
+        """
 
         self.button_switch_left.setGeometry(1170, 345, 70, 70)
-        self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=False))
         self.button_switch_left.show()
 
         self.button_switch_right.setGeometry(1260, 345, 70, 70)
-        self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=True))
         self.button_switch_right.show()
 
         self.button_param_start.show()
-        self.button_param_start.setStyleSheet(GSS.button_param_start(selected=True))
-
         self.button_param_instability.show()
-        self.button_param_instability.setStyleSheet(GSS.button_param_I(selected=False))
-        self.button_param_instability.setText("I")
+        self.button_param_fluency.show()
+        self.button_param_extension.show()
+        self.button_param_grade.show()
+        self.button_param_roughness.show()
+        self.button_param_breathyness.show()
+        self.button_param_asthenia.show()
+        self.button_param_strain.show()
 
         self.button_switch_down.setGeometry(1290, 720, 70, 70)
         self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False))
         self.button_switch_down.show()
         self.button_switch_up.setGeometry(1000, 700, 70, 70)
         self.button_switch_up.hide()
+
+        self.menu_description_switch(to="start")
 
     def menu_study(self):
         print("Study")
@@ -431,14 +451,95 @@ class MainWindow(QWidget):
         self._anim_label_slide = anim  # Referenz halten
         anim.start(QAbstractAnimation.DeleteWhenStopped)
 
-    # Menu Functionality -----------------------------------------------------------------------------------------------
+    # Menu Functionality - Button control functions --------------------------------------------------------------------
 
+    def disconnect_main_menu_buttons(self, connect_instead=False):
+
+        if not connect_instead:
+            disconnect_button(self.button_main_ctrl_info)
+            disconnect_button(self.button_main_ctrl_faq)
+
+            disconnect_button(self.button_main_nav_home)
+            disconnect_button(self.button_main_nav_description)
+            disconnect_button(self.button_main_nav_study)
+            disconnect_button(self.button_main_nav_training)
+            disconnect_button(self.button_main_nav_settings)
+
+        else:
+            self.button_main_ctrl_info.clicked.connect(self.menu_info)
+            self.button_main_ctrl_faq.clicked.connect(self.menu_faq)
+
+            self.button_main_nav_home.clicked.connect(self.menu_home)
+            self.button_main_nav_description.clicked.connect(self.menu_description)
+            self.button_main_nav_study.clicked.connect(self.menu_study)
+            self.button_main_nav_training.clicked.connect(self.menu_training)
+            self.button_main_nav_settings.clicked.connect(self.menu_settings)
+
+    def disconnect_parameter_buttons(self, connect_instead=False, menu="", selected_button="Start"):
+        if not connect_instead:
+            disconnect_button(self.button_param_start)
+            disconnect_button(self.button_param_instability)
+            disconnect_button(self.button_param_fluency)
+            disconnect_button(self.button_param_extension)
+            disconnect_button(self.button_param_grade)
+            disconnect_button(self.button_param_roughness)
+            disconnect_button(self.button_param_breathyness)
+            disconnect_button(self.button_param_asthenia)
+            disconnect_button(self.button_param_strain)
+
+            self.button_param_start.setStyleSheet(GSS.button_param_start(selected=False))
+            self.button_param_instability.setStyleSheet(GSS.button_param_I(selected=False))
+            self.button_param_fluency.setStyleSheet(GSS.buttons_param_F_to_A(selected=False))
+            self.button_param_extension.setStyleSheet(GSS.buttons_param_F_to_A(selected=False))
+            self.button_param_grade.setStyleSheet(GSS.buttons_param_F_to_A(selected=False))
+            self.button_param_roughness.setStyleSheet(GSS.buttons_param_F_to_A(selected=False))
+            self.button_param_breathyness.setStyleSheet(GSS.buttons_param_F_to_A(selected=False))
+            self.button_param_asthenia.setStyleSheet(GSS.buttons_param_F_to_A(selected=False))
+            self.button_param_strain.setStyleSheet(GSS.button_param_S(selected=False))
+
+        else:
+            if menu == "description":
+                self.button_param_start.clicked.connect(self.menu_description_switch(to="start"))
+                self.button_param_instability.clicked.connect(self.menu_description_switch(to="I"))
+                self.button_param_fluency.clicked.connect(self.menu_description_switch(to="F"))
+                self.button_param_extension.clicked.connect(self.menu_description_switch(to="ex"))
+                self.button_param_grade.clicked.connect(self.menu_description_switch(to="G"))
+                self.button_param_roughness.clicked.connect(self.menu_description_switch(to="R"))
+                self.button_param_breathyness.clicked.connect(self.menu_description_switch(to="B"))
+                self.button_param_asthenia.clicked.connect(self.menu_description_switch(to="A"))
+                self.button_param_strain.clicked.connect(self.menu_description_switch(to="S"))
+
+            elif menu == "study":
+                pass
+
+            if selected_button.lower() == "start":
+                self.button_param_start.setStyleSheet(GSS.button_param_start(selected=True))
+            elif selected_button == "I":
+                self.button_param_instability.setStyleSheet(GSS.button_param_I(selected=True))
+            elif selected_button == "F":
+                self.button_param_fluency.setStyleSheet(GSS.buttons_param_F_to_A(selected=True))
+            elif selected_button.lower() == "ex":
+                self.button_param_extension.setStyleSheet(GSS.buttons_param_F_to_A(selected=True))
+            elif selected_button == "G":
+                self.button_param_grade.setStyleSheet(GSS.buttons_param_F_to_A(selected=True))
+            elif selected_button == "R":
+                self.button_param_roughness.setStyleSheet(GSS.buttons_param_F_to_A(selected=True))
+            elif selected_button == "B":
+                self.button_param_breathyness.setStyleSheet(GSS.buttons_param_F_to_A(selected=True))
+            elif selected_button == "A":
+                self.button_param_asthenia.setStyleSheet(GSS.buttons_param_F_to_A(selected=True))
+            else:
+                self.button_param_strain.setStyleSheet(GSS.button_param_S(selected=True))
+
+    # Menu Functionality - Submenus ------------------------------------------------------------------------------------
     def menu_home_switch_to_label_1(self, first_init=False):
 
         if not self.system_status.startswith("menu_home"):
             pass
         else:
             # Pre-Consequence
+            self.disconnect_main_menu_buttons()
+
             disconnect_button(self.button_switch_right)
             disconnect_button(self.button_switch_left)
 
@@ -471,6 +572,8 @@ class MainWindow(QWidget):
                 self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=False))
                 self.button_switch_left.setEnabled(False)
 
+                self.disconnect_main_menu_buttons(connect_instead=True)
+
             QTimer.singleShot(1300, execute_consequences) if not first_init else execute_consequences()
 
     def menu_home_switch_to_label_2(self):
@@ -479,6 +582,8 @@ class MainWindow(QWidget):
             pass
         else:
             # Pre-Consequence
+            self.disconnect_main_menu_buttons()
+
             disconnect_button(self.button_switch_right)
             disconnect_button(self.button_switch_left)
 
@@ -507,6 +612,8 @@ class MainWindow(QWidget):
                 self.button_switch_left.setEnabled(True)
                 self.button_switch_left.clicked.connect(self.menu_home_switch_to_label_1, Qt.UniqueConnection)
 
+                self.disconnect_main_menu_buttons(connect_instead=True)
+
             QTimer.singleShot(1300, execute_consequences)
 
     def menu_home_switch_to_label_3(self):
@@ -514,6 +621,8 @@ class MainWindow(QWidget):
             pass
         else:
             # Pre-Consequence
+            self.disconnect_main_menu_buttons()
+
             disconnect_button(self.button_switch_right)
             disconnect_button(self.button_switch_left)
 
@@ -535,7 +644,194 @@ class MainWindow(QWidget):
                 self.button_switch_left.setEnabled(True)
                 self.button_switch_left.clicked.connect(self.menu_home_switch_to_label_2, Qt.UniqueConnection)
 
+                self.disconnect_main_menu_buttons(connect_instead=True)
+
             QTimer.singleShot(1300, execute_consequences)
+
+    def menu_description_switch(self, to):
+        if not self.system_status.startswith("menu_description"):
+            pass
+        else:
+            # Pre-Consequence
+            self.disconnect_main_menu_buttons()
+            self.disconnect_parameter_buttons()
+
+            disconnect_button(self.button_switch_left)
+            disconnect_button(self.button_switch_right)
+            disconnect_button(self.button_switch_up)
+            disconnect_button(self.button_switch_down)
+
+            # Animations
+            QTimer.singleShot(0, lambda: self.animation_label_fade(
+                in_or_out="out", label_object=self.label_text_1))
+            self.label_text_1.show()
+
+            print("anim fade out done")
+
+            if to.lower() == "start":
+                self.label_text_1.setText(GTM.label_text_1(menu="description", var_1=1))
+                self.label_text_4.setText(GTM.label_text_4(menu="description", var_1=1))
+            elif to == "I":
+                self.label_text_1.setText(GTM.label_text_1(menu="description", var_1=2))
+                self.label_text_4.setText(GTM.label_text_4(menu="description", var_1=2))
+            elif to == "F":
+                self.label_text_1.setText(GTM.label_text_1(menu="description", var_1=3))
+                self.label_text_4.setText(GTM.label_text_4(menu="description", var_1=3))
+            elif to == "ex":
+                self.label_text_1.setText(GTM.label_text_1(menu="description", var_1=4))
+                self.label_text_4.setText(GTM.label_text_4(menu="description", var_1=4))
+            elif to == "G":
+                self.label_text_1.setText(GTM.label_text_1(menu="description", var_1=5))
+                self.label_text_4.setText(GTM.label_text_4(menu="description", var_1=5))
+            elif to == "R":
+                self.label_text_1.setText(GTM.label_text_1(menu="description", var_1=6))
+                self.label_text_4.setText(GTM.label_text_4(menu="description", var_1=6))
+            elif to == "B":
+                self.label_text_1.setText(GTM.label_text_1(menu="description", var_1=7))
+                self.label_text_4.setText(GTM.label_text_4(menu="description", var_1=7))
+            elif to == "A":
+                self.label_text_1.setText(GTM.label_text_1(menu="description", var_1=8))
+                self.label_text_4.setText(GTM.label_text_4(menu="description", var_1=8))
+            elif to == "S":
+                self.label_text_1.setText(GTM.label_text_1(menu="description", var_1=9))
+                self.label_text_4.setText(GTM.label_text_4(menu="description", var_1=9))
+
+            print("texts for labels set")
+
+            QTimer.singleShot(1000, lambda: self.animation_label_fade(
+                in_or_out="in", label_object=self.label_text_1))
+
+            print("fade in animation done")
+
+            def execute_consequences(final_changes_for_submenu=to):
+
+                if final_changes_for_submenu.lower() == "start":
+                    self.system_status = "menu_description_1"
+
+                    print("entering consequences for submenu start")
+                    print(final_changes_for_submenu)
+
+                    self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=False))
+                    self.button_switch_left.setEnabled(False)
+
+                    self.button_switch_right.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_right.setEnabled(True)
+                    self.button_switch_right.clicked.connect(self.menu_description_switch(to="I"), Qt.UniqueConnection)
+
+                    print("switch buttons done")
+
+                    self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="start")
+
+                elif final_changes_for_submenu.lower() == "I":
+                    self.system_status = "menu_description_2"
+
+                    self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_left.setEnabled(True)
+                    self.button_switch_left.clicked.connect(self.menu_description_switch(to="start"))
+
+                    self.button_switch_right.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_right.setEnabled(True)
+                    self.button_switch_right.clicked.connect(self.menu_description_switch(to="F"))
+
+                    self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="I")
+
+                elif final_changes_for_submenu.lower() == "F":
+                    self.system_status = "menu_description_3"
+
+                    self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_left.setEnabled(True)
+                    self.button_switch_left.clicked.connect(self.menu_description_switch(to="I"))
+
+                    self.button_switch_right.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_right.setEnabled(True)
+                    self.button_switch_right.clicked.connect(self.menu_description_switch(to="ex"))
+
+                    self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="F")
+
+                elif final_changes_for_submenu.lower() == "ex":
+                    self.system_status = "menu_description_4"
+
+                    self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_left.setEnabled(True)
+                    self.button_switch_left.clicked.connect(self.menu_description_switch(to="F"))
+
+                    self.button_switch_right.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_right.setEnabled(True)
+                    self.button_switch_right.clicked.connect(self.menu_description_switch(to="G"))
+
+                    self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="ex")
+
+                elif final_changes_for_submenu.lower() == "G":
+                    self.system_status = "menu_description_5"
+
+                    self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_left.setEnabled(True)
+                    self.button_switch_left.clicked.connect(self.menu_description_switch(to="ex"))
+
+                    self.button_switch_right.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_right.setEnabled(True)
+                    self.button_switch_right.clicked.connect(self.menu_description_switch(to="R"))
+
+                    self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="G")
+
+                elif final_changes_for_submenu.lower() == "R":
+                    self.system_status = "menu_description_6"
+
+                    self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_left.setEnabled(True)
+                    self.button_switch_left.clicked.connect(self.menu_description_switch(to="G"))
+
+                    self.button_switch_right.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_right.setEnabled(True)
+                    self.button_switch_right.clicked.connect(self.menu_description_switch(to="B"))
+
+                    self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="R")
+
+                elif final_changes_for_submenu.lower() == "B":
+                    self.system_status = "menu_description_7"
+
+                    self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_left.setEnabled(True)
+                    self.button_switch_left.clicked.connect(self.menu_description_switch(to="R"))
+
+                    self.button_switch_right.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_right.setEnabled(True)
+                    self.button_switch_right.clicked.connect(self.menu_description_switch(to="A"))
+
+                    self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="B")
+
+                elif final_changes_for_submenu.lower() == "A":
+                    self.system_status = "menu_description_8"
+
+                    self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_left.setEnabled(True)
+                    self.button_switch_left.clicked.connect(self.menu_description_switch(to="B"))
+
+                    self.button_switch_right.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_right.setEnabled(True)
+                    self.button_switch_right.clicked.connect(self.menu_description_switch(to="S"))
+
+                    self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="A")
+
+                elif final_changes_for_submenu.lower() == "S":
+                    self.system_status = "menu_description_9"
+
+                    self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
+                    self.button_switch_left.setEnabled(True)
+                    self.button_switch_left.clicked.connect(self.menu_description_switch(to="A"))
+
+                    self.button_switch_right.setStyleSheet(GSS.button_switch_left(active=False))
+                    self.button_switch_right.setEnabled(False)
+
+                    self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="S")
+                else:
+                    pass
+
+
+            self.disconnect_main_menu_buttons(connect_instead=True)
+            print("disconnecting main menu buttons was successful")
+
+            QTimer.singleShot(2000, execute_consequences)
 
 
 app = QApplication(sys.argv)

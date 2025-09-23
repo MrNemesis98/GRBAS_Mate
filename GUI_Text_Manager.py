@@ -32,7 +32,7 @@ def label_menu_title(menu):
         return "Unkown Value!"
 
 
-def label_text_1(menu):
+def label_text_1(menu, var_1=0):
     if menu.lower() == "info":
         return "Version Information"
 
@@ -56,20 +56,148 @@ def label_text_1(menu):
         return text
 
     elif menu.lower() == "description":
-        text = """
-                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
-                Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
-                </p>
-                </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                There is also the possibility to jump straight to the dedicated recording menu for the parameter 
-                you’ve selected.
-                </p>
-                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                If you want to skip the descriptions you can access the recordings in the training mode menu
-                (third option on the left navigational bar).
-                </p>
-                """
+        text = ""
+        if var_1 == 1:
+            text = """
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
+                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    </p>
+                    </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
+                    you’ve selected.
+                    </p>
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    If you want to skip the descriptions you can access the recordings in the training mode menu
+                    (third option on the left navigational bar).
+                    </p>
+                    """
+        elif var_1 == 2:
+            text = """
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
+                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    </p>
+                    </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
+                    you’ve selected.
+                    </p>
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    If you want to skip the descriptions you can access the recordings in the training mode menu
+                    (third option on the left navigational bar).
+                    </p>
+                    """
+        elif var_1 == 3:
+            text = """
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
+                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    </p>
+                    </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
+                    you’ve selected.
+                    </p>
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    If you want to skip the descriptions you can access the recordings in the training mode menu
+                    (third option on the left navigational bar).
+                    </p>
+                    """
+        elif var_1 == 4:
+            text = """
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
+                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    </p>
+                    </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
+                    you’ve selected.
+                    </p>
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    If you want to skip the descriptions you can access the recordings in the training mode menu
+                    (third option on the left navigational bar).
+                    </p>
+                    """
+        elif var_1 == 5:
+            text = """
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
+                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    </p>
+                    </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
+                    you’ve selected.
+                    </p>
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    If you want to skip the descriptions you can access the recordings in the training mode menu
+                    (third option on the left navigational bar).
+                    </p>
+                    """
+        elif var_1 == 6:
+            text = """
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
+                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    </p>
+                    </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
+                    you’ve selected.
+                    </p>
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    If you want to skip the descriptions you can access the recordings in the training mode menu
+                    (third option on the left navigational bar).
+                    </p>
+                    """
+        elif var_1 == 7:
+            text = """
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
+                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    </p>
+                    </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
+                    you’ve selected.
+                    </p>
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    If you want to skip the descriptions you can access the recordings in the training mode menu
+                    (third option on the left navigational bar).
+                    </p>
+                    """
+        elif var_1 == 8:
+            text = """
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
+                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    </p>
+                    </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
+                    you’ve selected.
+                    </p>
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    If you want to skip the descriptions you can access the recordings in the training mode menu
+                    (third option on the left navigational bar).
+                    </p>
+                    """
+        elif var_1 == 9:
+            text = """
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
+                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    </p>
+                    </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
+                    you’ve selected.
+                    </p>
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    If you want to skip the descriptions you can access the recordings in the training mode menu
+                    (third option on the left navigational bar).
+                    </p>
+                    """
+        else:
+            text = """
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    N/V
+                    </p>
+                    """
         return text
 
     elif menu.lower() == "study":
@@ -168,6 +296,7 @@ def label_text_3(menu):
 
 
 def label_text_4(menu, var_1=0):
+
     if menu.lower() == "info":
         return "Version Information"
 
@@ -187,7 +316,27 @@ def label_text_4(menu, var_1=0):
         return text
 
     elif menu.lower() == "description":
-        return "Parameter Descriptions"
+        if var_1 == 1:
+            text = "Introduction (1/9)"
+        elif var_1 == 2:
+            text = "Instability (2/9)"
+        elif var_1 == 3:
+            text = "Fluency (3/9)"
+        elif var_1 == 4:
+            text = "Extension (4/9)"
+        elif var_1 == 5:
+            text = "Grade (5/9)"
+        elif var_1 == 6:
+            text = "Roughness (6/9)"
+        elif var_1 == 7:
+            text = "Breathyness (7/9)"
+        elif var_1 == 8:
+            text = "Asthenia (8/9)"
+        elif var_1 == 9:
+            text = "Strain (9/9)"
+        else:
+            text = "N/V"
+        return text
 
     elif menu.lower() == "study":
         return "Study Mode"
@@ -200,3 +349,24 @@ def label_text_4(menu, var_1=0):
 
     else:
         return "Unkown Value!"
+
+
+"""
+Notes:
+IFGRBAS 
+-> R in Mitte, Breite: 60 zu 70 Höhe
+Range: 130 (label_text_1) bis 1260+70= 1330 (button_switch_right) == 1200
+da Breite gleich 60: 1200/2 = 600 und 60/2 = 30, 
+also Startpunkt 130+600-30 == 700 und Endpunkt 130+600+30 == 760
+
+alle Startpunkte:
+
+I: 520-60 = 460
+F: 580-60 = 520
+-: 640-60 = 580
+G: 700-60 = 640
+R: 700
+B: 700+60 = 760
+A: 760+60 = 820
+S: 820+60 = 880
+"""
