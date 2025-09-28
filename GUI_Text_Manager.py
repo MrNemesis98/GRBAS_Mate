@@ -56,11 +56,11 @@ def label_text_1(menu, var_1=0):
         return text
 
     elif menu.lower() == "description":
-        text = ""
         if var_1 == 1:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
+                    Within this menu you can explore clear, concise <span style="font-weight:bold;color:#0B839C;">
+                    descriptions</span> of every IF-GRBAS parameter.
                     Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
@@ -75,121 +75,118 @@ def label_text_1(menu, var_1=0):
         elif var_1 == 2:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
-                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    <span style="font-weight:bold;color:#7030A0;">Instability</span> in the voice.
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
-                    you’ve selected.
+                    This refers to the degree of irregularity and fluctuations in the stability of the voice.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    If you want to skip the descriptions you can access the recordings in the training mode menu
-                    (third option on the left navigational bar).
+                    An unstable voice sounds unbalanced and can vary greatly in volume and pitch.
+                    </p>
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    Instability is not part of the <span style="font-weight:bold;color:#0B839C;">original</span>
+                     GRBAS-scale, but can be used to <span style="font-weight:bold;color:#7030A0;">extend</span> it.
                     </p>
                     """
         elif var_1 == 3:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
-                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    The <span style="font-weight:bold;color:#7030A0;">Fluency</span> of a voice is comparable to the flow of speech.
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
-                    you’ve selected.
+                    It refers to how smooth and fluid the voice sounds when speaking.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    If you want to skip the descriptions you can access the recordings in the training mode menu
-                    (third option on the left navigational bar).
+                    This mainly concerns the rhythm of speech, the structure of pauses, and continuity.
+                    </p>
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    Fluency is not part of the <span style="font-weight:bold;color:#0B839C;">original</span>
+                     GRBAS-scale, but can be used to <span style="font-weight:bold;color:#7030A0;">extend</span> it.
                     </p>
                     """
         elif var_1 == 4:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
-                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    The <span style="font-weight:bold;color:#7030A0;">Extension</span> of the the GRBAS scale was made to 
+                    capture dysphonic voice features in a more nuanced 
+                    way, improving the scale's sensitivity in addressing certain symptoms.
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
-                    you’ve selected.
+                    The scale is often extended to include parameters that better address the characteristics of 
+                    dysphonic voices, always depending on context and goals of the respective research.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    If you want to skip the descriptions you can access the recordings in the training mode menu
-                    (third option on the left navigational bar).
+                    For a detailed rationale behind the scale extension with I and F please have a look at the following 
+                    study:
+                      <a href="https://osf.io/dxc2e/?view_only=7e25f2b0991a4322997dd4ce99858262"
+                         style="text-decoration:none; color:#99FF99;">
+                         Voice Quality and Dysphonia (OSF project - view-only)
+                      </a>
                     </p>
                     """
         elif var_1 == 5:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
-                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    The <span style="font-weight:bold;color:#0B839C;">Grade</span> of hoarseness in the voice.   
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
-                    you’ve selected.
+                    Hoarseness is composed of various characteristics, including roughness, breathiness, and strain.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    If you want to skip the descriptions you can access the recordings in the training mode menu
-                    (third option on the left navigational bar).
+                    Hoarseness can be described as the overall impression of the voice depending on these 
+                    individual parameters. 
                     </p>
                     """
         elif var_1 == 6:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
-                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    <span style="font-weight:bold;color:#0B839C;">Roughness</span> of the voice.  
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
-                    you’ve selected.
+                    This describes the perception of irregular vibration of the vocal folds, causing the voice to sound  
+                    rough or scratchy.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    If you want to skip the descriptions you can access the recordings in the training mode menu
-                    (third option on the left navigational bar).
+                    
                     </p>
                     """
         elif var_1 == 7:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
-                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    <span style="font-weight:bold;color:#0B839C;">Breathyness</span> of the voice.  
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
-                    you’ve selected.
+                    This refers to the audible escape of air in the voice.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    If you want to skip the descriptions you can access the recordings in the training mode menu
-                    (third option on the left navigational bar).
+                    This may indicate incomplete closure of the vocal cords.
                     </p>
                     """
         elif var_1 == 8:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
-                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    Weakness of the voice.  
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
-                    you’ve selected.
+                    <span style="font-weight:bold;color:#0B839C;">\nAsthenia</span> describes the extent to which the voice 
+                    appears weak or quiet.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    If you want to skip the descriptions you can access the recordings in the training mode menu
-                    (third option on the left navigational bar).
+                    This characteristic is the result of reduced tension in the vocal cords.
                     </p>
                     """
         elif var_1 == 9:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Within this menu you can explore clear, concise descriptions of every IF-GRBAS parameter.
-                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
+                    A tense impression of the voice.  
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
-                    you’ve selected.
+                    <span style="font-weight:bold;color:#0B839C;">\nStrain</span> describes the degree of hyperfunction or 
+                    overexertion of the laryngeal muscles, 
+                    which affects the vocal cords and is therefore audible in the voice.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    If you want to skip the descriptions you can access the recordings in the training mode menu
-                    (third option on the left navigational bar).
+                    
                     </p>
                     """
         else:
