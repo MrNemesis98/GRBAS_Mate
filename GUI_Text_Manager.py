@@ -21,13 +21,18 @@ def window_title():
     return "GRBAS_Mate v1.0"
 
 
-def label_main_headline_background():
-    return "   GRBAS_Mate   [ɡɹæps me͜ɪt̚]"
+def label_main_headline_background(with_copyright=False):
+    return ("   GRBAS_Mate   [ɡɹæps me͜ɪt̚]                               "
+            "Copyright © MrNemesis98, GitHub, 2025") \
+        if with_copyright else "   GRBAS_Mate   [ɡɹæps me͜ɪt̚]"
 
 
 def label_menu_title(menu):
     if menu.lower() == "info":
         return "Version Information"
+
+    elif menu.lower() == "copyright":
+        return "Copyright Information"
 
     elif menu.lower() == "faq":
         return "User Guide"
@@ -51,9 +56,12 @@ def label_menu_title(menu):
         return "Unkown Value!"
 
 
-def label_text_1(menu, var_1=0):
+def label_text_1(menu, var_1=0, current_software_version=""):
     if menu.lower() == "info":
-        return "Version Information"
+        return "Currently installed version: \t" + current_software_version
+
+    elif menu.lower() == "copyright":
+        return "Copyright"
 
     elif menu.lower() == "faq":
         return "User Guide"
@@ -229,7 +237,20 @@ def label_text_1(menu, var_1=0):
 
 def label_text_2(menu):
     if menu.lower() == "info":
-        return "Version Information"
+        text = """
+                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    This first version provides descriptions and sample recordings of all parameters according to the 
+                    commonly used GRBAS scale including its extension to IF-GRBAS.
+                </p>
+                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    This software as well as its open access material shall serve as a contribution to the research 
+                    field of clinical phonetics.
+                </p>
+                """
+        return text
+
+    elif menu.lower() == "copyright":
+        return "Copyright"
 
     elif menu.lower() == "faq":
         return "User Guide"
@@ -270,10 +291,19 @@ def label_text_2(menu):
 
 def label_text_3(menu):
     if menu.lower() == "info":
-        return "Version Information"
+        text = """
+                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                  GRBAS_Mate was published under MIT License. 
+                  By using the software or one of its components you agree to the copyright statement.
+                </p>
+                """
+        return text
 
     elif menu.lower() == "faq":
         return "User Guide"
+
+    elif menu.lower() == "copyright":
+        return "Copyright"
 
     elif menu.lower() == "home":
         text = """
@@ -315,6 +345,9 @@ def label_text_4(menu, var_1=0):
     if menu.lower() == "info":
         return "Version Information"
 
+    elif menu.lower() == "copyright":
+        return "Copyright"
+
     elif menu.lower() == "faq":
         return "User Guide"
 
@@ -352,6 +385,40 @@ def label_text_4(menu, var_1=0):
         else:
             text = "N/V"
         return text
+
+    elif menu.lower() == "recordings":
+        return "Parameter Recordings"
+
+    elif menu.lower() == "training":
+        return "Training Mode"
+
+    elif menu.lower() == "settings":
+        return "Settings"
+
+    else:
+        return "Unkown Value!"
+
+
+def label_text_5(menu):
+    if menu.lower() == "info":
+        return "Info"
+
+    elif menu.lower() == "copyright":
+        return "Copyright"
+
+    elif menu.lower() == "faq":
+        return "User Guide"
+
+    elif menu.lower() == "home":
+        text = """
+                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                  Note: Before using this software please have a look at the copyright statement (second top right menu).
+                </p>
+                """
+        return text
+
+    elif menu.lower() == "description":
+        return "Parameter Descriptions"
 
     elif menu.lower() == "recordings":
         return "Parameter Recordings"

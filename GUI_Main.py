@@ -20,8 +20,11 @@ import sys
 
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QGraphicsOpacityEffect
-from PyQt5.QtCore import QPropertyAnimation, QRect, QEasingCurve, QAbstractAnimation, QEventLoop
+from PyQt5.QtCore import QPropertyAnimation, QRect, QEasingCurve, QAbstractAnimation, QEventLoop, QVariantAnimation
 from PyQt5.QtCore import Qt, QTimer, QPoint
+from PyQt5.QtWidgets import QGraphicsColorizeEffect
+from PyQt5.QtCore import QSequentialAnimationGroup, QPauseAnimation
+from PyQt5.QtGui import QColor
 
 # icons for buttons: https://icons8.de/icons/set/free-icons--style-glyph-neue
 
@@ -46,6 +49,13 @@ def disconnect_button(button):
 class MainWindow(QWidget):
 
     system_status = None
+    software_version = "v1.0"
+
+    # Settings variables (to be saved in savedata.txt)
+    gui_language = "eng"
+    system_sounds = False
+    show_copyright_notice_in_gui_headline = True
+    show_copyright_notice_in_home_menu = True
 
     def __init__(self):
         super().__init__()
@@ -66,7 +76,10 @@ class MainWindow(QWidget):
         self.label_main_background.setGeometry(0, 0, 1380, 800)
         self.label_main_background.setStyleSheet(GSS.label_main_background())
 
-        self.label_main_headline_background = QLabel(GTM.label_main_headline_background(), self)
+        self.label_main_headline_background = QLabel(self)
+        self.label_main_headline_background.setText(GTM.label_main_headline_background(with_copyright=True)) \
+            if self.show_copyright_notice_in_gui_headline \
+            else self.label_main_headline_background.setText(GTM.label_main_headline_background(with_copyright=False))
         self.label_main_headline_background.setFont(QFont('Noto Sans IPA', 28, QFont.Bold))
         self.label_main_headline_background.setGeometry(0, 0, 1380, 80)
         self.label_main_headline_background.setStyleSheet(GSS.label_main_headline_background())
@@ -82,8 +95,12 @@ class MainWindow(QWidget):
         # Main GUI controls (4 buttons) --------------------------------------------------------------------------------
         # [Info, FAQ, Minimize, Exit]
         self.button_main_ctrl_info = QPushButton(self)
-        self.button_main_ctrl_info.setGeometry(1180, 20, 40, 40)
+        self.button_main_ctrl_info.setGeometry(1130, 20, 40, 40)
         self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
+
+        self.button_main_ctrl_copyright = QPushButton(self)
+        self.button_main_ctrl_copyright.setGeometry(1181, 21, 38, 38)
+        self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
 
         self.button_main_ctrl_faq = QPushButton(self)
         self.button_main_ctrl_faq.setGeometry(1230, 20, 40, 40)
@@ -159,12 +176,12 @@ class MainWindow(QWidget):
         # MENU INTERNAL ***************************************************************************************+++++++++
         # Text Labels --------------------------------------------------------------------------------------------------
         self.label_menu_title = QLabel(self)
-        self.label_menu_title.setGeometry(130, 100, 430, 80)
+        self.label_menu_title.setGeometry(130, 100, 415, 80)
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
         self.label_menu_title.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
 
         self.label_text_1 = QLabel(self)
-        self.label_text_1.setStyleSheet(GSS.label_text_1())
+        self.label_text_1.setStyleSheet(GSS.label_text())
         self.label_text_1.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         self.label_text_1.setWordWrap(True)
         self.label_text_1.setTextFormat(Qt.RichText)
@@ -172,7 +189,7 @@ class MainWindow(QWidget):
         self.label_text_1.setOpenExternalLinks(True)
 
         self.label_text_2 = QLabel(self)
-        self.label_text_2.setStyleSheet(GSS.label_text_1())
+        self.label_text_2.setStyleSheet(GSS.label_text())
         self.label_text_2.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         self.label_text_2.setWordWrap(True)
         self.label_text_2.setTextFormat(Qt.RichText)
@@ -180,7 +197,7 @@ class MainWindow(QWidget):
         self.label_text_2.setOpenExternalLinks(True)
 
         self.label_text_3 = QLabel(self)
-        self.label_text_3.setStyleSheet(GSS.label_text_1())
+        self.label_text_3.setStyleSheet(GSS.label_text())
         self.label_text_3.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         self.label_text_3.setWordWrap(True)
         self.label_text_3.setTextFormat(Qt.RichText)
@@ -188,10 +205,20 @@ class MainWindow(QWidget):
         self.label_text_3.setOpenExternalLinks(True)
 
         self.label_text_4 = QLabel(self)
-        self.label_text_4.setStyleSheet(GSS.label_text_1())
+        self.label_text_4.setStyleSheet(GSS.label_text())
         self.label_text_4.setAlignment(Qt.AlignVCenter | Qt.AlignCenter)
         self.label_text_4.setWordWrap(True)
         self.label_text_4.setTextFormat(Qt.RichText)
+        self.label_text_4.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
+        self.label_text_4.setTextFormat(Qt.RichText)
+
+        self.label_text_5 = QLabel(self)
+        self.label_text_5.setStyleSheet(GSS.label_text())
+        self.label_text_5.setAlignment(Qt.AlignVCenter | Qt.AlignCenter)
+        self.label_text_5.setWordWrap(True)
+        self.label_text_5.setTextFormat(Qt.RichText)
+        self.label_text_5.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
+        self.label_text_5.setTextFormat(Qt.RichText)
 
         # Buttons (menu internal)
         self.button_switch_right = QPushButton(self)
@@ -226,6 +253,7 @@ class MainWindow(QWidget):
         self.label_text_2.hide()
         self.label_text_3.hide()
         self.label_text_4.hide()
+        self.label_text_5.hide()
 
         self.button_switch_right.hide()
         self.button_switch_left.hide()
@@ -248,8 +276,33 @@ class MainWindow(QWidget):
         self.system_status = "menu_info"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="info")
+        self.reset_text_label_stylesheets()
 
         self.label_menu_title.setText(GTM.label_menu_title(menu="info"))
+        self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=True))
+        self.label_menu_title.show()
+
+        self.label_text_1.setGeometry(130, 200, 1000, 70)
+        self.label_text_1.setStyleSheet(GSS.label_text(dark_background=True))
+        self.label_text_1.setText(GTM.label_text_1(menu="info", current_software_version=self.software_version))
+        self.label_text_1.show()
+
+        self.label_text_2.setGeometry(130, 300, 1000, 190)
+        self.label_text_2.setText(GTM.label_text_2(menu="info"))
+        self.label_text_2.show()
+
+        self.label_text_3.setGeometry(130, 520, 1000, 200)
+        self.label_text_3.setText(GTM.label_text_3(menu="info"))
+        self.label_text_3.show()
+
+    def menu_copyright(self):
+        print("Copyright")
+        self.system_status = "menu_copyright"
+        self.hide_all_menu_internal_elements()
+        self.disconnect_main_menu_buttons(connect_instead=True, current_menu="copyright")
+        self.reset_text_label_stylesheets()
+
+        self.label_menu_title.setText(GTM.label_menu_title(menu="faq"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=True))
         self.label_menu_title.show()
 
@@ -258,6 +311,7 @@ class MainWindow(QWidget):
         self.system_status = "menu_faq"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="faq")
+        self.reset_text_label_stylesheets()
 
         self.label_menu_title.setText(GTM.label_menu_title(menu="faq"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=True))
@@ -268,6 +322,7 @@ class MainWindow(QWidget):
         self.system_status = "menu_home_1"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="home")
+        self.reset_text_label_stylesheets()
 
         self.label_menu_title.setText(GTM.label_menu_title(menu="home"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
@@ -289,6 +344,16 @@ class MainWindow(QWidget):
         self.label_text_4.setText(GTM.label_text_4(menu="home", var_1=1))
         self.label_text_4.show()
 
+        if self.show_copyright_notice_in_home_menu:
+            self.label_text_5.setGeometry(130, 720, 1000, 70)
+            self.label_text_5.setStyleSheet(GSS.label_text(dark_background=False, no_background=True))
+            self.label_text_5.setText(GTM.label_text_5(menu="home"))
+            QTimer.singleShot(0, lambda: self.animation_label_fade(
+                in_or_out="out", label_object=self.label_text_5, duration=0))
+            self.label_text_5.show()
+            QTimer.singleShot(2000, lambda: self.animation_label_fade(
+                in_or_out="in", label_object=self.label_text_5, duration=1000))
+
         self.button_switch_right.setGeometry(805, 600, 70, 70)
         self.button_switch_right.show()
 
@@ -302,6 +367,7 @@ class MainWindow(QWidget):
         self.system_status = "menu_description_1"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="description")
+        self.reset_text_label_stylesheets()
 
         self.label_menu_title.setText(GTM.label_menu_title(menu="description"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
@@ -341,6 +407,7 @@ class MainWindow(QWidget):
         self.system_status = "menu_recordings"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="recordings")
+        self.reset_text_label_stylesheets()
 
         self.label_menu_title.setText(GTM.label_menu_title(menu="recordings"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
@@ -351,6 +418,7 @@ class MainWindow(QWidget):
         self.system_status = "menu_training"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="training")
+        self.reset_text_label_stylesheets()
 
         self.label_menu_title.setText(GTM.label_menu_title(menu="training"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
@@ -361,6 +429,7 @@ class MainWindow(QWidget):
         self.system_status = "menu_settings"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="settings")
+        self.reset_text_label_stylesheets()
 
         self.label_menu_title.setText(GTM.label_menu_title(menu="settings"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
@@ -423,6 +492,7 @@ class MainWindow(QWidget):
         if not connect_instead:
 
             disconnect_button(self.button_main_ctrl_info)
+            disconnect_button(self.button_main_ctrl_copyright)
             disconnect_button(self.button_main_ctrl_faq)
             disconnect_button(self.button_main_nav_home)
             disconnect_button(self.button_main_nav_description)
@@ -432,6 +502,7 @@ class MainWindow(QWidget):
 
         else:
             self.button_main_ctrl_info.clicked.connect(self.menu_info)
+            self.button_main_ctrl_copyright.clicked.connect(self.menu_copyright)
             self.button_main_ctrl_faq.clicked.connect(self.menu_faq)
             self.button_main_nav_home.clicked.connect(self.menu_home)
             self.button_main_nav_description.clicked.connect(self.menu_description)
@@ -443,6 +514,17 @@ class MainWindow(QWidget):
             if current_menu == "info":
                 disconnect_button(self.button_main_ctrl_info)
                 self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=True))
+                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
+                self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
+                self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
+                self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
+                self.button_main_nav_recordings.setStyleSheet(GSS.button_main_nav_recordings(pressed=False))
+                self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
+                self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+            elif current_menu == "copyright":
+                disconnect_button(self.button_main_ctrl_copyright)
+                self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
+                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=True))
                 self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
                 self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
                 self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
@@ -452,6 +534,7 @@ class MainWindow(QWidget):
             elif current_menu == "faq":
                 disconnect_button(self.button_main_ctrl_faq)
                 self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
+                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
                 self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=True))
                 self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
                 self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
@@ -461,6 +544,7 @@ class MainWindow(QWidget):
             elif current_menu == "home":
                 disconnect_button(self.button_main_nav_home)
                 self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
+                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
                 self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
                 self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=True))
                 self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
@@ -470,6 +554,7 @@ class MainWindow(QWidget):
             elif current_menu == "description":
                 disconnect_button(self.button_main_nav_description)
                 self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
+                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
                 self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
                 self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
                 self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=True))
@@ -479,6 +564,7 @@ class MainWindow(QWidget):
             elif current_menu == "recordings":
                 disconnect_button(self.button_main_nav_recordings)
                 self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
+                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
                 self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
                 self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
                 self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
@@ -488,6 +574,7 @@ class MainWindow(QWidget):
             elif current_menu == "training":
                 disconnect_button(self.button_main_nav_training)
                 self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
+                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
                 self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
                 self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
                 self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
@@ -497,6 +584,7 @@ class MainWindow(QWidget):
             elif current_menu == "settings":
                 disconnect_button(self.button_main_nav_settings)
                 self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
+                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
                 self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
                 self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
                 self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
@@ -583,6 +671,12 @@ class MainWindow(QWidget):
                 self.button_param_strain.setStyleSheet(GSS.button_param_S(selected=True))
                 self.button_param_strain.setEnabled(False)
 
+    def reset_text_label_stylesheets(self):
+        self.label_text_1.setStyleSheet(GSS.label_text())
+        self.label_text_2.setStyleSheet(GSS.label_text())
+        self.label_text_3.setStyleSheet(GSS.label_text())
+        self.label_text_4.setStyleSheet(GSS.label_text())
+
     # Menu Functionality - Submenus ------------------------------------------------------------------------------------
     def menu_home_switch_to_label_1(self, first_init=False):
 
@@ -590,7 +684,7 @@ class MainWindow(QWidget):
             pass
         else:
             # Pre-Consequence
-            self.disconnect_main_menu_buttons()
+            self.disconnect_main_menu_buttons(connect_instead=False, current_menu="home")
 
             disconnect_button(self.button_switch_right)
             disconnect_button(self.button_switch_left)
@@ -624,7 +718,7 @@ class MainWindow(QWidget):
                 self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=False))
                 self.button_switch_left.setEnabled(False)
 
-                self.disconnect_main_menu_buttons(connect_instead=True)
+                self.disconnect_main_menu_buttons(connect_instead=True, current_menu="home")
 
             QTimer.singleShot(1300, execute_consequences) if not first_init else execute_consequences()
 
@@ -634,7 +728,7 @@ class MainWindow(QWidget):
             pass
         else:
             # Pre-Consequence
-            self.disconnect_main_menu_buttons()
+            self.disconnect_main_menu_buttons(connect_instead=False, current_menu="home")
 
             disconnect_button(self.button_switch_right)
             disconnect_button(self.button_switch_left)
@@ -664,7 +758,7 @@ class MainWindow(QWidget):
                 self.button_switch_left.setEnabled(True)
                 self.button_switch_left.clicked.connect(self.menu_home_switch_to_label_1, Qt.UniqueConnection)
 
-                self.disconnect_main_menu_buttons(connect_instead=True)
+                self.disconnect_main_menu_buttons(connect_instead=True, current_menu="home")
 
             QTimer.singleShot(1300, execute_consequences)
 
@@ -673,7 +767,7 @@ class MainWindow(QWidget):
             pass
         else:
             # Pre-Consequence
-            self.disconnect_main_menu_buttons()
+            self.disconnect_main_menu_buttons(connect_instead=False, current_menu="home")
 
             disconnect_button(self.button_switch_right)
             disconnect_button(self.button_switch_left)
@@ -696,7 +790,7 @@ class MainWindow(QWidget):
                 self.button_switch_left.setEnabled(True)
                 self.button_switch_left.clicked.connect(self.menu_home_switch_to_label_2, Qt.UniqueConnection)
 
-                self.disconnect_main_menu_buttons(connect_instead=True)
+                self.disconnect_main_menu_buttons(connect_instead=True, current_menu="home")
 
             QTimer.singleShot(1300, execute_consequences)
 
@@ -707,7 +801,7 @@ class MainWindow(QWidget):
 
         else:
             # Pre-Consequence
-            self.disconnect_main_menu_buttons()
+            self.disconnect_main_menu_buttons(connect_instead=False, current_menu="description")
             self.disconnect_parameter_buttons()
 
             disconnect_button(self.button_switch_left)
@@ -898,7 +992,7 @@ class MainWindow(QWidget):
                 else:
                     pass
 
-                self.disconnect_main_menu_buttons(connect_instead=True)
+                self.disconnect_main_menu_buttons(connect_instead=True, current_menu="description")
 
             QTimer.singleShot(700, execute_consequences)
 

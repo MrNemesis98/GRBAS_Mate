@@ -115,16 +115,34 @@ def label_menu_title(main_ctrl):
     return sst
 
 
-def label_text_1():
-    sst = """
-        QLabel {
-            color: rgb(220, 220, 220);
-            background-color: rgba(41,51,63,255);
-            font-size: 25px;
-            border-radius: 20px;
-            padding: 20px;
-            }
-        """
+def label_text(dark_background=False, no_background=False):
+    if dark_background:
+        sst = """
+            QLabel {
+                color: rgb(220, 220, 220);
+                background-color: rgba(25,30,36,255);
+                font-size: 25px;
+                border-radius: 20px;
+                padding: 20px;
+                }
+            """
+    elif no_background:
+        sst = """
+            QLabel {
+                color: rgb(220, 220, 220);
+                font-size: 22px;
+                }
+            """
+    else:
+        sst = """
+            QLabel {
+                color: rgb(220, 220, 220);
+                background-color: rgba(41,51,63,255);
+                font-size: 25px;
+                border-radius: 20px;
+                padding: 20px;
+                }
+            """
     return sst
 
 
@@ -141,6 +159,22 @@ def button_main_ctrl_info(pressed):
                 }
                 QPushButton:hover {
                     border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_info_1.png) 0 0 0 0 stretch stretch;
+                }
+            """
+    return sst
+
+
+def button_main_ctrl_copyright(pressed):
+    if pressed:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_copyright_2.png) 0 0 0 0 stretch stretch;
+                }"""
+    else:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_copyright_0.png) 0 0 0 0 stretch stretch;
+                }
+                QPushButton:hover {
+                    border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_copyright_1.png) 0 0 0 0 stretch stretch;
                 }
             """
     return sst
