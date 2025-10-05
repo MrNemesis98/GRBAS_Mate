@@ -1,9 +1,28 @@
+"""
+Copyright © MrNemesis98, GitHub, 2025
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+Software. The software is provided “as is”, without warranty of any kind, express or implied, including but not
+limited to the warranties of merchantability, fitness for a particular purpose and noninfringement.
+In no event shall the author(s) or copyright holder(s) be liable for any claim, damages or other liability, whether
+in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or
+other dealings in the software.
+
+By using GRBAS_Mate or one of its components you agree to all these conditions.
+"""
+
+
 def window_title():
     return "GRBAS_Mate v1.0"
 
 
 def label_main_headline_background():
-    return "     GRBAS_Mate   [ɡʁæps mæɪtʰ]"
+    return "   GRBAS_Mate   [ɡɹæps me͜ɪt̚]"
 
 
 def label_menu_title(menu):
@@ -19,8 +38,8 @@ def label_menu_title(menu):
     elif menu.lower() == "description":
         return "Parameter Descriptions"
 
-    elif menu.lower() == "study":
-        return "Study Mode"
+    elif menu.lower() == "recordings":
+        return "Parameter Recordings"
 
     elif menu.lower() == "training":
         return "Training Mode"
@@ -111,19 +130,17 @@ def label_text_1(menu, var_1=0):
                     capture dysphonic voice features in a more nuanced 
                     way, improving the scale's sensitivity in addressing certain symptoms.
                     </p>
-                    </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     The scale is often extended to include parameters that better address the characteristics of 
                     dysphonic voices, always depending on context and goals of the respective research.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    For a detailed rationale behind the scale extension with I and F please have a look at the following 
-                    study:
-                      <a href="https://osf.io/dxc2e/?view_only=7e25f2b0991a4322997dd4ce99858262"
-                         style="text-decoration:none; color:#99FF99;">
-                         Voice Quality and Dysphonia (OSF project - view-only)
-                      </a>
-                    </p>
-                    """
+                    For a detailed rationale behind this scale extension please have a look at the following study:
+                        <a href="https://osf.io/dxc2e/?view_only=7e25f2b0991a4322997dd4ce99858262"
+                            style="text-decoration:none; color:#1a73e8;">
+                            Voice Quality and Dysphonia (OSF project - view-only)
+                        </a>
+                    </p>"""
         elif var_1 == 5:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
@@ -197,7 +214,7 @@ def label_text_1(menu, var_1=0):
                     """
         return text
 
-    elif menu.lower() == "study":
+    elif menu.lower() == "recordings":
         return "Study Mode"
 
     elif menu.lower() == "training":
@@ -238,8 +255,8 @@ def label_text_2(menu):
     elif menu.lower() == "description":
         return "Parameter Descriptions"
 
-    elif menu.lower() == "study":
-        return "Study Mode"
+    elif menu.lower() == "recordings":
+        return "Parameter Recordings"
 
     elif menu.lower() == "training":
         return "Training Mode"
@@ -266,6 +283,7 @@ def label_text_3(menu):
             </p>
             <p>Both extend the original scale to IF-GRBAS, which is useful in context of dysphonia assessment, 
             especially spasmodic dysphonia.
+            <p>
             <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
               For a detailed rationale behind this scale extension please have a look at the following study:
               <a href="https://osf.io/dxc2e/?view_only=7e25f2b0991a4322997dd4ce99858262"
@@ -279,8 +297,8 @@ def label_text_3(menu):
     elif menu.lower() == "description":
         return "Parameter Descriptions"
 
-    elif menu.lower() == "study":
-        return "Study Mode"
+    elif menu.lower() == "recordings":
+        return "Parameter Recordings"
 
     elif menu.lower() == "training":
         return "Training Mode"
@@ -335,8 +353,8 @@ def label_text_4(menu, var_1=0):
             text = "N/V"
         return text
 
-    elif menu.lower() == "study":
-        return "Study Mode"
+    elif menu.lower() == "recordings":
+        return "Parameter Recordings"
 
     elif menu.lower() == "training":
         return "Training Mode"

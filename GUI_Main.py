@@ -1,5 +1,24 @@
+"""
+Copyright © MrNemesis98, GitHub, 2025
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+Software. The software is provided “as is”, without warranty of any kind, express or implied, including but not
+limited to the warranties of merchantability, fitness for a particular purpose and noninfringement.
+In no event shall the author(s) or copyright holder(s) be liable for any claim, damages or other liability, whether
+in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or
+other dealings in the software.
+
+By using GRBAS_Mate or one of its components you agree to all these conditions.
+"""
+
 import sys
 
+from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QGraphicsOpacityEffect
 from PyQt5.QtCore import QPropertyAnimation, QRect, QEasingCurve, QAbstractAnimation, QEventLoop
 from PyQt5.QtCore import Qt, QTimer, QPoint
@@ -48,6 +67,7 @@ class MainWindow(QWidget):
         self.label_main_background.setStyleSheet(GSS.label_main_background())
 
         self.label_main_headline_background = QLabel(GTM.label_main_headline_background(), self)
+        self.label_main_headline_background.setFont(QFont('Noto Sans IPA', 28, QFont.Bold))
         self.label_main_headline_background.setGeometry(0, 0, 1380, 80)
         self.label_main_headline_background.setStyleSheet(GSS.label_main_headline_background())
         self.label_main_headline_background.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
@@ -80,15 +100,15 @@ class MainWindow(QWidget):
         self.button_main_ctrl_exit.clicked.connect(self.close)
 
         # Main Navigation Bar (5 Buttons) ------------------------------------------------------------------------------
-        # [Home, Description, Study, Training, Settings]
+        # [Home, Description, Recordings, Training, Settings]
         self.button_main_nav_home = QPushButton(self)
         self.button_main_nav_home.setGeometry(10, 110, 60, 60)
 
         self.button_main_nav_description = QPushButton(self)
         self.button_main_nav_description.setGeometry(10, 210, 60, 60)
 
-        self.button_main_nav_study = QPushButton(self)
-        self.button_main_nav_study.setGeometry(10, 310, 60, 60)
+        self.button_main_nav_recordings = QPushButton(self)
+        self.button_main_nav_recordings.setGeometry(10, 310, 60, 60)
 
         self.button_main_nav_training = QPushButton(self)
         self.button_main_nav_training.setGeometry(10, 410, 60, 60)
@@ -148,18 +168,24 @@ class MainWindow(QWidget):
         self.label_text_1.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         self.label_text_1.setWordWrap(True)
         self.label_text_1.setTextFormat(Qt.RichText)
+        self.label_text_1.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
+        self.label_text_1.setOpenExternalLinks(True)
 
         self.label_text_2 = QLabel(self)
         self.label_text_2.setStyleSheet(GSS.label_text_1())
         self.label_text_2.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         self.label_text_2.setWordWrap(True)
         self.label_text_2.setTextFormat(Qt.RichText)
+        self.label_text_2.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
+        self.label_text_2.setOpenExternalLinks(True)
 
         self.label_text_3 = QLabel(self)
         self.label_text_3.setStyleSheet(GSS.label_text_1())
         self.label_text_3.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         self.label_text_3.setWordWrap(True)
         self.label_text_3.setTextFormat(Qt.RichText)
+        self.label_text_3.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
+        self.label_text_3.setOpenExternalLinks(True)
 
         self.label_text_4 = QLabel(self)
         self.label_text_4.setStyleSheet(GSS.label_text_1())
@@ -216,20 +242,12 @@ class MainWindow(QWidget):
         self.button_param_asthenia.hide()
         self.button_param_strain.hide()
 
-    # Menu Layouts *****************************************************************************************************
+    # Main Menu Layouts ************************************************************************************************
     def menu_info(self):
         print("Info")
         self.system_status = "menu_info"
         self.hide_all_menu_internal_elements()
-
-        self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=True))
-        self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
-
-        self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
-        self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
-        self.button_main_nav_study.setStyleSheet(GSS.button_main_nav_study(pressed=False))
-        self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
-        self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+        self.disconnect_main_menu_buttons(connect_instead=True, current_menu="info")
 
         self.label_menu_title.setText(GTM.label_menu_title(menu="info"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=True))
@@ -239,15 +257,7 @@ class MainWindow(QWidget):
         print("FAQ")
         self.system_status = "menu_faq"
         self.hide_all_menu_internal_elements()
-
-        self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
-        self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=True))
-
-        self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
-        self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
-        self.button_main_nav_study.setStyleSheet(GSS.button_main_nav_study(pressed=False))
-        self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
-        self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+        self.disconnect_main_menu_buttons(connect_instead=True, current_menu="faq")
 
         self.label_menu_title.setText(GTM.label_menu_title(menu="faq"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=True))
@@ -257,15 +267,7 @@ class MainWindow(QWidget):
         print("Home")
         self.system_status = "menu_home_1"
         self.hide_all_menu_internal_elements()
-
-        self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
-        self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
-
-        self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=True))
-        self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
-        self.button_main_nav_study.setStyleSheet(GSS.button_main_nav_study(pressed=False))
-        self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
-        self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+        self.disconnect_main_menu_buttons(connect_instead=True, current_menu="home")
 
         self.label_menu_title.setText(GTM.label_menu_title(menu="home"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
@@ -281,8 +283,6 @@ class MainWindow(QWidget):
 
         self.label_text_3.setGeometry(self.width()-20, 220, 1000, 320)
         self.label_text_3.setText(GTM.label_text_3(menu="home"))
-        self.label_text_3.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
-        self.label_text_3.setOpenExternalLinks(True)
         self.label_text_3.show()
 
         self.label_text_4.setGeometry(480, 600, 300, 70)
@@ -301,33 +301,19 @@ class MainWindow(QWidget):
         print("Description")
         self.system_status = "menu_description_1"
         self.hide_all_menu_internal_elements()
-
-        self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
-        self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
-
-        self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
-        self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=True))
-        self.button_main_nav_study.setStyleSheet(GSS.button_main_nav_study(pressed=False))
-        self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
-        self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+        self.disconnect_main_menu_buttons(connect_instead=True, current_menu="description")
 
         self.label_menu_title.setText(GTM.label_menu_title(menu="description"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
         self.label_menu_title.show()
 
-        self.label_text_1.setGeometry(130, 220, 1000, 320)
+        self.label_text_1.setGeometry(130, 220, 1000, 340)
         self.label_text_1.show()
 
-        """
-        self.label_text_4.setGeometry(230, 600, 300, 70)
-        self.label_text_4.setText(GTM.label_text_4(menu="description", var_1=1))
-        self.label_text_4.hide()
-        """
-
-        self.button_switch_left.setGeometry(1170, 345, 70, 70)
+        self.button_switch_left.setGeometry(1170, 355, 70, 70)
         self.button_switch_left.show()
 
-        self.button_switch_right.setGeometry(1260, 345, 70, 70)
+        self.button_switch_right.setGeometry(1260, 355, 70, 70)
         self.button_switch_right.show()
 
         self.button_param_start.show()
@@ -340,29 +326,23 @@ class MainWindow(QWidget):
         self.button_param_asthenia.show()
         self.button_param_strain.show()
 
-        self.button_switch_down.setGeometry(1290, 720, 70, 70)
-        self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False))
+        # Down Button serves as shortcut to recordings here
+        self.button_switch_down.setGeometry(1130, 720, 70, 70)
+        self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
+                                                                     dress_as_recording=True))
         self.button_switch_down.show()
         self.button_switch_up.setGeometry(1000, 700, 70, 70)
         self.button_switch_up.hide()
 
         self.menu_description_switch(to="start", first_call=True)
 
-    def menu_study(self):
-        print("Study")
-        self.system_status = "menu_study"
+    def menu_recordings(self):
+        print("Recordings")
+        self.system_status = "menu_recordings"
         self.hide_all_menu_internal_elements()
+        self.disconnect_main_menu_buttons(connect_instead=True, current_menu="recordings")
 
-        self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
-        self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
-
-        self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
-        self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
-        self.button_main_nav_study.setStyleSheet(GSS.button_main_nav_study(pressed=True))
-        self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
-        self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
-
-        self.label_menu_title.setText(GTM.label_menu_title(menu="study"))
+        self.label_menu_title.setText(GTM.label_menu_title(menu="recordings"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
         self.label_menu_title.show()
 
@@ -370,15 +350,7 @@ class MainWindow(QWidget):
         print("Training")
         self.system_status = "menu_training"
         self.hide_all_menu_internal_elements()
-
-        self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
-        self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
-
-        self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
-        self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
-        self.button_main_nav_study.setStyleSheet(GSS.button_main_nav_study(pressed=False))
-        self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=True))
-        self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+        self.disconnect_main_menu_buttons(connect_instead=True, current_menu="training")
 
         self.label_menu_title.setText(GTM.label_menu_title(menu="training"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
@@ -388,15 +360,7 @@ class MainWindow(QWidget):
         print("Settings")
         self.system_status = "menu_settings"
         self.hide_all_menu_internal_elements()
-
-        self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
-        self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
-
-        self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
-        self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
-        self.button_main_nav_study.setStyleSheet(GSS.button_main_nav_study(pressed=False))
-        self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
-        self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=True))
+        self.disconnect_main_menu_buttons(connect_instead=True, current_menu="settings")
 
         self.label_menu_title.setText(GTM.label_menu_title(menu="settings"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
@@ -453,27 +417,92 @@ class MainWindow(QWidget):
 
     # Menu Functionality - Button control functions --------------------------------------------------------------------
 
-    def disconnect_main_menu_buttons(self, connect_instead=False):
+    def disconnect_main_menu_buttons(self, connect_instead=False, current_menu=""):
 
+        # manage button functions
         if not connect_instead:
+
             disconnect_button(self.button_main_ctrl_info)
             disconnect_button(self.button_main_ctrl_faq)
-
             disconnect_button(self.button_main_nav_home)
             disconnect_button(self.button_main_nav_description)
-            disconnect_button(self.button_main_nav_study)
+            disconnect_button(self.button_main_nav_recordings)
             disconnect_button(self.button_main_nav_training)
             disconnect_button(self.button_main_nav_settings)
 
         else:
             self.button_main_ctrl_info.clicked.connect(self.menu_info)
             self.button_main_ctrl_faq.clicked.connect(self.menu_faq)
-
             self.button_main_nav_home.clicked.connect(self.menu_home)
             self.button_main_nav_description.clicked.connect(self.menu_description)
-            self.button_main_nav_study.clicked.connect(self.menu_study)
+            self.button_main_nav_recordings.clicked.connect(self.menu_recordings)
             self.button_main_nav_training.clicked.connect(self.menu_training)
             self.button_main_nav_settings.clicked.connect(self.menu_settings)
+
+            # manage stylesheets
+            if current_menu == "info":
+                disconnect_button(self.button_main_ctrl_info)
+                self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=True))
+                self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
+                self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
+                self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
+                self.button_main_nav_recordings.setStyleSheet(GSS.button_main_nav_recordings(pressed=False))
+                self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
+                self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+            elif current_menu == "faq":
+                disconnect_button(self.button_main_ctrl_faq)
+                self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
+                self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=True))
+                self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
+                self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
+                self.button_main_nav_recordings.setStyleSheet(GSS.button_main_nav_recordings(pressed=False))
+                self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
+                self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+            elif current_menu == "home":
+                disconnect_button(self.button_main_nav_home)
+                self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
+                self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
+                self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=True))
+                self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
+                self.button_main_nav_recordings.setStyleSheet(GSS.button_main_nav_recordings(pressed=False))
+                self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
+                self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+            elif current_menu == "description":
+                disconnect_button(self.button_main_nav_description)
+                self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
+                self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
+                self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
+                self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=True))
+                self.button_main_nav_recordings.setStyleSheet(GSS.button_main_nav_recordings(pressed=False))
+                self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
+                self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+            elif current_menu == "recordings":
+                disconnect_button(self.button_main_nav_recordings)
+                self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
+                self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
+                self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
+                self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
+                self.button_main_nav_recordings.setStyleSheet(GSS.button_main_nav_recordings(pressed=True))
+                self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
+                self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+            elif current_menu == "training":
+                disconnect_button(self.button_main_nav_training)
+                self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
+                self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
+                self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
+                self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
+                self.button_main_nav_recordings.setStyleSheet(GSS.button_main_nav_recordings(pressed=False))
+                self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=True))
+                self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
+            elif current_menu == "settings":
+                disconnect_button(self.button_main_nav_settings)
+                self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
+                self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
+                self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
+                self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
+                self.button_main_nav_recordings.setStyleSheet(GSS.button_main_nav_recordings(pressed=False))
+                self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
+                self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=True))
 
     def disconnect_parameter_buttons(self, connect_instead=False, menu="", selected_button="Start"):
         if not connect_instead:
@@ -511,29 +540,48 @@ class MainWindow(QWidget):
                 self.button_param_asthenia.clicked.connect(lambda: self.menu_description_switch(to="A"))
                 self.button_param_strain.clicked.connect(lambda: self.menu_description_switch(to="S"))
 
-            elif menu == "study":
+                self.button_param_start.setEnabled(True)
+                self.button_param_instability.setEnabled(True)
+                self.button_param_fluency.setEnabled(True)
+                self.button_param_extension.setEnabled(True)
+                self.button_param_grade.setEnabled(True)
+                self.button_param_roughness.setEnabled(True)
+                self.button_param_breathyness.setEnabled(True)
+                self.button_param_asthenia.setEnabled(True)
+                self.button_param_strain.setEnabled(True)
+
+            elif menu == "recordings":
                 pass
 
             if selected_button.lower() == "start":
                 self.button_param_start.setStyleSheet(GSS.button_param_start(selected=True))
+                self.button_param_start.setEnabled(False)
             elif selected_button == "I":
                 self.button_param_instability.setStyleSheet(GSS.button_param_I(selected=True))
+                self.button_param_instability.setEnabled(False)
             elif selected_button == "F":
                 self.button_param_fluency.setStyleSheet(GSS.buttons_param_F_to_A(
                     part_of_scale_extension=True, selected=True))
+                self.button_param_fluency.setEnabled(False)
             elif selected_button.lower() == "ex":
                 self.button_param_extension.setStyleSheet(GSS.buttons_param_F_to_A(
                     part_of_scale_extension=True, selected=True))
+                self.button_param_extension.setEnabled(False)
             elif selected_button == "G":
                 self.button_param_grade.setStyleSheet(GSS.buttons_param_F_to_A(selected=True))
+                self.button_param_grade.setEnabled(False)
             elif selected_button == "R":
                 self.button_param_roughness.setStyleSheet(GSS.buttons_param_F_to_A(selected=True))
+                self.button_param_roughness.setEnabled(False)
             elif selected_button == "B":
                 self.button_param_breathyness.setStyleSheet(GSS.buttons_param_F_to_A(selected=True))
+                self.button_param_breathyness.setEnabled(False)
             elif selected_button == "A":
                 self.button_param_asthenia.setStyleSheet(GSS.buttons_param_F_to_A(selected=True))
+                self.button_param_asthenia.setEnabled(False)
             else:
                 self.button_param_strain.setStyleSheet(GSS.button_param_S(selected=True))
+                self.button_param_strain.setEnabled(False)
 
     # Menu Functionality - Submenus ------------------------------------------------------------------------------------
     def menu_home_switch_to_label_1(self, first_init=False):
@@ -692,6 +740,10 @@ class MainWindow(QWidget):
                     self.button_switch_right.setEnabled(True)
                     self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="I"))
 
+                    self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=False, waiting=False,
+                                                                                 dress_as_recording=True))
+                    self.button_switch_down.setEnabled(False)
+
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="start")
 
                 elif final_changes_for_submenu == "I":
@@ -705,6 +757,11 @@ class MainWindow(QWidget):
                     self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=True))
                     self.button_switch_right.setEnabled(True)
                     self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="F"))
+
+                    self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
+                                                                                 dress_as_recording=True))
+                    self.button_switch_down.setEnabled(True)
+                    # self.button_switch_down.clicked.connect(lambda: )
 
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="I")
 
@@ -720,6 +777,11 @@ class MainWindow(QWidget):
                     self.button_switch_right.setEnabled(True)
                     self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="ex"))
 
+                    self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
+                                                                                 dress_as_recording=True))
+                    self.button_switch_down.setEnabled(True)
+                    # self.button_switch_down.clicked.connect(lambda: )
+
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="F")
 
                 elif final_changes_for_submenu.lower() == "ex":
@@ -733,6 +795,10 @@ class MainWindow(QWidget):
                     self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=True))
                     self.button_switch_right.setEnabled(True)
                     self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="G"))
+
+                    self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=False, waiting=False,
+                                                                                 dress_as_recording=True))
+                    self.button_switch_down.setEnabled(False)
 
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="ex")
 
@@ -748,6 +814,11 @@ class MainWindow(QWidget):
                     self.button_switch_right.setEnabled(True)
                     self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="R"))
 
+                    self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
+                                                                                 dress_as_recording=True))
+                    self.button_switch_down.setEnabled(True)
+                    # self.button_switch_down.clicked.connect(lambda: )
+
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="G")
 
                 elif final_changes_for_submenu == "R":
@@ -761,6 +832,11 @@ class MainWindow(QWidget):
                     self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=True))
                     self.button_switch_right.setEnabled(True)
                     self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="B"))
+
+                    self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
+                                                                                 dress_as_recording=True))
+                    self.button_switch_down.setEnabled(True)
+                    # self.button_switch_down.clicked.connect(lambda: )
 
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="R")
 
@@ -776,6 +852,11 @@ class MainWindow(QWidget):
                     self.button_switch_right.setEnabled(True)
                     self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="A"))
 
+                    self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
+                                                                                 dress_as_recording=True))
+                    self.button_switch_down.setEnabled(True)
+                    # self.button_switch_down.clicked.connect(lambda: )
+
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="B")
 
                 elif final_changes_for_submenu == "A":
@@ -790,6 +871,11 @@ class MainWindow(QWidget):
                     self.button_switch_right.setEnabled(True)
                     self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="S"))
 
+                    self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
+                                                                                 dress_as_recording=True))
+                    self.button_switch_down.setEnabled(True)
+                    # self.button_switch_down.clicked.connect(lambda: )
+
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="A")
 
                 elif final_changes_for_submenu == "S":
@@ -802,6 +888,11 @@ class MainWindow(QWidget):
 
                     self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=False))
                     self.button_switch_right.setEnabled(False)
+
+                    self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
+                                                                                 dress_as_recording=True))
+                    self.button_switch_down.setEnabled(True)
+                    # self.button_switch_down.clicked.connect(lambda: )
 
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="S")
                 else:

@@ -1,3 +1,21 @@
+"""
+Copyright © MrNemesis98, GitHub, 2025
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+Software. The software is provided “as is”, without warranty of any kind, express or implied, including but not
+limited to the warranties of merchantability, fitness for a particular purpose and noninfringement.
+In no event shall the author(s) or copyright holder(s) be liable for any claim, damages or other liability, whether
+in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or
+other dealings in the software.
+
+By using GRBAS_Mate or one of its components you agree to all these conditions.
+"""
+
 """🧱
 1. solid bei border ----------------------------------------------------------------------------------------------------
 
@@ -171,7 +189,7 @@ def button_main_ctrl_exit():
 def button_main_nav_home(pressed):
     if pressed:
         sst = """QPushButton {
-                    background-color: rgba(107,109,113,255);
+                    background-color: #FFFFFF;
                     border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_home_1.png) 
                     0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
@@ -200,7 +218,7 @@ def button_main_nav_home(pressed):
 def button_main_nav_description(pressed):
     if pressed:
         sst = """QPushButton {
-                    background-color: rgba(107,109,113,255);
+                    background-color: #FFFFFF;
                     border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_description_1.png) 
                     0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
@@ -226,11 +244,11 @@ def button_main_nav_description(pressed):
     return sst
 
 
-def button_main_nav_study(pressed):
+def button_main_nav_recordings(pressed):
     if pressed:
         sst = """QPushButton {
-                    background-color: rgba(107,109,113,255);
-                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_study_1.png) 
+                    background-color: #FFFFFF;
+                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_recordings_1.png) 
                     0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;
@@ -241,7 +259,7 @@ def button_main_nav_study(pressed):
         sst = """
                 QPushButton {
                     background-color: rgba(25,30,36,255);
-                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_study_0.png) 
+                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_recordings_0.png) 
                     0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;
@@ -258,7 +276,7 @@ def button_main_nav_study(pressed):
 def button_main_nav_training(pressed):
     if pressed:
         sst = """QPushButton {
-                    background-color: rgba(107,109,113,255);
+                    background-color: #FFFFFF;
                     border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_training_1.png) 
                     0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
@@ -287,7 +305,7 @@ def button_main_nav_training(pressed):
 def button_main_nav_settings(pressed):
     if pressed:
         sst = """QPushButton {
-                    background-color: rgba(107,109,113,255);
+                    background-color: #FFFFFF;
                     border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_settings_2.png) 
                     0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
@@ -358,24 +376,43 @@ def button_switch_left(active, waiting=False):
     return sst
 
 
-def button_switch_down(active, waiting=False):
-    if waiting:
-        sst = """QPushButton {
-                            border-image: url(./src/gui/ico/miscellaneous/button_switch_down_3.png) 
-                            0 0 0 0 stretch stretch;
-                        }"""
-    elif not active:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/miscellaneous/button_switch_down_0.png) 0 0 0 0 stretch stretch;
-                }"""
+def button_switch_down(active, waiting=False, dress_as_recording=False):
+    if not dress_as_recording:
+        if waiting:
+            sst = """QPushButton {
+                                border-image: url(./src/gui/ico/miscellaneous/button_switch_down_3.png) 
+                                0 0 0 0 stretch stretch;
+                            }"""
+        elif not active:
+            sst = """QPushButton {
+                        border-image: url(./src/gui/ico/miscellaneous/button_switch_down_0.png) 0 0 0 0 stretch stretch;
+                    }"""
+        else:
+            sst = """QPushButton {
+                        border-image: url(./src/gui/ico/miscellaneous/button_switch_down_1.png) 0 0 0 0 stretch stretch;
+                    }
+                    QPushButton:hover {
+                        border-image: url(./src/gui/ico/miscellaneous/button_switch_down_2.png) 0 0 0 0 stretch stretch;
+                    }
+                """
     else:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/miscellaneous/button_switch_down_1.png) 0 0 0 0 stretch stretch;
-                }
-                QPushButton:hover {
-                    border-image: url(./src/gui/ico/miscellaneous/button_switch_down_2.png) 0 0 0 0 stretch stretch;
-                }
-            """
+        if not active:
+            sst = """QPushButton {
+                    background-color: #191E24;
+                    border-radius: 35px;
+                    border-image: url(./src/gui/ico/miscellaneous/button_recordings_0.png) -5 -5 -5 -5 stretch stretch;
+                    }"""
+        else:
+            sst = """QPushButton {
+                    background-color: #191E24;
+                    border-radius: 35px;
+                    border-image: url(./src/gui/ico/miscellaneous/button_recordings_1.png) -5 -5 -5 -5 stretch stretch;
+                    }
+                    QPushButton:hover {
+                    background-color: #191E24;
+                    border-radius: 35px;
+                    border-image: url(./src/gui/ico/miscellaneous/button_recordings_2.png) -5 -5 -5 -5 stretch stretch;
+                    }"""
     return sst
 
 
