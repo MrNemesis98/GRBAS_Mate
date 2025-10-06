@@ -56,9 +56,16 @@ def label_menu_title(menu):
         return "Unkown Value!"
 
 
-def label_text_1(menu, var_1=0, current_software_version=""):
+def label_text_1(menu, var_1=0):
     if menu.lower() == "info":
-        return "Currently installed version: \t" + current_software_version
+        text = """
+            <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                This first version provides detailed descriptions for every parameter belonging to the commonly used 
+                GRBAS scale, including its extension to IF-GRBAS. Furthermore open access sample recordings are provided
+                for every parameter with a choice of different severity levels.
+            </p>
+            """
+        return text
 
     elif menu.lower() == "copyright":
         return "Copyright"
@@ -118,7 +125,8 @@ def label_text_1(menu, var_1=0, current_software_version=""):
         elif var_1 == 3:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    The <span style="font-weight:bold;color:#7030A0;">Fluency</span> of a voice is comparable to the flow of speech.
+                    The <span style="font-weight:bold;color:#7030A0;">Fluency</span> of a voice is comparable to the 
+                    flow of speech.
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     It refers to how smooth and fluid the voice sounds when speaking.
@@ -134,9 +142,9 @@ def label_text_1(menu, var_1=0, current_software_version=""):
         elif var_1 == 4:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    The <span style="font-weight:bold;color:#7030A0;">Extension</span> of the the GRBAS scale was made to 
-                    capture dysphonic voice features in a more nuanced 
-                    way, improving the scale's sensitivity in addressing certain symptoms.
+                    The <span style="font-weight:bold;color:#7030A0;">Extension</span> of the the GRBAS scale was made 
+                    to capture dysphonic voice features in a more nuanced way, improving the scale's sensitivity in 
+                    addressing certain symptoms.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     The scale is often extended to include parameters that better address the characteristics of 
@@ -155,7 +163,7 @@ def label_text_1(menu, var_1=0, current_software_version=""):
                     The <span style="font-weight:bold;color:#0B839C;">Grade</span> of hoarseness in the voice.   
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Hoarseness is composed of various characteristics, including roughness, breathiness, and strain.
+                    Hoarseness is composed of various characteristics, including roughness, breathyness, and strain.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     Hoarseness can be described as the overall impression of the voice depending on these 
@@ -193,8 +201,8 @@ def label_text_1(menu, var_1=0, current_software_version=""):
                     Weakness of the voice.  
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    <span style="font-weight:bold;color:#0B839C;">\nAsthenia</span> describes the extent to which the voice 
-                    appears weak or quiet.
+                    <span style="font-weight:bold;color:#0B839C;">\nAsthenia</span> describes the extent to which the 
+                    voice appears weak or quiet.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     This characteristic is the result of reduced tension in the vocal cords.
@@ -206,8 +214,8 @@ def label_text_1(menu, var_1=0, current_software_version=""):
                     A tense impression of the voice.  
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    <span style="font-weight:bold;color:#0B839C;">\nStrain</span> describes the degree of hyperfunction or 
-                    overexertion of the laryngeal muscles, 
+                    <span style="font-weight:bold;color:#0B839C;">\nStrain</span> describes the degree of hyperfunction 
+                    or overexertion of the laryngeal muscles, 
                     which affects the vocal cords and is therefore audible in the voice.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
@@ -226,7 +234,25 @@ def label_text_1(menu, var_1=0, current_software_version=""):
         return "Study Mode"
 
     elif menu.lower() == "training":
-        return "Training Mode"
+        text = """
+                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                The training mode is currently under development.
+                </p>
+                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                Within this mode you will be able to test your skills and knowledge by evaluating recordings of 
+                dypshonic voices. Given a set of audio material you will have to assign the correct parameter and 
+                severity level. 
+                </p>
+                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                This mode is based on the idea of the category test from the online experiment of the study 
+                <a href="https://osf.io/dxc2e/?view_only=7e25f2b0991a4322997dd4ce99858262"
+                 style="text-decoration:none; color:#1a73e8;">
+                 Voice Quality and Dysphonia (OSF project - view-only)
+                </a>
+                .
+                </p>
+                """
+        return text
 
     elif menu.lower() == "settings":
         return "Settings"
@@ -239,12 +265,9 @@ def label_text_2(menu):
     if menu.lower() == "info":
         text = """
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    This first version provides descriptions and sample recordings of all parameters according to the 
-                    commonly used GRBAS scale including its extension to IF-GRBAS.
-                </p>
-                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     This software as well as its open access material shall serve as a contribution to the research 
-                    field of clinical phonetics.
+                    field of clinical phonetics and as a tool in practical context of home assessment or even 
+                    ENT diagnostics.
                 </p>
                 """
         return text
@@ -293,8 +316,10 @@ def label_text_3(menu):
     if menu.lower() == "info":
         text = """
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                  GRBAS_Mate was published under MIT License. 
-                  By using the software or one of its components you agree to the copyright statement.
+                    The app is still under development and will be be equipped with more sample 
+                    recordings and a training mode to challenge the user´s ability to recognize the seven IF-GRBAS
+                    parameters in dysphonic voice recordings. Later on there is a mode for automatic voice diagnosis 
+                    planned, too.
                 </p>
                 """
         return text
@@ -340,10 +365,10 @@ def label_text_3(menu):
         return "Unkown Value!"
 
 
-def label_text_4(menu, var_1=0):
+def label_text_4(menu, var_1=0, current_software_version=""):
 
     if menu.lower() == "info":
-        return "Version Information"
+        return "Currently installed version: \t" + current_software_version
 
     elif menu.lower() == "copyright":
         return "Copyright"
@@ -390,7 +415,7 @@ def label_text_4(menu, var_1=0):
         return "Parameter Recordings"
 
     elif menu.lower() == "training":
-        return "Training Mode"
+        return "Coming Soon:"
 
     elif menu.lower() == "settings":
         return "Settings"
@@ -401,7 +426,69 @@ def label_text_4(menu, var_1=0):
 
 def label_text_5(menu):
     if menu.lower() == "info":
-        return "Info"
+        return "Version Information"
+
+    elif menu.lower() == "copyright":
+        text = """
+                <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
+                  Copyright © MrNemesis98, GitHub, 2025
+                </p>
+                <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
+                This software was published under MIT License, declared as follows:
+                  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
+                  associated documentation files, to deal in the software without restriction, including without
+                  limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+                  of the software, and to permit persons to whom the software is furnished to do so, subject to the 
+                  following conditions:
+                </p>
+                <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
+                  The above copyright notice and this permission notice shall be included in all copies or substantial 
+                  portions of the software. The program is provided “as is”, without warranty of any kind, express or 
+                  implied, including but not limited to the warranties of merchantability, fitness for a particular 
+                  purpose and noninfringement. In no event shall the author(s) or copyright holder(s) be liable for any 
+                  claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, 
+                  out of or in connection with the software or the use or other dealings in the software.
+                </p>
+                <p style="text-align: justify; line-height: 1.5; font-family: Arial; color: #DB8004;">
+                  By using GRBAS_Mate or one of its components you agree to all these conditions. 
+                </p>
+                <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
+                Hint: Feel free to have a look at the copyright options in the settings menu!
+                </p>
+                """
+        return text
+
+    elif menu.lower() == "faq":
+        return "User Guide"
+
+    elif menu.lower() == "home":
+        text = """
+                <p style="text-align: justify; line-height: 1.2; font-family: Arial; color: #DB8004;">
+                    Note: Before using this software please have a look at the copyright statement (second top right 
+                    menu).
+                </p>
+                """
+        return text
+
+    elif menu.lower() == "description":
+        return "Parameter Descriptions"
+
+    elif menu.lower() == "recordings":
+        return "Parameter Recordings"
+
+    elif menu.lower() == "training":
+        return "Training Mode"
+
+    elif menu.lower() == "settings":
+        return "Settings"
+
+    else:
+        return "Unkown Value!"
+
+
+def label_text_6(menu):
+    if menu.lower() == "info":
+        return "Future Outlook:"
 
     elif menu.lower() == "copyright":
         return "Copyright"
@@ -410,12 +497,7 @@ def label_text_5(menu):
         return "User Guide"
 
     elif menu.lower() == "home":
-        text = """
-                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                  Note: Before using this software please have a look at the copyright statement (second top right menu).
-                </p>
-                """
-        return text
+        return "Home"
 
     elif menu.lower() == "description":
         return "Parameter Descriptions"

@@ -64,22 +64,39 @@ def label_main_background():
     return sst
 
 
-def label_main_headline_background():
-    sst = """
-    QLabel {
-        color: rgba(244,244,246,255);
-        font-size: 20px;
-        font-weight: bold;
-        background: qlineargradient(
-            spread:pad, x1:1, y1:0, x2:1, y2:1,
-            stop:0 rgba(10,37,54,255),  
-            stop:1 rgba(25,30,36,255)
-            );
-        border-bottom: 2px solid rgb(64,72,82);
-        border-top-left-radius: 80px;
-        padding: 8px;
-    }
-    """
+def label_main_headline_background(highlight=False):
+    if highlight:
+        sst = """
+            QLabel {
+                color: rgba(244,244,246,255);
+                font-size: 20px;
+                font-weight: bold;
+                background: qlineargradient(
+                    spread:pad, x1:1, y1:0, x2:1, y2:1,
+                    stop:0 rgba(10,37,54,255),  
+                    stop:1 rgba(25,30,36,255)
+                    );
+                border-bottom: 2px solid rgb(64,72,82);
+                border-top-left-radius: 80px;
+                padding: 8px;
+            }
+            """
+    else:
+        sst = """
+        QLabel {
+            color: rgba(124,124,126,255);
+            font-size: 20px;
+            font-weight: bold;
+            background: qlineargradient(
+                spread:pad, x1:1, y1:0, x2:1, y2:1,
+                stop:0 rgba(10,37,54,255),  
+                stop:1 rgba(25,30,36,255)
+                );
+            border-bottom: 2px solid rgb(64,72,82);
+            border-top-left-radius: 80px;
+            padding: 8px;
+        }
+        """
     return sst
 
 

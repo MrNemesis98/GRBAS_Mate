@@ -82,11 +82,13 @@ class MainWindow(QWidget):
             else self.label_main_headline_background.setText(GTM.label_main_headline_background(with_copyright=False))
         self.label_main_headline_background.setFont(QFont('Noto Sans IPA', 28, QFont.Bold))
         self.label_main_headline_background.setGeometry(0, 0, 1380, 80)
-        self.label_main_headline_background.setStyleSheet(GSS.label_main_headline_background())
+        self.label_main_headline_background.setStyleSheet(GSS.label_main_headline_background(highlight=True))
         self.label_main_headline_background.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         self.label_main_headline_background.mousePressEvent = self.headline_mouse_press
         self.label_main_headline_background.mouseMoveEvent = self.headline_mouse_move
         self.label_main_headline_background.mouseReleaseEvent = self.headline_mouse_release
+        QTimer.singleShot(4000, lambda: self.label_main_headline_background.setStyleSheet(
+            GSS.label_main_headline_background(highlight=False)))
 
         self.label_main_nav_bar_background = QLabel(self)
         self.label_main_nav_bar_background.setGeometry(0, 80, 80, 720)
@@ -180,6 +182,7 @@ class MainWindow(QWidget):
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
         self.label_menu_title.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
 
+        # for normal text
         self.label_text_1 = QLabel(self)
         self.label_text_1.setStyleSheet(GSS.label_text())
         self.label_text_1.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
@@ -188,6 +191,7 @@ class MainWindow(QWidget):
         self.label_text_1.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
         self.label_text_1.setOpenExternalLinks(True)
 
+        # for normal text
         self.label_text_2 = QLabel(self)
         self.label_text_2.setStyleSheet(GSS.label_text())
         self.label_text_2.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
@@ -196,6 +200,7 @@ class MainWindow(QWidget):
         self.label_text_2.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
         self.label_text_2.setOpenExternalLinks(True)
 
+        # for normal text
         self.label_text_3 = QLabel(self)
         self.label_text_3.setStyleSheet(GSS.label_text())
         self.label_text_3.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
@@ -204,6 +209,7 @@ class MainWindow(QWidget):
         self.label_text_3.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
         self.label_text_3.setOpenExternalLinks(True)
 
+        # for headlines
         self.label_text_4 = QLabel(self)
         self.label_text_4.setStyleSheet(GSS.label_text())
         self.label_text_4.setAlignment(Qt.AlignVCenter | Qt.AlignCenter)
@@ -212,13 +218,23 @@ class MainWindow(QWidget):
         self.label_text_4.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
         self.label_text_4.setTextFormat(Qt.RichText)
 
+        # for normal text
         self.label_text_5 = QLabel(self)
         self.label_text_5.setStyleSheet(GSS.label_text())
-        self.label_text_5.setAlignment(Qt.AlignVCenter | Qt.AlignCenter)
+        self.label_text_5.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         self.label_text_5.setWordWrap(True)
         self.label_text_5.setTextFormat(Qt.RichText)
         self.label_text_5.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
         self.label_text_5.setTextFormat(Qt.RichText)
+
+        # for headlines
+        self.label_text_6 = QLabel(self)
+        self.label_text_6.setStyleSheet(GSS.label_text())
+        self.label_text_6.setAlignment(Qt.AlignVCenter | Qt.AlignCenter)
+        self.label_text_6.setWordWrap(True)
+        self.label_text_6.setTextFormat(Qt.RichText)
+        self.label_text_6.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
+        self.label_text_6.setTextFormat(Qt.RichText)
 
         # Buttons (menu internal)
         self.button_switch_right = QPushButton(self)
@@ -254,6 +270,7 @@ class MainWindow(QWidget):
         self.label_text_3.hide()
         self.label_text_4.hide()
         self.label_text_5.hide()
+        self.label_text_6.hide()
 
         self.button_switch_right.hide()
         self.button_switch_left.hide()
@@ -282,18 +299,51 @@ class MainWindow(QWidget):
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=True))
         self.label_menu_title.show()
 
-        self.label_text_1.setGeometry(130, 200, 1000, 70)
-        self.label_text_1.setStyleSheet(GSS.label_text(dark_background=True))
-        self.label_text_1.setText(GTM.label_text_1(menu="info", current_software_version=self.software_version))
-        self.label_text_1.show()
+        self.label_text_4.setGeometry(450, 200, 400, 70)
+        self.label_text_4.setStyleSheet(GSS.label_text(dark_background=True))
+        self.label_text_4.setText(GTM.label_text_4(menu="info", current_software_version=self.software_version))
 
-        self.label_text_2.setGeometry(130, 300, 1000, 190)
+        self.label_text_6.setGeometry(525, 550, 250, 70)
+        self.label_text_6.setStyleSheet(GSS.label_text())
+        self.label_text_6.setText(GTM.label_text_6(menu="info"))
+
+        self.label_text_1.setGeometry(130, 300, 1100, 100)
+        self.label_text_1.setText(GTM.label_text_1(menu="info"))
+        self.label_text_1.setStyleSheet(GSS.label_text(no_background=True))
+
+        self.label_text_2.setGeometry(130, 400, 1100, 100)
         self.label_text_2.setText(GTM.label_text_2(menu="info"))
-        self.label_text_2.show()
+        self.label_text_2.setStyleSheet(GSS.label_text(no_background=True))
 
-        self.label_text_3.setGeometry(130, 520, 1000, 200)
+        self.label_text_3.setGeometry(130, 650, 1100, 100)
         self.label_text_3.setText(GTM.label_text_3(menu="info"))
+        self.label_text_3.setStyleSheet(GSS.label_text(no_background=True))
+
+        QTimer.singleShot(0, lambda: self.animation_label_fade(
+            in_or_out="out", label_object=self.label_text_1, duration=0))
+        QTimer.singleShot(0, lambda: self.animation_label_fade(
+            in_or_out="out", label_object=self.label_text_2, duration=0))
+        QTimer.singleShot(0, lambda: self.animation_label_fade(
+            in_or_out="out", label_object=self.label_text_3, duration=0))
+        QTimer.singleShot(0, lambda: self.animation_label_fade(
+            in_or_out="out", label_object=self.label_text_4, duration=0))
+        QTimer.singleShot(0, lambda: self.animation_label_fade(
+            in_or_out="out", label_object=self.label_text_6, duration=0))
+        self.label_text_4.show()
+        self.label_text_6.show()
+        self.label_text_1.show()
+        self.label_text_2.show()
         self.label_text_3.show()
+        QTimer.singleShot(500, lambda: self.animation_label_fade(
+            in_or_out="in", label_object=self.label_text_4, duration=1000))
+        QTimer.singleShot(500, lambda: self.animation_label_fade(
+            in_or_out="in", label_object=self.label_text_6, duration=1000))
+        QTimer.singleShot(1000, lambda: self.animation_label_fade(
+            in_or_out="in", label_object=self.label_text_1, duration=2000))
+        QTimer.singleShot(1200, lambda: self.animation_label_fade(
+            in_or_out="in", label_object=self.label_text_2, duration=2000))
+        QTimer.singleShot(1400, lambda: self.animation_label_fade(
+            in_or_out="in", label_object=self.label_text_3, duration=2000))
 
     def menu_copyright(self):
         print("Copyright")
@@ -302,9 +352,18 @@ class MainWindow(QWidget):
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="copyright")
         self.reset_text_label_stylesheets()
 
-        self.label_menu_title.setText(GTM.label_menu_title(menu="faq"))
+        self.label_menu_title.setText(GTM.label_menu_title(menu="copyright"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=True))
         self.label_menu_title.show()
+
+        self.label_text_5.setGeometry(130, 200, 1200, 590)
+        self.label_text_5.setStyleSheet(GSS.label_text(no_background=True))
+        self.label_text_5.setText(GTM.label_text_5(menu="copyright"))
+        QTimer.singleShot(0, lambda: self.animation_label_fade(
+            in_or_out="out", label_object=self.label_text_5, duration=0))
+        self.label_text_5.show()
+        QTimer.singleShot(500, lambda: self.animation_label_fade(
+            in_or_out="in", label_object=self.label_text_5, duration=1000))
 
     def menu_faq(self):
         print("FAQ")
@@ -423,6 +482,25 @@ class MainWindow(QWidget):
         self.label_menu_title.setText(GTM.label_menu_title(menu="training"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
         self.label_menu_title.show()
+
+        self.label_text_4.setGeometry(550, 200, 200, 70)
+        self.label_text_4.setStyleSheet(GSS.label_text(dark_background=True))
+        self.label_text_4.setText(GTM.label_text_4(menu="training"))
+
+        self.label_text_1.setGeometry(130, 300, 1100, 300)
+        self.label_text_1.setText(GTM.label_text_1(menu="training"))
+        self.label_text_1.setStyleSheet(GSS.label_text(no_background=False))
+
+        QTimer.singleShot(0, lambda: self.animation_label_fade(
+            in_or_out="out", label_object=self.label_text_4, duration=0))
+        QTimer.singleShot(0, lambda: self.animation_label_fade(
+            in_or_out="out", label_object=self.label_text_1, duration=0))
+        self.label_text_4.show()
+        self.label_text_1.show()
+        QTimer.singleShot(500, lambda: self.animation_label_fade(
+            in_or_out="in", label_object=self.label_text_4, duration=1000))
+        QTimer.singleShot(1000, lambda: self.animation_label_fade(
+            in_or_out="in", label_object=self.label_text_1, duration=1000))
 
     def menu_settings(self):
         print("Settings")
