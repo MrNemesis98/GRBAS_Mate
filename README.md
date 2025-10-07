@@ -20,7 +20,7 @@ This software contains modified audio material from the Perceptual Voice Quality
 https://data.mendeley.com/datasets/9dz247gnyb/1.
 
 
-CC BY 4.0 licence description
+CC BY 4.0 licence description: 
 The files associated with this dataset are licensed under a Creative Commons Attribution 4.0 International licence.
 What does this mean?
 

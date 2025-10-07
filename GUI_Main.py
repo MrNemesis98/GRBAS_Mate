@@ -1094,3 +1094,7 @@ app = QApplication(sys.argv)
 gui = MainWindow()
 gui.show()
 sys.exit(app.exec_())
+
+
+# Copyright and Version Info in one menu -> horizontal navigation just like in the other menus
+# new icon for training mode
