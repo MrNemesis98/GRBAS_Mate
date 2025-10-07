@@ -5,11 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e8a1b1a-7cc2-4927-8424-4d3eb0f31b62" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI_Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI_Sound_Manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Sound_Manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI_Style_Sheets.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Style_Sheets.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI_Text_Manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Text_Manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rec/param/A/Copyright.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/rec/param/A/Copyright.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rec/param/B/Copyright.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/rec/param/B/Copyright.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rec/param/G/Copyright.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/rec/param/G/Copyright.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rec/param/R/Copyright.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/rec/param/R/Copyright.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rec/param/S/Copyright.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/rec/param/S/Copyright.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,8 +94,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
-        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.200" />
+        <option value="bundled-python-sdk-86178adc3299-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.200" />
       </set>
     </attachedChunks>
   </component>
@@ -118,6 +124,7 @@
       <workItem from="1759061969883" duration="10850000" />
       <workItem from="1759505533131" duration="2335000" />
       <workItem from="1759662270798" duration="11563000" />
+      <workItem from="1759836105725" duration="849000" />
     </task>
     <servers />
   </component>
