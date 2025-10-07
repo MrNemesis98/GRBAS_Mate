@@ -40,6 +40,6 @@ As soon as the first version is finalized there will be an official release vers
 
 For downloading the app please follow this link to the OSF Project: https://doi.org/10.17605/OSF.IO/PTQG4.
 Under Files/Github you can download single Pythonfiles or source material.
-Please pay attention to the MIT License terms.
+Please pay attention to the MIT and CCBY 4.0 License terms.
 
 
