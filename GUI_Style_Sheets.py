@@ -251,7 +251,7 @@ def button_main_ctrl_exit():
 
 
 # Main Navigation Bar (5 Buttons) --------------------------------------------------------------------------------------
-# [Home, Description, Study, Training, Settings]
+# [Home, Description, Recordings, Training, Settings]
 def button_main_nav_home(pressed):
     if pressed:
         sst = """QPushButton {
@@ -343,7 +343,7 @@ def button_main_nav_training(pressed):
     if pressed:
         sst = """QPushButton {
                     background-color: #FFFFFF;
-                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_training_1.png) 
+                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_study_1.png) 
                     0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;
@@ -354,7 +354,7 @@ def button_main_nav_training(pressed):
         sst = """
                 QPushButton {
                     background-color: rgba(25,30,36,255);
-                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_training_0.png) 
+                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_study_0.png) 
                     0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;

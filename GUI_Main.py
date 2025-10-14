@@ -43,8 +43,12 @@ from PyQt5.QtGui import QColor
 
 # icons for buttons: https://icons8.de/icons/set/free-icons--style-glyph-neue
 
+import savedata_manager as SDM
 import GUI_Style_Sheets as GSS
-import GUI_Text_Manager as GTM
+if SDM.get_current_language() == "en":
+    import GUI_Text_Manager_EN as GTM
+else:
+    import GUI_Text_Manager_EN as GTM
 import GUI_Sound_Manager as GSM
 
 
@@ -1096,5 +1100,4 @@ gui.show()
 sys.exit(app.exec_())
 
 
-# Copyright and Version Info in one menu -> horizontal navigation just like in the other menus
-# new icon for training mode
+# Copyright and Version Info in one menu -> keep horizontal navigation just like in the other menus
