@@ -261,6 +261,11 @@ class MainWindow(QWidget):
         self.button_switch_down = QPushButton(self)
         self.button_switch_up = QPushButton(self)
 
+        # Additional buttons for menu functions assistance (menu internal)
+        self.button_assistance_1 = QPushButton(self)
+        self.button_assistance_2 = QPushButton(self)
+        self.button_assistance_3 = QPushButton(self)
+
         # Animations ---------------------------------------------------------------------------------------------------
         self._anim_label_fade = None
         self._anim_label_slide = None
@@ -296,6 +301,10 @@ class MainWindow(QWidget):
         self.button_switch_down.hide()
         self.button_switch_up.hide()
 
+        self.button_assistance_1.hide()
+        self.button_assistance_2.hide()
+        self.button_assistance_3.hide()
+
         self.button_param_start.hide()
         self.button_param_instability.hide()
         self.button_param_fluency.hide()
@@ -318,26 +327,26 @@ class MainWindow(QWidget):
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=True))
         self.label_menu_title.show()
 
-        self.label_text_4.setGeometry(450, 200, 400, 70)
-        self.label_text_4.setStyleSheet(GSS.label_text(dark_background=True))
-        self.label_text_4.setText(GTM.label_text_4(menu="info", current_software_version=self.software_version))
+        self.button_assistance_1.setGeometry(250, 200, 300, 70)
+        self.button_assistance_1.setStyleSheet(GSS.button_assistance_1(selected=True))
+        self.button_assistance_1.setText(GTM.button_assistance_1(menu="info"))
+        self.button_assistance_1.show()
 
-        self.label_text_6.setGeometry(525, 550, 250, 70)
-        self.label_text_6.setStyleSheet(GSS.label_text())
-        self.label_text_6.setText(GTM.label_text_6(menu="info"))
+        self.button_assistance_2.setGeometry(550, 200, 300, 70)
+        self.button_assistance_2.setStyleSheet(GSS.button_assistance_2(selected=False))
+        self.button_assistance_2.setText(GTM.button_assistance_2(menu="info"))
+        self.button_assistance_2.show()
 
-        self.label_text_1.setGeometry(130, 300, 1100, 100)
-        self.label_text_1.setText(GTM.label_text_1(menu="info"))
+        self.button_assistance_3.setGeometry(850, 200, 300, 70)
+        self.button_assistance_3.setStyleSheet(GSS.button_assistance_3(selected=False))
+        self.button_assistance_3.setText(GTM.button_assistance_3(menu="info"))
+        self.button_assistance_3.show()
+
+        self.label_text_1.setGeometry(130, 330, 1100, 380)
+        self.label_text_1.setText(GTM.label_text_1(menu="info", var_1=1, software_version=self.software_version))
         self.label_text_1.setStyleSheet(GSS.label_text(no_background=True))
 
-        self.label_text_2.setGeometry(130, 400, 1100, 100)
-        self.label_text_2.setText(GTM.label_text_2(menu="info"))
-        self.label_text_2.setStyleSheet(GSS.label_text(no_background=True))
-
-        self.label_text_3.setGeometry(130, 650, 1100, 100)
-        self.label_text_3.setText(GTM.label_text_3(menu="info"))
-        self.label_text_3.setStyleSheet(GSS.label_text(no_background=True))
-
+        """
         QTimer.singleShot(0, lambda: self.animation_label_fade(
             in_or_out="out", label_object=self.label_text_1, duration=0))
         QTimer.singleShot(0, lambda: self.animation_label_fade(
@@ -348,11 +357,9 @@ class MainWindow(QWidget):
             in_or_out="out", label_object=self.label_text_4, duration=0))
         QTimer.singleShot(0, lambda: self.animation_label_fade(
             in_or_out="out", label_object=self.label_text_6, duration=0))
-        self.label_text_4.show()
-        self.label_text_6.show()
+            """
         self.label_text_1.show()
-        self.label_text_2.show()
-        self.label_text_3.show()
+        """
         QTimer.singleShot(500, lambda: self.animation_label_fade(
             in_or_out="in", label_object=self.label_text_4, duration=1000))
         QTimer.singleShot(500, lambda: self.animation_label_fade(
@@ -363,6 +370,7 @@ class MainWindow(QWidget):
             in_or_out="in", label_object=self.label_text_2, duration=2000))
         QTimer.singleShot(1400, lambda: self.animation_label_fade(
             in_or_out="in", label_object=self.label_text_3, duration=2000))
+            """
 
     def menu_copyright(self):
         print("Copyright")
@@ -438,7 +446,7 @@ class MainWindow(QWidget):
         self.button_switch_left.setGeometry(385, 600, 70, 70)
         self.button_switch_left.show()
 
-        self.menu_home_switch_to_label_1(first_init=True)
+        self.submenu_home_1(first_call=True)
 
     def menu_description(self):
         print("Description")
@@ -478,7 +486,7 @@ class MainWindow(QWidget):
         self.button_switch_up.setGeometry(1000, 700, 70, 70)
         self.button_switch_up.hide()
 
-        self.menu_description_switch(to="start", first_call=True)
+        self.submenus_description(to="start", first_call=True)
 
     def menu_recordings(self):
         print("Recordings")
@@ -745,15 +753,15 @@ class MainWindow(QWidget):
 
         else:
             if menu == "description":
-                self.button_param_start.clicked.connect(lambda: self.menu_description_switch(to="start"))
-                self.button_param_instability.clicked.connect(lambda: self.menu_description_switch(to="I"))
-                self.button_param_fluency.clicked.connect(lambda: self.menu_description_switch(to="F"))
-                self.button_param_extension.clicked.connect(lambda: self.menu_description_switch(to="ex"))
-                self.button_param_grade.clicked.connect(lambda: self.menu_description_switch(to="G"))
-                self.button_param_roughness.clicked.connect(lambda: self.menu_description_switch(to="R"))
-                self.button_param_breathyness.clicked.connect(lambda: self.menu_description_switch(to="B"))
-                self.button_param_asthenia.clicked.connect(lambda: self.menu_description_switch(to="A"))
-                self.button_param_strain.clicked.connect(lambda: self.menu_description_switch(to="S"))
+                self.button_param_start.clicked.connect(lambda: self.submenus_description(to="start"))
+                self.button_param_instability.clicked.connect(lambda: self.submenus_description(to="I"))
+                self.button_param_fluency.clicked.connect(lambda: self.submenus_description(to="F"))
+                self.button_param_extension.clicked.connect(lambda: self.submenus_description(to="ex"))
+                self.button_param_grade.clicked.connect(lambda: self.submenus_description(to="G"))
+                self.button_param_roughness.clicked.connect(lambda: self.submenus_description(to="R"))
+                self.button_param_breathyness.clicked.connect(lambda: self.submenus_description(to="B"))
+                self.button_param_asthenia.clicked.connect(lambda: self.submenus_description(to="A"))
+                self.button_param_strain.clicked.connect(lambda: self.submenus_description(to="S"))
 
                 self.button_param_start.setEnabled(True)
                 self.button_param_instability.setEnabled(True)
@@ -805,7 +813,7 @@ class MainWindow(QWidget):
         self.label_text_4.setStyleSheet(GSS.label_text())
 
     # Menu Functionality - Submenus ------------------------------------------------------------------------------------
-    def menu_home_switch_to_label_1(self, first_init=False):
+    def submenu_home_1(self, first_call=False):
 
         if not self.system_status.startswith("menu_home"):
             pass
@@ -817,7 +825,7 @@ class MainWindow(QWidget):
             disconnect_button(self.button_switch_left)
 
             # Animations:
-            if not first_init:
+            if not first_call:
                 QTimer.singleShot(0, lambda: self.animation_label_slide(
                     in_or_out="out", label_object=self.label_text_2))
                 QTimer.singleShot(500, lambda: self.animation_label_fade(
@@ -840,16 +848,16 @@ class MainWindow(QWidget):
 
                 self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=True))
                 self.button_switch_right.setEnabled(True)
-                self.button_switch_right.clicked.connect(self.menu_home_switch_to_label_2, Qt.UniqueConnection)
+                self.button_switch_right.clicked.connect(self.submenu_home_2, Qt.UniqueConnection)
 
                 self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=False))
                 self.button_switch_left.setEnabled(False)
 
                 self.disconnect_main_menu_buttons(connect_instead=True, current_menu="home")
 
-            QTimer.singleShot(1300, execute_consequences) if not first_init else execute_consequences()
+            QTimer.singleShot(1300, execute_consequences) if not first_call else execute_consequences()
 
-    def menu_home_switch_to_label_2(self):
+    def submenu_home_2(self):
 
         if not self.system_status.startswith("menu_home"):
             pass
@@ -879,17 +887,17 @@ class MainWindow(QWidget):
 
                 self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=True))
                 self.button_switch_right.setEnabled(True)
-                self.button_switch_right.clicked.connect(self.menu_home_switch_to_label_3, Qt.UniqueConnection)
+                self.button_switch_right.clicked.connect(self.submenu_home_3, Qt.UniqueConnection)
 
                 self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
                 self.button_switch_left.setEnabled(True)
-                self.button_switch_left.clicked.connect(self.menu_home_switch_to_label_1, Qt.UniqueConnection)
+                self.button_switch_left.clicked.connect(self.submenu_home_1, Qt.UniqueConnection)
 
                 self.disconnect_main_menu_buttons(connect_instead=True, current_menu="home")
 
             QTimer.singleShot(1300, execute_consequences)
 
-    def menu_home_switch_to_label_3(self):
+    def submenu_home_3(self):
         if not self.system_status.startswith("menu_home"):
             pass
         else:
@@ -915,13 +923,13 @@ class MainWindow(QWidget):
 
                 self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
                 self.button_switch_left.setEnabled(True)
-                self.button_switch_left.clicked.connect(self.menu_home_switch_to_label_2, Qt.UniqueConnection)
+                self.button_switch_left.clicked.connect(self.submenu_home_2, Qt.UniqueConnection)
 
                 self.disconnect_main_menu_buttons(connect_instead=True, current_menu="home")
 
             QTimer.singleShot(1300, execute_consequences)
 
-    def menu_description_switch(self, to, first_call=False):
+    def submenus_description(self, to, first_call=False):
 
         if not self.system_status.startswith("menu_description"):
             pass

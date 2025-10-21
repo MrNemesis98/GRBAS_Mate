@@ -513,6 +513,117 @@ def button_switch_up(active, waiting=False):
     return sst
 
 
+def button_assistance_1(selected):
+    if selected:
+        sst = f"""QPushButton {{
+                            background-color: #191E24;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            font-size: 25px;
+                            font-weight: bold;
+                            color: #0B839C;
+                            border: 0px;
+                            border-bottom-left-radius: 35px;
+                            border-top-left-radius: 35px;
+                            }}"""
+    else:
+        sst = f"""QPushButton{{
+                            background-color: #191E24;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            font-size: 25px;
+                            font-weight: bold;
+                            color: #FFFFFF;
+                            border: 0px;
+                            border-bottom-left-radius: 35px;
+                            border-top-left-radius: 35px;
+                            }}
+                    QPushButton:hover {{
+                    background-color: #191E24;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    font-size: 25px;
+                    font-weight: bold;
+                    color: #0B839C;
+                    border: 0px;
+                    border-bottom-left-radius: 35px;
+                    border-top-left-radius: 35px;
+                    }}"""
+    return sst
+
+
+def button_assistance_2(selected):
+    if selected:
+        sst = f"""QPushButton {{
+                            background-color: #191E24;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            font-size: 25px;
+                            font-weight: bold;
+                            color: #0B839C;
+                            border: 0px;
+                            }}"""
+    else:
+        sst = f"""QPushButton{{
+                            background-color: #191E24;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            font-size: 25px;
+                            font-weight: bold;
+                            color: #FFFFFF;
+                            border: 0px;
+                            }}
+                    QPushButton:hover {{
+                    background-color: #191E24;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    font-size: 25px;
+                    font-weight: bold;
+                    color: #0B839C;
+                    border: 0px;
+                    }}"""
+    return sst
+
+
+def button_assistance_3(selected):
+    if selected:
+            sst = f"""QPushButton {{
+                        background-color: #191E24;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        font-size: 25px;
+                        font-weight: bold;
+                        color: #DB8004;
+                        border: 0px;
+                        border-top-right-radius: 35px;
+                        border-bottom-right-radius: 35px;
+                        }}"""
+    else:
+        sst = f"""QPushButton{{
+                            background-color: #191E24;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            font-size: 25px;
+                            font-weight: bold;
+                            color: #FFFFFF;
+                            border: 0px;
+                            border-top-right-radius: 35px;
+                            border-bottom-right-radius: 35px;
+                            }}
+                        QPushButton:hover {{
+                        background-color: #191E24;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        font-size: 25px;
+                        font-weight: bold;
+                        color: #DB8004;
+                        border: 0px;
+                        border-top-right-radius: 35px;
+                        border-bottom-right-radius: 35px;
+                        }}"""
+        return sst
+
+
 # Buttons for Parameters -----------------------------------------------------------------------------------------------
 
 def button_param_start(selected=False):

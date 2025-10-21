@@ -37,14 +37,14 @@ def window_title():
 
 
 def label_main_headline_background(with_copyright=False):
-    return ("   GRBAS_Mate   [ɡɹæps me͜ɪt̚]                               "
+    return ("   GRBAS_Mate   [ɡɹæps me͜ɪt̚]"
             "Copyright © MrNemesis98, GitHub, 2025") \
         if with_copyright else "   GRBAS_Mate   [ɡɹæps me͜ɪt̚]"
 
 
 def label_menu_title(menu):
     if menu.lower() == "info":
-        return "Version Information"
+        return "Information Center"
 
     elif menu.lower() == "copyright":
         return "Copyright Information"
@@ -71,16 +71,51 @@ def label_menu_title(menu):
         return "Unkown Value!"
 
 
-def label_text_1(menu, var_1=0):
+def label_text_1(menu, var_1=0, software_version=""):
     if menu.lower() == "info":
-        text = """
-            <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                This first version provides detailed descriptions for every parameter belonging to the commonly used 
-                GRBAS scale, including its extension to IF-GRBAS. Furthermore open access sample recordings are provided
-                for every parameter with a choice of different severity levels.
-            </p>
-            """
-        return text
+        # Version Information
+        if var_1 == 1:
+            text = f"""
+                <p style="text-align: justify; line-height: 2.0; font-family: Arial;">
+                    Currently installed version of this software:\t{software_version}
+                </p>
+                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    This first version contains detailed descriptions for every parameter belonging to the commonly used
+                    GRBAS scale, including its extension to IF-GRBAS. Furthermore, open access sample recordings are 
+                    provided for every parameter with a choice of different severity levels.
+                </p>
+                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    This software as well as its open access material shall serve as a contribution to the research 
+                    field of clinical phonetics and as a tool in practical context of home assessment or even 
+                    ENT diagnostics.
+                </p>"""
+            return text
+        # Future Outlook
+        elif var_1 == 2:
+            text = """<p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                        GRBAS_Mate is still under development. Future versions will be be equipped with more sample 
+                        recordings for the IF-GRBAS scale. Inclusions of alternative scales and measure systems, such as 
+                        CAPE-V, are possible as well.
+                    </p>
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                        There is also planned a training mode where one can listen to recordings and evaluate them 
+                        according to the IF-GRBAS scale. This can be considered as a challenge of the user´s ability to 
+                        recognize the seven parameters in recordings with real dysphonic voices.
+                    </p>
+                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                        The final step will be a tool for automatic voice quality analysis, integrated into this 
+                        software. This will be part of a Masters thesis project and is planned for summer 2026.
+                    </p>"""
+            return text
+        # Copyright
+        elif var_1 == 3:
+            text = """<p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    The app is still under development and will be be equipped with more sample 
+                    recordings and a training mode to challenge the user´s ability to recognize the seven IF-GRBAS
+                    parameters in dysphonic voice recordings. Later on there is a mode for automatic voice diagnosis 
+                    planned, too.
+                </p>"""
+            return text
 
     elif menu.lower() == "copyright":
         return "Copyright"
@@ -278,14 +313,7 @@ def label_text_1(menu, var_1=0):
 
 def label_text_2(menu):
     if menu.lower() == "info":
-        text = """
-                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    This software as well as its open access material shall serve as a contribution to the research 
-                    field of clinical phonetics and as a tool in practical context of home assessment or even 
-                    ENT diagnostics.
-                </p>
-                """
-        return text
+        return "Information Center"
 
     elif menu.lower() == "copyright":
         return "Copyright"
@@ -329,15 +357,7 @@ def label_text_2(menu):
 
 def label_text_3(menu):
     if menu.lower() == "info":
-        text = """
-                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    The app is still under development and will be be equipped with more sample 
-                    recordings and a training mode to challenge the user´s ability to recognize the seven IF-GRBAS
-                    parameters in dysphonic voice recordings. Later on there is a mode for automatic voice diagnosis 
-                    planned, too.
-                </p>
-                """
-        return text
+        return "Information Center"
 
     elif menu.lower() == "faq":
         return "User Guide"
@@ -380,10 +400,10 @@ def label_text_3(menu):
         return "Unkown Value!"
 
 
-def label_text_4(menu, var_1=0, current_software_version=""):
+def label_text_4(menu, var_1=0):
 
     if menu.lower() == "info":
-        return "Currently installed version: \t" + current_software_version
+        return "Information Center"
 
     elif menu.lower() == "copyright":
         return "Copyright"
@@ -503,7 +523,96 @@ def label_text_5(menu):
 
 def label_text_6(menu):
     if menu.lower() == "info":
-        return "Future Outlook:"
+        return "Information Center"
+
+    elif menu.lower() == "copyright":
+        return "Copyright"
+
+    elif menu.lower() == "faq":
+        return "User Guide"
+
+    elif menu.lower() == "home":
+        return "Home"
+
+    elif menu.lower() == "description":
+        return "Parameter Descriptions"
+
+    elif menu.lower() == "recordings":
+        return "Parameter Recordings"
+
+    elif menu.lower() == "training":
+        return "Training Mode"
+
+    elif menu.lower() == "settings":
+        return "Settings"
+
+    else:
+        return "Unkown Value!"
+
+
+# Textual input for buttons --------------------------------------------------------------------------------------------
+
+def button_assistance_1(menu):
+    if menu.lower() == "info":
+        return "Version Description"
+
+    elif menu.lower() == "copyright":
+        return "Copyright"
+
+    elif menu.lower() == "faq":
+        return "User Guide"
+
+    elif menu.lower() == "home":
+        return "Home"
+
+    elif menu.lower() == "description":
+        return "Parameter Descriptions"
+
+    elif menu.lower() == "recordings":
+        return "Parameter Recordings"
+
+    elif menu.lower() == "training":
+        return "Training Mode"
+
+    elif menu.lower() == "settings":
+        return "Settings"
+
+    else:
+        return "Unkown Value!"
+
+
+def button_assistance_2(menu):
+    if menu.lower() == "info":
+        return "Future Outlook"
+
+    elif menu.lower() == "copyright":
+        return "Copyright"
+
+    elif menu.lower() == "faq":
+        return "User Guide"
+
+    elif menu.lower() == "home":
+        return "Home"
+
+    elif menu.lower() == "description":
+        return "Parameter Descriptions"
+
+    elif menu.lower() == "recordings":
+        return "Parameter Recordings"
+
+    elif menu.lower() == "training":
+        return "Training Mode"
+
+    elif menu.lower() == "settings":
+        return "Settings"
+
+    else:
+        return "Unkown Value!"
+
+
+def button_assistance_3(menu):
+    if menu.lower() == "info":
+        return "Copyright"
 
     elif menu.lower() == "copyright":
         return "Copyright"
