@@ -147,7 +147,7 @@ def label_menu_title(main_ctrl):
     return sst
 
 
-def label_text(dark_background=False, no_background=False):
+def label_text(dark_background=False, no_background=False, frame_only=False):
     if dark_background:
         sst = """
             QLabel {
@@ -163,6 +163,16 @@ def label_text(dark_background=False, no_background=False):
             QLabel {
                 color: rgb(220, 220, 220);
                 font-size: 22px;
+                }
+            """
+    elif frame_only:
+        sst = """
+            QLabel {
+                color: rgb(220, 220, 220);
+                font-size: 25px;
+                border: 4px solid rgba(41,51,63,255);
+                border-radius: 20px;
+                padding: 20px;
                 }
             """
     else:

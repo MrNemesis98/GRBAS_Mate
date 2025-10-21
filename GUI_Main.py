@@ -491,6 +491,36 @@ class MainWindow(QWidget):
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
         self.label_menu_title.show()
 
+        self.label_text_1.setGeometry(130, 200, 1000, 460)
+        self.label_text_1.setStyleSheet(GSS.label_text(dark_background=False, no_background=False, frame_only=True))
+        self.label_text_1.show()
+
+        self.button_switch_left.setGeometry(1170, 400, 70, 70)
+        self.button_switch_left.show()
+
+        self.button_switch_right.setGeometry(1260, 400, 70, 70)
+        self.button_switch_right.show()
+
+        self.button_param_start.show()
+        self.button_param_instability.show()
+        self.button_param_fluency.show()
+        self.button_param_extension.show()
+        self.button_param_grade.show()
+        self.button_param_roughness.show()
+        self.button_param_breathyness.show()
+        self.button_param_asthenia.show()
+        self.button_param_strain.show()
+
+        # Down Button serves as shortcut to recordings here
+        self.button_switch_down.setGeometry(1130, 720, 70, 70)
+        self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
+                                                                     dress_as_recording=True))
+        self.button_switch_down.show()
+        self.button_switch_up.setGeometry(1000, 700, 70, 70)
+        self.button_switch_up.hide()
+
+        # self.menu_description_switch(to="start", first_call=True)
+
     def menu_training(self):
         print("Training")
         self.system_status = "menu_training"
