@@ -48,10 +48,10 @@ from PyQt5.QtGui import QColor
 import GUI_Style_Sheets as GSS
 import GUI_Sound_Manager as GSM
 
-import audiodata_manager as AUDI
-import savedata_manager as SAVE
+import audiodata_manager as ADM
+import savedata_manager as SDM
 
-if SAVE.get_current_language() == "en":
+if SDM.get_current_language() == "en":
     import GUI_Text_Manager_EN as GTM
 else:
     import GUI_Text_Manager_EN as GTM
