@@ -17,11 +17,12 @@ By using GRBAS_Mate or one of its components you agree to all these conditions.
 
 ------------------------------------------------------------------------------------------------------------------------
 
-This software contains modified audio material from the Perceptual Voice Quality Database:
-https://data.mendeley.com/datasets/9dz247gnyb/1.
+This software contains partially modified audio material from the Perceptual Voice Quality Database:
+https://data.mendeley.com/datasets/9dz247gnyb/4.
+Walden, Patrick R. (2022), “Perceptual Voice Qualities Database (PVQD)”, Mendeley Data, V4, doi: 10.17632/9dz247gnyb.4
 
 
-CC BY 4.0 licence description
+CC BY 4.0 licence description (https://creativecommons.org/licenses/by/4.0/)
 The files associated with this dataset are licensed under a Creative Commons Attribution 4.0 International licence.
 What does this mean?
 
@@ -43,13 +44,17 @@ from PyQt5.QtGui import QColor
 
 # icons for buttons: https://icons8.de/icons/set/free-icons--style-glyph-neue
 
-import savedata_manager as SDM
+
 import GUI_Style_Sheets as GSS
-if SDM.get_current_language() == "en":
+import GUI_Sound_Manager as GSM
+
+import audiodata_manager as AUDI
+import savedata_manager as SAVE
+
+if SAVE.get_current_language() == "en":
     import GUI_Text_Manager_EN as GTM
 else:
     import GUI_Text_Manager_EN as GTM
-import GUI_Sound_Manager as GSM
 
 
 def wait_ms(ms: int):
@@ -967,7 +972,7 @@ class MainWindow(QWidget):
 
                     self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=True))
                     self.button_switch_right.setEnabled(True)
-                    self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="I"))
+                    self.button_switch_right.clicked.connect(lambda: self.submenus_description(to="I"))
 
                     self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=False, waiting=False,
                                                                                  dress_as_recording=True))
@@ -981,11 +986,11 @@ class MainWindow(QWidget):
 
                     self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
                     self.button_switch_left.setEnabled(True)
-                    self.button_switch_left.clicked.connect(lambda: self.menu_description_switch(to="start"))
+                    self.button_switch_left.clicked.connect(lambda: self.submenus_description(to="start"))
 
                     self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=True))
                     self.button_switch_right.setEnabled(True)
-                    self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="F"))
+                    self.button_switch_right.clicked.connect(lambda: self.submenus_description(to="F"))
 
                     self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
                                                                                  dress_as_recording=True))
@@ -1000,11 +1005,11 @@ class MainWindow(QWidget):
 
                     self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
                     self.button_switch_left.setEnabled(True)
-                    self.button_switch_left.clicked.connect(lambda: self.menu_description_switch(to="I"))
+                    self.button_switch_left.clicked.connect(lambda: self.submenus_description(to="I"))
 
                     self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=True))
                     self.button_switch_right.setEnabled(True)
-                    self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="ex"))
+                    self.button_switch_right.clicked.connect(lambda: self.submenus_description(to="ex"))
 
                     self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
                                                                                  dress_as_recording=True))
@@ -1019,11 +1024,11 @@ class MainWindow(QWidget):
 
                     self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
                     self.button_switch_left.setEnabled(True)
-                    self.button_switch_left.clicked.connect(lambda: self.menu_description_switch(to="F"))
+                    self.button_switch_left.clicked.connect(lambda: self.submenus_description(to="F"))
 
                     self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=True))
                     self.button_switch_right.setEnabled(True)
-                    self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="G"))
+                    self.button_switch_right.clicked.connect(lambda: self.submenus_description(to="G"))
 
                     self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=False, waiting=False,
                                                                                  dress_as_recording=True))
@@ -1037,11 +1042,11 @@ class MainWindow(QWidget):
 
                     self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
                     self.button_switch_left.setEnabled(True)
-                    self.button_switch_left.clicked.connect(lambda: self.menu_description_switch(to="ex"))
+                    self.button_switch_left.clicked.connect(lambda: self.submenus_description(to="ex"))
 
                     self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=True))
                     self.button_switch_right.setEnabled(True)
-                    self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="R"))
+                    self.button_switch_right.clicked.connect(lambda: self.submenus_description(to="R"))
 
                     self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
                                                                                  dress_as_recording=True))
@@ -1056,11 +1061,11 @@ class MainWindow(QWidget):
 
                     self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
                     self.button_switch_left.setEnabled(True)
-                    self.button_switch_left.clicked.connect(lambda: self.menu_description_switch(to="G"))
+                    self.button_switch_left.clicked.connect(lambda: self.submenus_description(to="G"))
 
                     self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=True))
                     self.button_switch_right.setEnabled(True)
-                    self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="B"))
+                    self.button_switch_right.clicked.connect(lambda: self.submenus_description(to="B"))
 
                     self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
                                                                                  dress_as_recording=True))
@@ -1075,11 +1080,11 @@ class MainWindow(QWidget):
 
                     self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
                     self.button_switch_left.setEnabled(True)
-                    self.button_switch_left.clicked.connect(lambda: self.menu_description_switch(to="R"))
+                    self.button_switch_left.clicked.connect(lambda: self.submenus_description(to="R"))
 
                     self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=True))
                     self.button_switch_right.setEnabled(True)
-                    self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="A"))
+                    self.button_switch_right.clicked.connect(lambda: self.submenus_description(to="A"))
 
                     self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
                                                                                  dress_as_recording=True))
@@ -1094,11 +1099,11 @@ class MainWindow(QWidget):
 
                     self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
                     self.button_switch_left.setEnabled(True)
-                    self.button_switch_left.clicked.connect(lambda: self.menu_description_switch(to="B"))
+                    self.button_switch_left.clicked.connect(lambda: self.submenus_description(to="B"))
 
                     self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=True))
                     self.button_switch_right.setEnabled(True)
-                    self.button_switch_right.clicked.connect(lambda: self.menu_description_switch(to="S"))
+                    self.button_switch_right.clicked.connect(lambda: self.submenus_description(to="S"))
 
                     self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
                                                                                  dress_as_recording=True))
@@ -1113,7 +1118,7 @@ class MainWindow(QWidget):
 
                     self.button_switch_left.setStyleSheet(GSS.button_switch_left(active=True))
                     self.button_switch_left.setEnabled(True)
-                    self.button_switch_left.clicked.connect(lambda: self.menu_description_switch(to="A"))
+                    self.button_switch_left.clicked.connect(lambda: self.submenus_description(to="A"))
 
                     self.button_switch_right.setStyleSheet(GSS.button_switch_right(active=False))
                     self.button_switch_right.setEnabled(False)

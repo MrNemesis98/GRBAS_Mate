@@ -1,8 +1,27 @@
-Modified Audio Material from the Perceptual Voice Quality Database (PVQD): https://data.mendeley.com/datasets/9dz247gnyb/1
+Partially modified audio material from the Perceptual Voice Quality Database (PVQD) (https://data.mendeley.com/datasets/9dz247gnyb/4).
+Walden, Patrick R. (2022), “Perceptual Voice Qualities Database (PVQD)”, Mendeley Data, V4, doi: 10.17632/9dz247gnyb.4
 
-CC BY 4.0 licence description
+The material was used in the study "Voice Quality and Dypshonia" (https://osf.io/dxc2e/overview?view_only=7e25f2b0991a4322997dd4ce99858262), to which this software is connected.
+
+Original PVQD soundfile IDs:
+
+- Strain_sample01_f_vs_level1.wav	-> BL16_ENSS.wav
+- Strain_sample02_f_vs_level1.wav	-> LA10001_ENSS.wav
+- Strain_sample03_m_vs_level1.wav	-> LA1003ENSS.wav
+- Strain_sample04_m_vs_level1.wav	-> NYU1029_ENSS.wav
+- Strain_sample05_m_vs_level2.wav	-> NYU1022_ENSS.wav
+- Strain_sample06_f_vs_level2.wav	-> PT020ENSS.wav
+- Strain_sample07_m_vs_level2.wav	-> PT018ENSS.wav
+- Strain_sample08_f_vs_level2.wav	-> PT122_ENSS.wav
+- Strain_sample09_f_vs_level3.wav	-> LA5003 ENSS.wav
+- Strain_sample10_m_vs_level3.wav	-> PT019ENSS.wav
+- Strain_sample11_f_vs_level3.wav	-> PT011_ENSS.wav
+- Strain_sample12_m_vs_level3.wav	-> PT004_ENSS.wav
+- Strain_sample05_f_vs_levels0123.wav 	-> Modified compilation, based on files [Sj6006_ENSS.wav, BL16_ENSS.wav, PT020ENSS.wav, LA5003 ENSS.wav]
+
+CC BY 4.0 licence description (https://creativecommons.org/licenses/by/4.0/):
 The files associated with this dataset are licensed under a Creative Commons Attribution 4.0 International licence.
 What does this mean?
-
-You can share, copy and modify this dataset so long as you give appropriate credit, provide a link to the CC BY license, and indicate if changes were made, but you may not do so in a way that suggests the rights holder has endorsed you or your use of the dataset. Note that further permission may be required for any content within the dataset that is identified as belonging to a third party.
-
+You can share, copy and modify this dataset so long as you give appropriate credit, provide a link to the CC BY license, and indicate if changes were made, 
+but you may not do so in a way that suggests the rights holder has endorsed you or your use of the dataset. 
+Note that further permission may be required for any content within the dataset that is identified as belonging to a third party.
