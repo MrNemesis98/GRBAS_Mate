@@ -41,6 +41,7 @@ recordings_path = Path(__file__).resolve().parent / 'src' / 'rec'
 def get_param_recs(parameter=None, severity_level=None, gender=None, include_multilevel_files=True):
 
     found_files = []
+    file_paths = []
 
     # 1) parameter filter --------------------------------------------------------------------------
     if parameter is None:
@@ -48,30 +49,39 @@ def get_param_recs(parameter=None, severity_level=None, gender=None, include_mul
         for file in os.listdir(path / "I"):
             if file.endswith('.wav'):
                 found_files.append(file)
+                file_paths.append(str(path / "I" / file))
         for file in os.listdir(path / "F"):
             if file.endswith('.wav'):
                 found_files.append(file)
+                file_paths.append(str(path / "F" / file))
         for file in os.listdir(path / "G"):
             if file.endswith('.wav'):
                 found_files.append(file)
+                file_paths.append(str(path / "G" / file))
         for file in os.listdir(path / "R"):
             if file.endswith('.wav'):
                 found_files.append(file)
+                file_paths.append(str(path / "R" / file))
         for file in os.listdir(path / "B"):
             if file.endswith('.wav'):
                 found_files.append(file)
+                file_paths.append(str(path / "B" / file))
         for file in os.listdir(path / "A"):
             if file.endswith('.wav'):
                 found_files.append(file)
+                file_paths.append(str(path / "A" / file))
         for file in os.listdir(path / "S"):
             if file.endswith('.wav'):
                 found_files.append(file)
+                file_paths.append(str(path / "S" / file))
         for file in os.listdir(path / "None"):
             if file.endswith('.wav'):
                 found_files.append(file)
+                file_paths.append(str(path / "None" / file))
     else:
         path = recordings_path / 'param' / parameter
         found_files = [f for f in os.listdir(path) if f.endswith(".wav")]
+        file_paths = [str(path / f) for f in os.listdir(path) if f.endswith(".wav")]
 
     # 2) severity level filter ---------------------------------------------------------------------
     if severity_level is None:
@@ -79,16 +89,20 @@ def get_param_recs(parameter=None, severity_level=None, gender=None, include_mul
     else:
         if include_multilevel_files:
             found_files = [f for f in found_files if f"_level{severity_level}" in f or f"_levels0123" in f]
+            file_paths = [f for f in file_paths if f"_level{severity_level}" in f or f"_levels0123" in f]
         else:
             found_files = [f for f in found_files if f"_level{severity_level}" in f]
+            file_paths = [f for f in file_paths if f"_level{severity_level}" in f]
 
     # 3) gender of speaker filter ------------------------------------------------------------------
     if gender is None:
         pass
     else:
         found_files = [f for f in found_files if f"_{gender[0].lower()}_" in f]
+        file_paths = [f for f in file_paths if f"_{gender[0].lower()}_" in f]
 
-    return found_files
+    return found_files, file_paths
 
 
-# print(get_param_recs(parameter=None, severity_level=0, gender=None, include_multilevel_files=False))
+# files, paths = get_param_recs(parameter=None, severity_level=2, gender="f", include_multilevel_files=False)
+# print(files[3], paths[3])

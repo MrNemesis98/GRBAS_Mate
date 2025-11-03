@@ -31,7 +31,7 @@ and indicate if changes were made, but you may not do so in a way that suggests 
 your use of the dataset. Note that further permission may be required for any content within the dataset that is
 identified as belonging to a third party.
 """
-
+"""
 from fractions import Fraction
 
 from wuggy import WuggyGenerator
@@ -43,6 +43,63 @@ for match in g.generate_classic(
     ["Klo", "Bürste"],
     ncandidates_per_sequence=30, max_search_time_per_sequence=2):
     print(match["pseudoword"])
+"""
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QComboBox
+from PyQt5.QtGui import QFont
+
+class StyledComboDemo(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Styled QComboBox")
+
+        combo = QComboBox()
+        combo.addItems(["None", "G", "R", "B", "A", "S", "I", "F"])
+
+        # Schrift über QFont
+        combo.setFont(QFont("Noto Sans", 12))
+
+        # Farben und Rahmen über QSS
+        combo.setStyleSheet("""
+            QComboBox {
+                background-color: #2b2b2b;
+                color: #f0f0f0;
+                border: 2px solid #3c3c3c;
+                border-radius: 8px;
+                padding: 5px 10px;
+                selection-background-color: #555555;
+            }
+            QComboBox::drop-down {
+                border: 0px;
+                width: 25px;
+                background: #3c3c3c;
+                border-top-right-radius: 8px;
+                border-bottom-right-radius: 8px;
+            }
+            QComboBox::down-arrow {
+                image: url(down_arrow.png);
+                width: 12px;
+                height: 12px;
+            }
+            QComboBox QAbstractItemView {
+                background-color: #1e1e1e;
+                color: #ffffff;
+                selection-background-color: #505050;
+                selection-color: #ffffff;
+            }
+        """)
+        def return_value():
+            print(combo.currentText())
+
+        layout = QVBoxLayout()
+        layout.addWidget(combo)
+        self.setLayout(layout)
+        combo.currentTextChanged.connect(return_value)
+
+app = QApplication([])
+window = StyledComboDemo()
+window.show()
+app.exec_()
+
 
 
 
