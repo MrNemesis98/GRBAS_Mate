@@ -90,10 +90,12 @@ class StyledComboDemo(QWidget):
         def return_value():
             print(combo.currentText())
 
+        combo.currentTextChanged.connect(return_value)
+
         layout = QVBoxLayout()
         layout.addWidget(combo)
         self.setLayout(layout)
-        combo.currentTextChanged.connect(return_value)
+
 
 app = QApplication([])
 window = StyledComboDemo()

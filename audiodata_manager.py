@@ -38,7 +38,11 @@ from pathlib import Path
 recordings_path = Path(__file__).resolve().parent / 'src' / 'rec'
 
 
-def get_param_recs(parameter=None, severity_level=None, gender=None, include_multilevel_files=True):
+def get_param_recs(parameter=None,
+                   severity_level=None,
+                   gender=None,
+                   articulation=None,
+                   include_multilevel_files=True):
 
     found_files = []
     file_paths = []
@@ -100,6 +104,17 @@ def get_param_recs(parameter=None, severity_level=None, gender=None, include_mul
     else:
         found_files = [f for f in found_files if f"_{gender[0].lower()}_" in f]
         file_paths = [f for f in file_paths if f"_{gender[0].lower()}_" in f]
+
+    # 4) articulation type filter ------------------------------------------------------------------
+    if articulation.lower() == "v" or articulation.lower() == "vowel":
+        found_files = [f for f in found_files if f"_v_" in f]
+        file_paths = [f for f in file_paths if f"_v_" in f]
+    elif articulation.lower() == "s" or articulation.lower() == "sentence":
+        found_files = [f for f in found_files if f"_s_" in f]
+        file_paths = [f for f in file_paths if f"_s_" in f]
+    else:
+        found_files = [f for f in found_files if f"_vs_" in f]
+        file_paths = [f for f in file_paths if f"_vs_" in f]
 
     return found_files, file_paths
 

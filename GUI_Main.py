@@ -34,9 +34,11 @@ identified as belonging to a third party.
 
 import sys
 
-from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QGraphicsOpacityEffect
-from PyQt5.QtCore import QPropertyAnimation, QRect, QEasingCurve, QAbstractAnimation, QEventLoop, QVariantAnimation
+from PyQt5.QtGui import QFont, QPalette
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QGraphicsOpacityEffect, QComboBox, \
+    QStyledItemDelegate, QStyleOptionComboBox, QStylePainter, QStyle
+from PyQt5.QtCore import QPropertyAnimation, QRect, QEasingCurve, QAbstractAnimation, QEventLoop, QVariantAnimation, \
+    QSignalBlocker
 from PyQt5.QtCore import Qt, QTimer, QPoint
 from PyQt5.QtWidgets import QGraphicsColorizeEffect
 from PyQt5.QtCore import QSequentialAnimationGroup, QPauseAnimation
@@ -68,6 +70,35 @@ def disconnect_button(button):
         button.clicked.disconnect()
     except TypeError:
         pass
+
+
+class CenteredComboBox(QComboBox):
+    def paintEvent(self, event):
+        opt = QStyleOptionComboBox()
+        self.initStyleOption(opt)
+
+        p = QStylePainter(self)
+        # 1) Rahmen + Pfeil normal zeichnen
+        p.drawComplexControl(QStyle.CC_ComboBox, opt)
+
+        # 2) Rechteck der Textfläche holen
+        text_rect = self.style().subControlRect(
+            QStyle.CC_ComboBox, opt, QStyle.SC_ComboBoxEditField, self
+        )
+
+        # 3) Text eliden & zentriert zeichnen
+        text = opt.currentText
+        text = p.fontMetrics().elidedText(text, Qt.ElideRight, text_rect.width())
+
+        align = Qt.AlignHCenter | Qt.AlignVCenter   # <-- hier ggf. auf AlignLeft ändern
+        p.drawItemText(
+            text_rect,
+            align,
+            opt.palette,
+            self.isEnabled(),
+            text,
+            QPalette.ButtonText
+        )
 
 
 class MainWindow(QWidget):
@@ -242,10 +273,10 @@ class MainWindow(QWidget):
         self.label_text_4.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
         self.label_text_4.setTextFormat(Qt.RichText)
 
-        # for normal text
+        # for headlines
         self.label_text_5 = QLabel(self)
         self.label_text_5.setStyleSheet(GSS.label_text())
-        self.label_text_5.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
+        self.label_text_5.setAlignment(Qt.AlignVCenter | Qt.AlignCenter)
         self.label_text_5.setWordWrap(True)
         self.label_text_5.setTextFormat(Qt.RichText)
         self.label_text_5.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
@@ -260,6 +291,42 @@ class MainWindow(QWidget):
         self.label_text_6.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
         self.label_text_6.setTextFormat(Qt.RichText)
 
+        # for headlines
+        self.label_text_7 = QLabel(self)
+        self.label_text_7.setStyleSheet(GSS.label_text())
+        self.label_text_7.setAlignment(Qt.AlignVCenter | Qt.AlignCenter)
+        self.label_text_7.setWordWrap(True)
+        self.label_text_7.setTextFormat(Qt.RichText)
+        self.label_text_7.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
+        self.label_text_7.setTextFormat(Qt.RichText)
+
+        # for headlines
+        self.label_text_8 = QLabel(self)
+        self.label_text_8.setStyleSheet(GSS.label_text())
+        self.label_text_8.setAlignment(Qt.AlignVCenter | Qt.AlignCenter)
+        self.label_text_8.setWordWrap(True)
+        self.label_text_8.setTextFormat(Qt.RichText)
+        self.label_text_8.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
+        self.label_text_8.setTextFormat(Qt.RichText)
+
+        # for headlines
+        self.label_text_9 = QLabel(self)
+        self.label_text_9.setStyleSheet(GSS.label_text())
+        self.label_text_9.setAlignment(Qt.AlignVCenter | Qt.AlignCenter)
+        self.label_text_9.setWordWrap(True)
+        self.label_text_9.setTextFormat(Qt.RichText)
+        self.label_text_9.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
+        self.label_text_9.setTextFormat(Qt.RichText)
+
+        # for headlines
+        self.label_text_10 = QLabel(self)
+        self.label_text_10.setStyleSheet(GSS.label_text())
+        self.label_text_10.setAlignment(Qt.AlignVCenter | Qt.AlignCenter)
+        self.label_text_10.setWordWrap(True)
+        self.label_text_10.setTextFormat(Qt.RichText)
+        self.label_text_10.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
+        self.label_text_10.setTextFormat(Qt.RichText)
+
         # Buttons (menu internal)
         self.button_switch_right = QPushButton(self)
         self.button_switch_left = QPushButton(self)
@@ -270,6 +337,27 @@ class MainWindow(QWidget):
         self.button_assistance_1 = QPushButton(self)
         self.button_assistance_2 = QPushButton(self)
         self.button_assistance_3 = QPushButton(self)
+
+        # QComboBoxes for Recording Filtering
+        self.parameter_filter = CenteredComboBox(self)
+        self.parameter_filter.setStyleSheet(GSS.recording_filter_boxes())
+        self.parameter_filter.setFont(QFont("Arial", int(self.parameter_filter.height()/2.6)))
+        self.parameter_filter.addItems(GTM.QComboBox_parameter_filter())
+
+        self.severity_filter = CenteredComboBox(self)
+        self.severity_filter.setStyleSheet(GSS.recording_filter_boxes())
+        self.severity_filter.setFont(QFont("Arial", int(self.severity_filter.height()/2.6)))
+        self.severity_filter.addItems(GTM.QComboBox_severity_filter())
+
+        self.gender_filter = CenteredComboBox(self)
+        self.gender_filter.setStyleSheet(GSS.recording_filter_boxes())
+        self.gender_filter.setFont(QFont("Arial", int(self.gender_filter.height()/2.6)))
+        self.gender_filter.addItems(GTM.QComboBox_gender_filter())
+
+        self.articulation_filter = CenteredComboBox(self)
+        self.articulation_filter.setStyleSheet(GSS.recording_filter_boxes())
+        self.articulation_filter.setFont(QFont("Arial", int(self.articulation_filter.height()/2.6)))
+        self.articulation_filter.addItems(GTM.QComboBox_articulation_filter())
 
         # Animations ---------------------------------------------------------------------------------------------------
         self._anim_label_fade = None
@@ -300,6 +388,10 @@ class MainWindow(QWidget):
         self.label_text_4.hide()
         self.label_text_5.hide()
         self.label_text_6.hide()
+        self.label_text_7.hide()
+        self.label_text_8.hide()
+        self.label_text_9.hide()
+        self.label_text_10.hide()
 
         self.button_switch_right.hide()
         self.button_switch_left.hide()
@@ -319,6 +411,11 @@ class MainWindow(QWidget):
         self.button_param_breathyness.hide()
         self.button_param_asthenia.hide()
         self.button_param_strain.hide()
+
+        self.parameter_filter.hide()
+        self.severity_filter.hide()
+        self.gender_filter.hide()
+        self.articulation_filter.hide()
 
     # Main Menu Layouts ************************************************************************************************
     def menu_info(self):
@@ -504,29 +601,86 @@ class MainWindow(QWidget):
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
         self.label_menu_title.show()
 
-        # set filter frame
-        self.label_text_1.setGeometry(130, 200, 350, 560)
-        self.label_text_1.setStyleSheet(GSS.label_text(dark_background=False, no_background=False, frame_only=True))
+        # set filter frame ---------------------------------------------
+        self.label_text_1.setGeometry(130, 230, 1200, 120)
+        self.label_text_1.setStyleSheet(GSS.label_text(frame_only=True))
+        self.label_text_1.clear()
         self.label_text_1.show()
 
-        # set files list frame
-        self.label_text_2.setGeometry(530, 200, 350, 560)
-        self.label_text_2.setStyleSheet(GSS.label_text(dark_background=False, no_background=False, frame_only=True))
+        self.label_text_4.setGeometry(580, 180, 300, 50)
+        self.label_text_4.setStyleSheet(GSS.label_text(top_module=True))
+        self.label_text_4.setText(GTM.label_text_4(menu="recordings"))
+        self.label_text_4.show()
+
+        # set filters
+        self.label_text_7.setGeometry(150, 250, 200, 30)
+        self.label_text_7.setText("Parameter")
+        self.label_text_7.setStyleSheet(GSS.label_text(no_background=True))
+        self.label_text_7.show()
+
+        self.parameter_filter.setGeometry(150, 280, 200, 50)
+        self.parameter_filter.setFont(QFont("Arial", int(self.parameter_filter.height() / 2.7)))
+        self.parameter_filter.setCurrentIndex(7)
+        self.parameter_filter.show()
+
+        self.label_text_8.setGeometry(470, 250, 200, 30)
+        self.label_text_8.setText("Severity")
+        self.label_text_8.setStyleSheet(GSS.label_text(no_background=True))
+        self.label_text_8.show()
+
+        self.severity_filter.setGeometry(470, 280, 200, 50)
+        self.severity_filter.setFont(QFont("Arial", int(self.severity_filter.height() / 2.7)))
+        self.severity_filter.setCurrentIndex(5)
+        self.severity_filter.show()
+
+        self.label_text_9.setGeometry(790, 250, 200, 30)
+        self.label_text_9.setText("Gender of Speaker")
+        self.label_text_9.setStyleSheet(GSS.label_text(no_background=True))
+        self.label_text_9.show()
+
+        self.gender_filter.setGeometry(790, 280, 200, 50)
+        self.gender_filter.setFont(QFont("Arial", int(self.gender_filter.height() / 2.7)))
+        self.gender_filter.setCurrentIndex(2)
+        self.gender_filter.show()
+
+        self.label_text_10.setGeometry(1110, 250, 200, 30)
+        self.label_text_10.setText("Type of Articulation")
+        self.label_text_10.setStyleSheet(GSS.label_text(no_background=True))
+        self.label_text_10.show()
+
+        self.articulation_filter.setGeometry(1110, 280, 200, 50)
+        self.articulation_filter.setFont(QFont("Arial", int(self.articulation_filter.height() / 2.7)))
+        self.articulation_filter.setCurrentIndex(2)
+        self.articulation_filter.show()
+
+        # set files list frame -----------------------------------------
+        self.label_text_2.setGeometry(130, 450, 575, 300)
+        self.label_text_2.setStyleSheet(GSS.label_text(frame_only=True))
+        self.label_text_2.clear()
         self.label_text_2.show()
 
-        # set "select and play" frame
-        self.label_text_3.setGeometry(930, 200, 350, 560)
-        self.label_text_3.setStyleSheet(GSS.label_text(dark_background=False, no_background=False, frame_only=True))
+        self.label_text_5.setGeometry(247, 400, 340, 50)
+        self.label_text_5.setStyleSheet(GSS.label_text(top_module=True))
+        self.label_text_5.setText(GTM.label_text_5(menu="recordings"))
+        self.label_text_5.show()
+
+        # set "select and play" frame ----------------------------------
+        self.label_text_3.setGeometry(755, 450, 575, 300)
+        self.label_text_3.setStyleSheet(GSS.label_text(frame_only=True))
+        self.label_text_3.clear()
         self.label_text_3.show()
 
+        self.label_text_6.setGeometry(872, 400, 340, 50)
+        self.label_text_6.setStyleSheet(GSS.label_text(top_module=True))
+        self.label_text_6.setText(GTM.label_text_6(menu="recordings"))
+        self.label_text_6.show()
+
+
         self.button_switch_left.setGeometry(1170, 400, 70, 70)
-        self.button_switch_left.show()
+        self.button_switch_left.hide()
 
         self.button_switch_right.setGeometry(1260, 400, 70, 70)
-        self.button_switch_right.show()
-
-
-
+        self.button_switch_right.hide()
 
 
     def menu_training(self):
@@ -811,6 +965,21 @@ class MainWindow(QWidget):
         self.label_text_2.setStyleSheet(GSS.label_text())
         self.label_text_3.setStyleSheet(GSS.label_text())
         self.label_text_4.setStyleSheet(GSS.label_text())
+
+        # Update-Funktion: Selektiertes Item mittig + Farbe setzen
+
+    def update_filter_selection(self, filter_object, idx):
+        for i in range(filter_object.count()):
+            filter_object.setItemData(i, Qt.AlignLeft, Qt.TextAlignmentRole)
+            filter_object.setItemData(i, None, Qt.ForegroundRole)
+        if idx >= 0:
+            # Header (0) → mittig + grau, echte Werte → mittig + weiß
+            if idx == 0:
+                filter_object.setItemData(0, Qt.AlignCenter, Qt.TextAlignmentRole)
+                filter_object.setItemData(0, QColor("#aaaaaa"), Qt.ForegroundRole)
+            else:
+                filter_object.setItemData(idx, Qt.AlignCenter, Qt.TextAlignmentRole)
+                filter_object.setItemData(idx, QColor("#ffffff"), Qt.ForegroundRole)
 
     # Menu Functionality - Submenus ------------------------------------------------------------------------------------
     def submenu_home_1(self, first_call=False):

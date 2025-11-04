@@ -148,7 +148,7 @@ def label_menu_title(main_ctrl):
     return sst
 
 
-def label_text(dark_background=False, no_background=False, frame_only=False):
+def label_text(dark_background=False, no_background=False, frame_only=False, top_module=False):
     if dark_background:
         sst = """
             QLabel {
@@ -174,6 +174,17 @@ def label_text(dark_background=False, no_background=False, frame_only=False):
                 border: 4px solid rgba(41,51,63,255);
                 border-radius: 20px;
                 padding: 20px;
+                }
+            """
+    elif top_module:
+        sst = """
+            QLabel {
+                color: rgb(220, 220, 220);
+                background-color: rgba(25,30,36,255);
+                font-size: 25px;
+                border-top-left-radius: 50px;
+                border-top-right-radius: 50px;
+                padding: 5px;
                 }
             """
     else:
@@ -820,4 +831,35 @@ def button_param_S(selected=False):
                             border-bottom-right-radius: 35px;
                 }}"""
 
+    return sst
+
+
+# QComboBoxes (Recording Filters) --------------------------------------------------------------------------------------
+def recording_filter_boxes():
+    sst = """   
+             QComboBox {
+                background-color:  #191E24;
+                color: #f0f0f0;
+                border: 3px solid rgba(41,51,63,255);
+                border-radius: 8px;
+                padding: 3px 5px;
+            }
+            /* Dropdown-Bereich rechts (mit Pfeil) */
+            QComboBox::drop-down {
+                subcontrol-origin: padding;
+                subcontrol-position: top right;
+                width: 0px;                  
+                background-color: #191E24;
+            }
+            QComboBox QAbstractItemView {
+                background-color: #191E24;
+                color: #ffffff;
+                padding: 8px;
+                selection-background-color: rgba(41,51,63,255);
+                selection-color: #0B839C;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                text-align:left;
+            }
+        """
     return sst

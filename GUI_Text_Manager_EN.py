@@ -39,7 +39,7 @@ def window_title():
 
 def label_main_headline_background(with_copyright=False):
     return ("   GRBAS_Mate   [ɡɹæps me͜ɪt̚]"
-            "\tCopyright © MrNemesis98, GitHub, 2025") \
+            "\t\tCopyright © MrNemesis98, GitHub, 2025") \
         if with_copyright else "   GRBAS_Mate   [ɡɹæps me͜ɪt̚]"
 
 
@@ -448,7 +448,7 @@ def label_text_4(menu, var_1=0):
         return text
 
     elif menu.lower() == "recordings":
-        return "Parameter Recordings"
+        return "Filter Selection"
 
     elif menu.lower() == "training":
         return "Coming Soon:"
@@ -510,7 +510,7 @@ def label_text_5(menu):
         return "Parameter Descriptions"
 
     elif menu.lower() == "recordings":
-        return "Parameter Recordings"
+        return "Filtered Audio Files"
 
     elif menu.lower() == "training":
         return "Training Mode"
@@ -539,7 +539,7 @@ def label_text_6(menu):
         return "Parameter Descriptions"
 
     elif menu.lower() == "recordings":
-        return "Parameter Recordings"
+        return "Select and Play Audio"
 
     elif menu.lower() == "training":
         return "Training Mode"
@@ -637,7 +637,24 @@ def button_assistance_3(menu):
         return "Settings"
 
     else:
-        return "Unkown Value!"
+        return "Unknown Value!"
+
+
+def QComboBox_parameter_filter():
+    return ["(I) Instability", "(F) Fluency", "(G) Grade", "(R) Roughness",
+            "(B) Breathyness", "(A) Asthenia", "(S) Strain", "No Preference"]
+
+
+def QComboBox_severity_filter():
+    return ["Level 0", "Level 1", "Level 2", "Level 3", "Ascending 0-3", "No Preference"]
+
+
+def QComboBox_gender_filter():
+    return ["Male", "Female", "No Preference"]
+
+
+def QComboBox_articulation_filter():
+        return ["Vowel", "Sentence", "No Preference"]
 
 
 """
