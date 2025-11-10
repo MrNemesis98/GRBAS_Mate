@@ -47,6 +47,7 @@ for match in g.generate_classic(
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QComboBox
 from PyQt5.QtGui import QFont
 
+
 class StyledComboDemo(QWidget):
     def __init__(self):
         super().__init__()
