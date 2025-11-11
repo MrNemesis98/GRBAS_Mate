@@ -43,7 +43,7 @@ for match in g.generate_classic(
     ["Klo", "Bürste"],
     ncandidates_per_sequence=30, max_search_time_per_sequence=2):
     print(match["pseudoword"])
-"""
+
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QComboBox
 from PyQt5.QtGui import QFont
 
@@ -60,7 +60,7 @@ class StyledComboDemo(QWidget):
         combo.setFont(QFont("Noto Sans", 12))
 
         # Farben und Rahmen über QSS
-        combo.setStyleSheet("""
+        combo.setStyleSheet(""
             QComboBox {
                 background-color: #2b2b2b;
                 color: #f0f0f0;
@@ -87,7 +87,7 @@ class StyledComboDemo(QWidget):
                 selection-background-color: #505050;
                 selection-color: #ffffff;
             }
-        """)
+        "")
         def return_value():
             print(combo.currentText())
 
@@ -102,6 +102,9 @@ app = QApplication([])
 window = StyledComboDemo()
 window.show()
 app.exec_()
+"""
+
+
 
 
 

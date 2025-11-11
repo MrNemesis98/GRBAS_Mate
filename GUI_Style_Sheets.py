@@ -841,7 +841,7 @@ def recording_filter_boxes():
                 background-color:  #191E24;
                 color: #f0f0f0;
                 border: 3px solid rgba(41,51,63,255);
-                border-radius: 8px;
+                border-radius: 200px;
                 padding: 3px 5px;
             }
             /* Dropdown-Bereich rechts (mit Pfeil) */
@@ -861,5 +861,42 @@ def recording_filter_boxes():
                 border-bottom-right-radius: 8px;
                 text-align:left;
             }
+        """
+    return sst
+
+
+# Audio_File_display (QListWidget) -------------------------------------------------------------------------------------
+def audio_file_display():
+    sst = """
+        QListWidget {
+            background: #191E24;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 4px;
+        }
+        
+        QListWidget::item {
+            color: #ffffff;
+            padding: 6px 10px;
+            border-radius: 4px;
+        }
+        
+        /* Hover-Effekt */
+        QListWidget::item:hover {
+            background: #3a3a3a;
+        }
+        
+        /* Aktuell ausgewähltes Item */
+        QListWidget::item:selected {
+            background: rgba(41,51,63,255);
+            color: #0B839C;
+            font-weight: bold;
+            border: none;
+        }
+        
+        /* Fokusrahmen entfernen (optional) */
+        QListWidget:focus {
+            outline: none;
+        }
         """
     return sst

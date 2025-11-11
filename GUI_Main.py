@@ -36,7 +36,7 @@ import sys
 
 from PyQt5.QtGui import QFont, QPalette
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QGraphicsOpacityEffect, QComboBox, \
-    QStyledItemDelegate, QStyleOptionComboBox, QStylePainter, QStyle
+    QStyledItemDelegate, QStyleOptionComboBox, QStylePainter, QStyle, QListWidget
 from PyQt5.QtCore import QPropertyAnimation, QRect, QEasingCurve, QAbstractAnimation, QEventLoop, QVariantAnimation, \
     QSignalBlocker
 from PyQt5.QtCore import Qt, QTimer, QPoint
@@ -111,6 +111,7 @@ class MainWindow(QWidget):
     system_sounds = False
     show_copyright_notice_in_gui_headline = True
     show_copyright_notice_in_home_menu = True
+    include_multilevel_recordings = True
 
     def __init__(self):
         super().__init__()
@@ -359,6 +360,9 @@ class MainWindow(QWidget):
         self.articulation_filter.setFont(QFont("Arial", int(self.articulation_filter.height()/2.6)))
         self.articulation_filter.addItems(GTM.QComboBox_articulation_filter())
 
+        self.audio_file_display = QListWidget(self)
+        self.audio_file_display.setStyleSheet(GSS.audio_file_display())
+
         # Animations ---------------------------------------------------------------------------------------------------
         self._anim_label_fade = None
         self._anim_label_slide = None
@@ -416,6 +420,8 @@ class MainWindow(QWidget):
         self.severity_filter.hide()
         self.gender_filter.hide()
         self.articulation_filter.hide()
+
+        self.audio_file_display.hide()
 
     # Main Menu Layouts ************************************************************************************************
     def menu_info(self):
@@ -663,6 +669,10 @@ class MainWindow(QWidget):
         self.label_text_5.setStyleSheet(GSS.label_text(top_module=True))
         self.label_text_5.setText(GTM.label_text_5(menu="recordings"))
         self.label_text_5.show()
+
+        self.audio_file_display.setGeometry(133, 453, 569, 294)
+        self.audio_file_display.currentItemChanged(self.submenu_recordings)
+        self.audio_file_display.show()
 
         # set "select and play" frame ----------------------------------
         self.label_text_3.setGeometry(755, 450, 575, 300)
@@ -1299,6 +1309,17 @@ class MainWindow(QWidget):
                 self.disconnect_main_menu_buttons(connect_instead=True, current_menu="description")
 
             QTimer.singleShot(700, execute_consequences)
+
+    def submenu_recordings_filter(self):
+
+        p = self.parameter_filter.currentText()
+        s = self.severity_filter.currentText()
+        g = self.gender_filter.currentText()
+        a = self.articulation_filter.currentText()
+
+        file_names, file_paths = ADM.get_param_recs(parameter=p, severity_level=s, gender=g, articulation=a)
+
+
 
 
 app = QApplication(sys.argv)
