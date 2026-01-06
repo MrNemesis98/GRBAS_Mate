@@ -36,7 +36,7 @@ import sys
 
 from PyQt5.QtGui import QFont, QPalette
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QGraphicsOpacityEffect, QComboBox, \
-    QStyledItemDelegate, QStyleOptionComboBox, QStylePainter, QStyle, QListWidget
+    QStyledItemDelegate, QStyleOptionComboBox, QStylePainter, QStyle, QListWidget, QScrollArea, QFrame, QSizePolicy
 from PyQt5.QtCore import QPropertyAnimation, QRect, QEasingCurve, QAbstractAnimation, QEventLoop, QVariantAnimation, \
     QSignalBlocker
 from PyQt5.QtCore import Qt, QTimer, QPoint
@@ -153,12 +153,8 @@ class MainWindow(QWidget):
         # Main GUI controls (4 buttons) --------------------------------------------------------------------------------
         # [Info, FAQ, Minimize, Exit]
         self.button_main_ctrl_info = QPushButton(self)
-        self.button_main_ctrl_info.setGeometry(1130, 20, 40, 40)
+        self.button_main_ctrl_info.setGeometry(1181, 21, 38, 38)
         self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
-
-        self.button_main_ctrl_copyright = QPushButton(self)
-        self.button_main_ctrl_copyright.setGeometry(1181, 21, 38, 38)
-        self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
 
         self.button_main_ctrl_faq = QPushButton(self)
         self.button_main_ctrl_faq.setGeometry(1230, 20, 40, 40)
@@ -363,6 +359,12 @@ class MainWindow(QWidget):
         self.audio_file_display = QListWidget(self)
         self.audio_file_display.setStyleSheet(GSS.audio_file_display())
 
+        # Scroll Bar ---------------------------------------------------------------------------------------------------
+
+        self.scroll = QScrollArea()
+        self.scroll.setWidgetResizable(True)
+        self.scroll.setFrameShape(QFrame.NoFrame)
+
         # Animations ---------------------------------------------------------------------------------------------------
         self._anim_label_fade = None
         self._anim_label_slide = None
@@ -438,67 +440,24 @@ class MainWindow(QWidget):
         self.button_assistance_1.setGeometry(250, 200, 300, 70)
         self.button_assistance_1.setStyleSheet(GSS.button_assistance_1(selected=True))
         self.button_assistance_1.setText(GTM.button_assistance_1(menu="info"))
+        self.button_assistance_1.clicked.connect(lambda: self.submenus_info(engaged_by_button_assistance_nr=1))
         self.button_assistance_1.show()
 
         self.button_assistance_2.setGeometry(550, 200, 300, 70)
         self.button_assistance_2.setStyleSheet(GSS.button_assistance_2(selected=False))
         self.button_assistance_2.setText(GTM.button_assistance_2(menu="info"))
+        self.button_assistance_2.clicked.connect(lambda: self.submenus_info(engaged_by_button_assistance_nr=2))
         self.button_assistance_2.show()
 
-        self.button_assistance_3.setGeometry(850, 200, 300, 70)
+        self.button_assistance_3.setGeometry(850, 200, 350, 70)
         self.button_assistance_3.setStyleSheet(GSS.button_assistance_3(selected=False))
         self.button_assistance_3.setText(GTM.button_assistance_3(menu="info"))
+        self.button_assistance_3.clicked.connect(lambda: self.submenus_info(engaged_by_button_assistance_nr=3))
         self.button_assistance_3.show()
 
         self.label_text_1.setGeometry(130, 330, 1100, 380)
-        self.label_text_1.setText(GTM.label_text_1(menu="info", var_1=1, software_version=self.software_version))
         self.label_text_1.setStyleSheet(GSS.label_text(no_background=True))
-
-        """
-        QTimer.singleShot(0, lambda: self.animation_label_fade(
-            in_or_out="out", label_object=self.label_text_1, duration=0))
-        QTimer.singleShot(0, lambda: self.animation_label_fade(
-            in_or_out="out", label_object=self.label_text_2, duration=0))
-        QTimer.singleShot(0, lambda: self.animation_label_fade(
-            in_or_out="out", label_object=self.label_text_3, duration=0))
-        QTimer.singleShot(0, lambda: self.animation_label_fade(
-            in_or_out="out", label_object=self.label_text_4, duration=0))
-        QTimer.singleShot(0, lambda: self.animation_label_fade(
-            in_or_out="out", label_object=self.label_text_6, duration=0))
-            """
-        self.label_text_1.show()
-        """
-        QTimer.singleShot(500, lambda: self.animation_label_fade(
-            in_or_out="in", label_object=self.label_text_4, duration=1000))
-        QTimer.singleShot(500, lambda: self.animation_label_fade(
-            in_or_out="in", label_object=self.label_text_6, duration=1000))
-        QTimer.singleShot(1000, lambda: self.animation_label_fade(
-            in_or_out="in", label_object=self.label_text_1, duration=2000))
-        QTimer.singleShot(1200, lambda: self.animation_label_fade(
-            in_or_out="in", label_object=self.label_text_2, duration=2000))
-        QTimer.singleShot(1400, lambda: self.animation_label_fade(
-            in_or_out="in", label_object=self.label_text_3, duration=2000))
-            """
-
-    def menu_copyright(self):
-        print("Copyright")
-        self.system_status = "menu_copyright"
-        self.hide_all_menu_internal_elements()
-        self.disconnect_main_menu_buttons(connect_instead=True, current_menu="copyright")
-        self.reset_text_label_stylesheets()
-
-        self.label_menu_title.setText(GTM.label_menu_title(menu="copyright"))
-        self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=True))
-        self.label_menu_title.show()
-
-        self.label_text_5.setGeometry(130, 200, 1200, 590)
-        self.label_text_5.setStyleSheet(GSS.label_text(no_background=True))
-        self.label_text_5.setText(GTM.label_text_5(menu="copyright"))
-        QTimer.singleShot(0, lambda: self.animation_label_fade(
-            in_or_out="out", label_object=self.label_text_5, duration=0))
-        self.label_text_5.show()
-        QTimer.singleShot(500, lambda: self.animation_label_fade(
-            in_or_out="in", label_object=self.label_text_5, duration=1000))
+        self.submenus_info(engaged_by_button_assistance_nr=0, first_call=True)
 
     def menu_faq(self):
         print("FAQ")
@@ -671,7 +630,7 @@ class MainWindow(QWidget):
         self.label_text_5.show()
 
         self.audio_file_display.setGeometry(133, 453, 569, 294)
-        self.audio_file_display.currentItemChanged(self.submenu_recordings)
+        # self.audio_file_display.currentItemChanged(self.submenu_recordings)
         self.audio_file_display.show()
 
         # set "select and play" frame ----------------------------------
@@ -791,7 +750,6 @@ class MainWindow(QWidget):
         if not connect_instead:
 
             disconnect_button(self.button_main_ctrl_info)
-            disconnect_button(self.button_main_ctrl_copyright)
             disconnect_button(self.button_main_ctrl_faq)
             disconnect_button(self.button_main_nav_home)
             disconnect_button(self.button_main_nav_description)
@@ -801,7 +759,6 @@ class MainWindow(QWidget):
 
         else:
             self.button_main_ctrl_info.clicked.connect(self.menu_info)
-            self.button_main_ctrl_copyright.clicked.connect(self.menu_copyright)
             self.button_main_ctrl_faq.clicked.connect(self.menu_faq)
             self.button_main_nav_home.clicked.connect(self.menu_home)
             self.button_main_nav_description.clicked.connect(self.menu_description)
@@ -813,7 +770,6 @@ class MainWindow(QWidget):
             if current_menu == "info":
                 disconnect_button(self.button_main_ctrl_info)
                 self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=True))
-                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
                 self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
                 self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
                 self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
@@ -821,9 +777,7 @@ class MainWindow(QWidget):
                 self.button_main_nav_training.setStyleSheet(GSS.button_main_nav_training(pressed=False))
                 self.button_main_nav_settings.setStyleSheet(GSS.button_main_nav_settings(pressed=False))
             elif current_menu == "copyright":
-                disconnect_button(self.button_main_ctrl_copyright)
                 self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
-                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=True))
                 self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
                 self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
                 self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
@@ -833,7 +787,6 @@ class MainWindow(QWidget):
             elif current_menu == "faq":
                 disconnect_button(self.button_main_ctrl_faq)
                 self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
-                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
                 self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=True))
                 self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
                 self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
@@ -843,7 +796,6 @@ class MainWindow(QWidget):
             elif current_menu == "home":
                 disconnect_button(self.button_main_nav_home)
                 self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
-                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
                 self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
                 self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=True))
                 self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
@@ -853,7 +805,6 @@ class MainWindow(QWidget):
             elif current_menu == "description":
                 disconnect_button(self.button_main_nav_description)
                 self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
-                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
                 self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
                 self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
                 self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=True))
@@ -863,7 +814,6 @@ class MainWindow(QWidget):
             elif current_menu == "recordings":
                 disconnect_button(self.button_main_nav_recordings)
                 self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
-                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
                 self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
                 self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
                 self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
@@ -873,7 +823,6 @@ class MainWindow(QWidget):
             elif current_menu == "training":
                 disconnect_button(self.button_main_nav_training)
                 self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
-                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
                 self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
                 self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
                 self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
@@ -883,7 +832,6 @@ class MainWindow(QWidget):
             elif current_menu == "settings":
                 disconnect_button(self.button_main_nav_settings)
                 self.button_main_ctrl_info.setStyleSheet(GSS.button_main_ctrl_info(pressed=False))
-                self.button_main_ctrl_copyright.setStyleSheet(GSS.button_main_ctrl_copyright(pressed=False))
                 self.button_main_ctrl_faq.setStyleSheet(GSS.button_main_ctrl_faq(pressed=False))
                 self.button_main_nav_home.setStyleSheet(GSS.button_main_nav_home(pressed=False))
                 self.button_main_nav_description.setStyleSheet(GSS.button_main_nav_description(pressed=False))
@@ -992,6 +940,39 @@ class MainWindow(QWidget):
                 filter_object.setItemData(idx, QColor("#ffffff"), Qt.ForegroundRole)
 
     # Menu Functionality - Submenus ------------------------------------------------------------------------------------
+
+    def submenus_info(self, engaged_by_button_assistance_nr, first_call=False):
+        if not self.system_status.startswith("menu_info"):
+            pass
+        else:
+            if engaged_by_button_assistance_nr == 1 or first_call:
+                self.system_status = "menu_info_1"
+                self.button_assistance_1.setStyleSheet(GSS.button_assistance_1(selected=True))
+                self.button_assistance_2.setStyleSheet(GSS.button_assistance_2(selected=False))
+                self.button_assistance_3.setStyleSheet(GSS.button_assistance_3(selected=False))
+                self.label_text_1.show()
+                self.label_text_1.setText(GTM.label_text_1(menu="info", var_1=1,
+                                                           software_version=self.software_version))
+            elif engaged_by_button_assistance_nr == 2:
+                self.system_status = "menu_info_2"
+                self.button_assistance_1.setStyleSheet(GSS.button_assistance_1(selected=False))
+                self.button_assistance_2.setStyleSheet(GSS.button_assistance_2(selected=True))
+                self.button_assistance_3.setStyleSheet(GSS.button_assistance_3(selected=False))
+                self.label_text_1.show()
+                self.label_text_1.setText(GTM.label_text_1(menu="info", var_1=2,
+                                                           software_version=self.software_version))
+            else:
+                self.system_status = "menu_info_3"
+                self.button_assistance_1.setStyleSheet(GSS.button_assistance_1(selected=False))
+                self.button_assistance_2.setStyleSheet(GSS.button_assistance_2(selected=False))
+                self.button_assistance_3.setStyleSheet(GSS.button_assistance_3(selected=True))
+                self.label_text_1.show()
+                self.label_text_1.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
+                self.label_text_1.setWordWrap(True)
+                self.label_text_1.setText(GTM.label_text_1(menu="info", var_1=3,
+                                                           software_version=self.software_version))
+                self.scroll.setWidget(self.label_text_1)
+
     def submenu_home_1(self, first_call=False):
 
         if not self.system_status.startswith("menu_home"):

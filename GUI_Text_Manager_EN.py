@@ -110,11 +110,30 @@ def label_text_1(menu, var_1=0, software_version=""):
             return text
         # Copyright
         elif var_1 == 3:
-            text = """<p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    The app is still under development and will be be equipped with more sample 
-                    recordings and a training mode to challenge the user´s ability to recognize the seven IF-GRBAS
-                    parameters in dysphonic voice recordings. Later on there is a mode for automatic voice diagnosis 
-                    planned, too.
+            text = """<p style="text-align: justify; line-height: 1.5; font-family: Arial;">
+                  Copyright © MrNemesis98, GitHub, 2025
+                </p>
+                <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
+                This software was published under MIT License, declared as follows:
+                  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
+                  associated documentation files, to deal in the software without restriction, including without
+                  limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+                  of the software, and to permit persons to whom the software is furnished to do so, subject to the 
+                  following conditions:
+                </p>
+                <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
+                  The above copyright notice and this permission notice shall be included in all copies or substantial 
+                  portions of the software. The program is provided “as is”, without warranty of any kind, express or 
+                  implied, including but not limited to the warranties of merchantability, fitness for a particular 
+                  purpose and noninfringement. In no event shall the author(s) or copyright holder(s) be liable for any 
+                  claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, 
+                  out of or in connection with the software or the use or other dealings in the software.
+                </p>
+                <p style="text-align: justify; line-height: 1.5; font-family: Arial; color: #DB8004;">
+                  By using GRBAS_Mate or one of its components you agree to all these conditions. 
+                </p>
+                <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
+                Hint: Feel free to have a look at the copyright options in the settings menu!
                 </p>"""
             return text
 
@@ -613,7 +632,7 @@ def button_assistance_2(menu):
 
 def button_assistance_3(menu):
     if menu.lower() == "info":
-        return "Copyright"
+        return "Copyright Statement"
 
     elif menu.lower() == "copyright":
         return "Copyright"
