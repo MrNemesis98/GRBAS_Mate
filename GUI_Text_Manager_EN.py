@@ -661,19 +661,19 @@ def button_assistance_3(menu):
 
 def QComboBox_parameter_filter():
     return ["(I) Instability", "(F) Fluency", "(G) Grade", "(R) Roughness",
-            "(B) Breathyness", "(A) Asthenia", "(S) Strain", "No Preference"]
+            "(B) Breathyness", "(A) Asthenia", "(S) Strain", "All Options"]
 
 
 def QComboBox_severity_filter():
-    return ["Level 0", "Level 1", "Level 2", "Level 3", "Ascending 0-3", "No Preference"]
+    return ["Level 0", "Level 1", "Level 2", "Level 3", "Ascending 0-3", "All Options"]
 
 
 def QComboBox_gender_filter():
-    return ["Male", "Female", "No Preference"]
+    return ["Male", "Female", "All Options"]
 
 
 def QComboBox_articulation_filter():
-        return ["Vowel", "Sentence", "No Preference"]
+        return ["Vowel", "Sentence", "All Options"]
 
 
 """

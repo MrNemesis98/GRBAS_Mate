@@ -90,7 +90,7 @@ class CenteredComboBox(QComboBox):
         text = opt.currentText
         text = p.fontMetrics().elidedText(text, Qt.ElideRight, text_rect.width())
 
-        align = Qt.AlignHCenter | Qt.AlignVCenter   # <-- hier ggf. auf AlignLeft ändern
+        align = Qt.AlignHCenter | Qt.AlignVCenter  # <-- hier ggf. auf AlignLeft ändern
         p.drawItemText(
             text_rect,
             align,
@@ -102,7 +102,6 @@ class CenteredComboBox(QComboBox):
 
 
 class MainWindow(QWidget):
-
     system_status = None
     software_version = "v1.0"
 
@@ -192,11 +191,11 @@ class MainWindow(QWidget):
         # Parameter Elements (8 Buttons) -------------------------------------------------------------------------------
         # [Start, Instability, Fluency, Grade, Roughness, Breathyness, Asthenia, Strain]
         self.button_param_start = QPushButton(self)
-        self.button_param_start.setGeometry(130, self.height()-80, 160, 70)
+        self.button_param_start.setGeometry(130, self.height() - 80, 160, 70)
         self.button_param_start.setText("Intro")
 
         self.button_param_instability = QPushButton(self)
-        self.button_param_instability.setGeometry(460, self.height()-80, 60, 70)
+        self.button_param_instability.setGeometry(460, self.height() - 80, 60, 70)
         self.button_param_instability.setText("I")
 
         self.button_param_fluency = QPushButton(self)
@@ -212,7 +211,7 @@ class MainWindow(QWidget):
         self.button_param_grade.setText("G")
 
         self.button_param_roughness = QPushButton(self)
-        self.button_param_roughness.setGeometry(700, self.height()-80, 60, 70)
+        self.button_param_roughness.setGeometry(700, self.height() - 80, 60, 70)
         self.button_param_roughness.setText("R")
 
         self.button_param_breathyness = QPushButton(self)
@@ -338,23 +337,35 @@ class MainWindow(QWidget):
         # QComboBoxes for Recording Filtering
         self.parameter_filter = CenteredComboBox(self)
         self.parameter_filter.setStyleSheet(GSS.recording_filter_boxes())
-        self.parameter_filter.setFont(QFont("Arial", int(self.parameter_filter.height()/2.6)))
+        self.parameter_filter.setFont(QFont("Arial", int(self.parameter_filter.height() / 2.6)))
         self.parameter_filter.addItems(GTM.QComboBox_parameter_filter())
+        self.parameter_filter.setCurrentIndex(7)
+        self.parameter_filter.currentIndexChanged.connect(
+            lambda: self.submenu_recordings_filter(initiated_by="p"))
 
         self.severity_filter = CenteredComboBox(self)
         self.severity_filter.setStyleSheet(GSS.recording_filter_boxes())
-        self.severity_filter.setFont(QFont("Arial", int(self.severity_filter.height()/2.6)))
+        self.severity_filter.setFont(QFont("Arial", int(self.severity_filter.height() / 2.6)))
         self.severity_filter.addItems(GTM.QComboBox_severity_filter())
+        self.severity_filter.setCurrentIndex(5)
+        self.severity_filter.currentIndexChanged.connect(
+            lambda: self.submenu_recordings_filter(initiated_by="s"))
 
         self.gender_filter = CenteredComboBox(self)
         self.gender_filter.setStyleSheet(GSS.recording_filter_boxes())
-        self.gender_filter.setFont(QFont("Arial", int(self.gender_filter.height()/2.6)))
+        self.gender_filter.setFont(QFont("Arial", int(self.gender_filter.height() / 2.6)))
         self.gender_filter.addItems(GTM.QComboBox_gender_filter())
+        self.gender_filter.setCurrentIndex(2)
+        self.gender_filter.currentIndexChanged.connect(
+            lambda: self.submenu_recordings_filter(initiated_by="g"))
 
         self.articulation_filter = CenteredComboBox(self)
         self.articulation_filter.setStyleSheet(GSS.recording_filter_boxes())
-        self.articulation_filter.setFont(QFont("Arial", int(self.articulation_filter.height()/2.6)))
+        self.articulation_filter.setFont(QFont("Arial", int(self.articulation_filter.height() / 2.6)))
         self.articulation_filter.addItems(GTM.QComboBox_articulation_filter())
+        self.articulation_filter.setCurrentIndex(2)
+        self.articulation_filter.currentIndexChanged.connect(
+            lambda: self.submenu_recordings_filter(initiated_by="a"))
 
         self.audio_file_display = QListWidget(self)
         self.audio_file_display.setStyleSheet(GSS.audio_file_display())
@@ -485,11 +496,11 @@ class MainWindow(QWidget):
         self.label_text_1.setText(GTM.label_text_1(menu="home"))
         self.label_text_1.show()
 
-        self.label_text_2.setGeometry(self.width()-20, 220, 1000, 320)
+        self.label_text_2.setGeometry(self.width() - 20, 220, 1000, 320)
         self.label_text_2.setText(GTM.label_text_2(menu="home"))
         self.label_text_2.show()
 
-        self.label_text_3.setGeometry(self.width()-20, 220, 1000, 320)
+        self.label_text_3.setGeometry(self.width() - 20, 220, 1000, 320)
         self.label_text_3.setText(GTM.label_text_3(menu="home"))
         self.label_text_3.show()
 
@@ -555,7 +566,7 @@ class MainWindow(QWidget):
 
         self.submenus_description(to="start", first_call=True)
 
-    def menu_recordings(self):
+    def menu_recordings(self, clear_audio_file_display=True):
         print("Recordings")
         self.system_status = "menu_recordings"
         self.hide_all_menu_internal_elements()
@@ -585,7 +596,6 @@ class MainWindow(QWidget):
 
         self.parameter_filter.setGeometry(150, 280, 200, 50)
         self.parameter_filter.setFont(QFont("Arial", int(self.parameter_filter.height() / 2.7)))
-        self.parameter_filter.setCurrentIndex(7)
         self.parameter_filter.show()
 
         self.label_text_8.setGeometry(470, 250, 200, 30)
@@ -595,7 +605,6 @@ class MainWindow(QWidget):
 
         self.severity_filter.setGeometry(470, 280, 200, 50)
         self.severity_filter.setFont(QFont("Arial", int(self.severity_filter.height() / 2.7)))
-        self.severity_filter.setCurrentIndex(5)
         self.severity_filter.show()
 
         self.label_text_9.setGeometry(790, 250, 200, 30)
@@ -605,7 +614,6 @@ class MainWindow(QWidget):
 
         self.gender_filter.setGeometry(790, 280, 200, 50)
         self.gender_filter.setFont(QFont("Arial", int(self.gender_filter.height() / 2.7)))
-        self.gender_filter.setCurrentIndex(2)
         self.gender_filter.show()
 
         self.label_text_10.setGeometry(1110, 250, 200, 30)
@@ -615,7 +623,6 @@ class MainWindow(QWidget):
 
         self.articulation_filter.setGeometry(1110, 280, 200, 50)
         self.articulation_filter.setFont(QFont("Arial", int(self.articulation_filter.height() / 2.7)))
-        self.articulation_filter.setCurrentIndex(2)
         self.articulation_filter.show()
 
         # set files list frame -----------------------------------------
@@ -630,7 +637,6 @@ class MainWindow(QWidget):
         self.label_text_5.show()
 
         self.audio_file_display.setGeometry(133, 453, 569, 294)
-        # self.audio_file_display.currentItemChanged(self.submenu_recordings)
         self.audio_file_display.show()
 
         # set "select and play" frame ----------------------------------
@@ -644,13 +650,11 @@ class MainWindow(QWidget):
         self.label_text_6.setText(GTM.label_text_6(menu="recordings"))
         self.label_text_6.show()
 
-
         self.button_switch_left.setGeometry(1170, 400, 70, 70)
         self.button_switch_left.hide()
 
         self.button_switch_right.setGeometry(1260, 400, 70, 70)
         self.button_switch_right.hide()
-
 
     def menu_training(self):
         print("Training")
@@ -854,7 +858,7 @@ class MainWindow(QWidget):
             self.button_param_start.setStyleSheet(GSS.button_param_start(selected=False))
             self.button_param_instability.setStyleSheet(GSS.button_param_I(selected=False))
             self.button_param_fluency.setStyleSheet(GSS.buttons_param_F_to_A(
-                part_of_scale_extension=True,selected=False))
+                part_of_scale_extension=True, selected=False))
             self.button_param_extension.setStyleSheet(GSS.buttons_param_F_to_A(
                 part_of_scale_extension=True, selected=False))
             self.button_param_grade.setStyleSheet(GSS.buttons_param_F_to_A(selected=False))
@@ -1291,22 +1295,54 @@ class MainWindow(QWidget):
 
             QTimer.singleShot(700, execute_consequences)
 
-    def submenu_recordings_filter(self):
+    def submenu_recordings_filter(self, initiated_by="p"):
+        print(initiated_by)
 
-        p = self.parameter_filter.currentText()
-        s = self.severity_filter.currentText()
-        g = self.gender_filter.currentText()
-        a = self.articulation_filter.currentText()
+        # continue here: this submenu can now divide its callers, i.e. which filter was changed by user
+        # use that to implement dependencies between the filters
+        # for instance: if severity was changed to 0, parameter will be reset
+        # (already done below, but not dependent from the caller)
+        # also: if parameter is set and level is still 0, level will be reset to all options
 
-        file_names, file_paths = ADM.get_param_recs(parameter=p, severity_level=s, gender=g, articulation=a)
+        if not self.system_status.startswith("menu_recordings"):
+            pass
+        else:
 
+            p = ((self.parameter_filter.currentText())[4:])[:1] if (self.parameter_filter.currentIndex() != 7) else None
 
+            # special case ascending severity levels, treated as "theoretical level 4"
+            if self.severity_filter.currentIndex() == 4:
+                s = "4"
+            # special case "0 severity" resets parameter filter to "all options
+            elif self.severity_filter.currentIndex() == 0:
+                s = "0"
+                p = None
+                self.parameter_filter.blockSignals(True)
+                self.parameter_filter.setCurrentIndex(7)
+                self.parameter_filter.blockSignals(False)
+            else:
+                s = (self.severity_filter.currentText())[-1:] if self.severity_filter.currentIndex() != 5 else None
+
+            g = self.gender_filter.currentText() if self.gender_filter.currentIndex() != 2 else None
+            a = self.articulation_filter.currentText() if self.articulation_filter.currentIndex() != 2 else None
+
+            a = None  # delete this after creating single v and s audio files
+
+            file_names, file_paths = ADM.get_param_recs(parameter=p, severity_level=s, gender=g, articulation=a)
+
+            self.audio_file_display.setUpdatesEnabled(False)
+            self.audio_file_display.clear()
+
+            for file in file_names:
+                self.audio_file_display.addItem(file)
+
+            self.audio_file_display.setUpdatesEnabled(True)
+            self.audio_file_display.repaint()
 
 
 app = QApplication(sys.argv)
 gui = MainWindow()
 gui.show()
 sys.exit(app.exec_())
-
 
 # Copyright and Version Info in one menu -> keep horizontal navigation just like in the other menus

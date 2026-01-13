@@ -41,8 +41,7 @@ recordings_path = Path(__file__).resolve().parent / 'src' / 'rec'
 def get_param_recs(parameter=None,
                    severity_level=None,
                    gender=None,
-                   articulation=None,
-                   include_multilevel_files=True):
+                   articulation="vs"):      # change that after creating single "v" and "s" audiofiles!!!
 
     found_files = []
     file_paths = []
@@ -90,13 +89,12 @@ def get_param_recs(parameter=None,
     # 2) severity level filter ---------------------------------------------------------------------
     if severity_level is None:
         pass
+    elif severity_level == "4":
+        found_files = [f for f in found_files if f"_levels0123" in f]
+        file_paths = [f for f in file_paths if f"_levels0123" in f]
     else:
-        if include_multilevel_files:
-            found_files = [f for f in found_files if f"_level{severity_level}" in f or f"_levels0123" in f]
-            file_paths = [f for f in file_paths if f"_level{severity_level}" in f or f"_levels0123" in f]
-        else:
-            found_files = [f for f in found_files if f"_level{severity_level}" in f]
-            file_paths = [f for f in file_paths if f"_level{severity_level}" in f]
+        found_files = [f for f in found_files if f"_level{severity_level}" in f]
+        file_paths = [f for f in file_paths if f"_level{severity_level}" in f]
 
     # 3) gender of speaker filter ------------------------------------------------------------------
     if gender is None:
@@ -106,6 +104,8 @@ def get_param_recs(parameter=None,
         file_paths = [f for f in file_paths if f"_{gender[0].lower()}_" in f]
 
     # 4) articulation type filter ------------------------------------------------------------------
+    if articulation is None:
+        articulation = "vs"
     if articulation.lower() == "v" or articulation.lower() == "vowel":
         found_files = [f for f in found_files if f"_v_" in f]
         file_paths = [f for f in file_paths if f"_v_" in f]
@@ -119,5 +119,12 @@ def get_param_recs(parameter=None,
     return found_files, file_paths
 
 
-# files, paths = get_param_recs(parameter=None, severity_level=2, gender="f", include_multilevel_files=False)
-# print(files[3], paths[3])
+files, paths = get_param_recs(parameter="B", severity_level=2, gender=None, articulation=None)
+
+for file in files:
+    print(file)
+for file in paths:
+    print(file)
+
+# articulation filter is established but yet there are no single v or s files,
+# only audiofiles that combine vs
