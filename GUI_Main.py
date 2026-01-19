@@ -1295,40 +1295,67 @@ class MainWindow(QWidget):
 
             QTimer.singleShot(700, execute_consequences)
 
-    def submenu_recordings_filter(self, initiated_by="p"):
-        print(initiated_by)
+    def submenu_recordings_filter(self):
 
-        # continue here: this submenu can now divide its callers, i.e. which filter was changed by user
-        # use that to implement dependencies between the filters
-        # for instance: if severity was changed to 0, parameter will be reset
-        # (already done below, but not dependent from the caller)
         # also: if parameter is set and level is still 0, level will be reset to all options
 
         if not self.system_status.startswith("menu_recordings"):
             pass
+
         else:
 
-            p = ((self.parameter_filter.currentText())[4:])[:1] if (self.parameter_filter.currentIndex() != 7) else None
+            # simple case distinction for every filter shall ensure
+            # stability of filter reading even if the texts for the QComboboxes are changed
+            # -> the call for ADM.get_param_recs() is therefore based on the filters´ indexes, not textual descriptions
 
-            # special case ascending severity levels, treated as "theoretical level 4"
-            if self.severity_filter.currentIndex() == 4:
-                s = "4"
-            # special case "0 severity" resets parameter filter to "all options
-            elif self.severity_filter.currentIndex() == 0:
-                s = "0"
-                p = None
+            parameter = None
+            if self.parameter_filter.currentIndex() == 0:
+                parameter = "I"
+            elif self.parameter_filter.currentIndex() == 1:
+                parameter = "F"
+            elif self.parameter_filter.currentIndex() == 2:
+                parameter = "G"
+            elif self.parameter_filter.currentIndex() == 3:
+                parameter = "R"
+            elif self.parameter_filter.currentIndex() == 4:
+                parameter = "B"
+            elif self.parameter_filter.currentIndex() == 5:
+                parameter = "A"
+            elif self.parameter_filter.currentIndex() == 6:
+                parameter = "S"
+            else:
+                pass
+
+            severity = str(self.severity_filter.currentIndex()) \
+                if self.severity_filter.currentIndex() != 5 else None
+            # (-> special case "ascending severity levels", treated as "theoretical level 4")
+
+            gender = str(self.gender_filter.currentIndex()) \
+                if self.gender_filter.currentIndex() != 2 else None
+
+            articulation = str(self.articulation_filter.currentIndex()) \
+                if self.articulation_filter.currentIndex() != 3 else None
+
+            # check dependencies -------------------------------------------------------------
+
+            # 1) A selection of severity to "Level 0" resets parameter to "All Options"
+            if severity == "0":
                 self.parameter_filter.blockSignals(True)
                 self.parameter_filter.setCurrentIndex(7)
                 self.parameter_filter.blockSignals(False)
-            else:
-                s = (self.severity_filter.currentText())[-1:] if self.severity_filter.currentIndex() != 5 else None
+                parameter = None
 
-            g = self.gender_filter.currentText() if self.gender_filter.currentIndex() != 2 else None
-            a = self.articulation_filter.currentText() if self.articulation_filter.currentIndex() != 2 else None
+            # 2) If parameter is set and severity is 0, severity will be reset to "All Options"
+            if self.parameter_filter.currentIndex() != 7 and severity == "0":
+                self.severity_filter.blockSignals(True)
+                self.severity_filter.setCurrentIndex(5)
+                self.severity_filter.blockSignals(False)
+                severity = None
 
-            a = None  # delete this after creating single v and s audio files
-
-            file_names, file_paths = ADM.get_param_recs(parameter=p, severity_level=s, gender=g, articulation=a)
+            file_names, file_paths = ADM.get_param_recs(parameter=parameter,
+                                                        severity_level=severity,
+                                                        gender=gender,
+                                                        articulation=articulation)
 
             self.audio_file_display.setUpdatesEnabled(False)
             self.audio_file_display.clear()

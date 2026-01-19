@@ -665,7 +665,7 @@ def QComboBox_parameter_filter():
 
 
 def QComboBox_severity_filter():
-    return ["Level 0", "Level 1", "Level 2", "Level 3", "Ascending 0-3", "All Options"]
+    return ["Level 0", "Level 1", "Level 2", "Level 3", "Asc. 0-3", "All Options"]
 
 
 def QComboBox_gender_filter():
@@ -673,7 +673,7 @@ def QComboBox_gender_filter():
 
 
 def QComboBox_articulation_filter():
-        return ["Vowel", "Sentence", "All Options"]
+    return ["Vowel", "Sentence", "Both in 1 file", "All Options"]
 
 
 """

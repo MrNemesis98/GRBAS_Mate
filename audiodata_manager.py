@@ -47,8 +47,9 @@ def get_param_recs(parameter=None,
     file_paths = []
 
     # 1) parameter filter --------------------------------------------------------------------------
-    if parameter is None:
+    if parameter is None:                   # means "include all parameters"
         path = recordings_path / 'param'
+
         for file in os.listdir(path / "I"):
             if file.endswith('.wav'):
                 found_files.append(file)
@@ -81,40 +82,45 @@ def get_param_recs(parameter=None,
             if file.endswith('.wav'):
                 found_files.append(file)
                 file_paths.append(str(path / "None" / file))
-    else:
+    else:                                       # parameter = initial letter of selected parameter (i.e. "F")
         path = recordings_path / 'param' / parameter
         found_files = [f for f in os.listdir(path) if f.endswith(".wav")]
         file_paths = [str(path / f) for f in os.listdir(path) if f.endswith(".wav")]
 
     # 2) severity level filter ---------------------------------------------------------------------
-    if severity_level is None:
+    if severity_level is None:      # severity = None   ->   "All Options"
         pass
-    elif severity_level == "4":
+    elif severity_level == "4":     # special case: severity = 4   ->   "Asc. 0-3"
         found_files = [f for f in found_files if f"_levels0123" in f]
         file_paths = [f for f in file_paths if f"_levels0123" in f]
-    else:
+    else:                           # default case: severity number = number of level
         found_files = [f for f in found_files if f"_level{severity_level}" in f]
         file_paths = [f for f in file_paths if f"_level{severity_level}" in f]
 
     # 3) gender of speaker filter ------------------------------------------------------------------
-    if gender is None:
+    if gender is None:          # "All Options"
         pass
     else:
-        found_files = [f for f in found_files if f"_{gender[0].lower()}_" in f]
-        file_paths = [f for f in file_paths if f"_{gender[0].lower()}_" in f]
+        if gender == "0":       # "Male"
+            found_files = [f for f in found_files if f"_m_" in f]
+            file_paths = [f for f in file_paths if f"_m_" in f]
+        elif gender == "1":     # "Female"
+            found_files = [f for f in found_files if f"_f_" in f]
+            file_paths = [f for f in file_paths if f"_f_" in f]
 
     # 4) articulation type filter ------------------------------------------------------------------
-    if articulation is None:
-        articulation = "vs"
-    if articulation.lower() == "v" or articulation.lower() == "vowel":
-        found_files = [f for f in found_files if f"_v_" in f]
-        file_paths = [f for f in file_paths if f"_v_" in f]
-    elif articulation.lower() == "s" or articulation.lower() == "sentence":
-        found_files = [f for f in found_files if f"_s_" in f]
-        file_paths = [f for f in file_paths if f"_s_" in f]
+    if articulation is None:       # "All Options"
+        pass
     else:
-        found_files = [f for f in found_files if f"_vs_" in f]
-        file_paths = [f for f in file_paths if f"_vs_" in f]
+        if articulation == "0":     # "Vowel"
+            found_files = [f for f in found_files if f"_v_" in f]
+            file_paths = [f for f in file_paths if f"_v_" in f]
+        elif articulation == "1":   # "Sentence"
+            found_files = [f for f in found_files if f"_s_" in f]
+            file_paths = [f for f in file_paths if f"_s_" in f]
+        elif articulation == "2":   # "Both in 1 file"
+            found_files = [f for f in found_files if f"_vs_" in f]
+            file_paths = [f for f in file_paths if f"_vs_" in f]
 
     return found_files, file_paths
 
