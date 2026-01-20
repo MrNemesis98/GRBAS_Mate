@@ -1,5 +1,5 @@
 """
-Copyright © MrNemesis98, GitHub, 2025
+Copyright © MrNemesis98, GitHub, 2026
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files, to deal in the software without restriction, including without limitation
@@ -819,7 +819,7 @@ def button_param_S(selected=False):
 
 
 # QComboBoxes (Recording Filters) --------------------------------------------------------------------------------------
-def recording_filter_boxes():
+def recording_filter_boxes(red=False, green=False):
     sst = """   
              QComboBox {
                 background-color:  #191E24;
@@ -838,14 +838,66 @@ def recording_filter_boxes():
             QComboBox QAbstractItemView {
                 background-color: #191E24;
                 color: #ffffff;
-                padding: 8px;
                 selection-background-color: rgba(41,51,63,255);
                 selection-color: #0B839C;
                 border-bottom-left-radius: 8px;
                 border-bottom-right-radius: 8px;
-                text-align:left;
             }
         """
+    if red:
+        sst = """   
+                     QComboBox {
+                        background-color:  #191E24;
+                        color: #DC143C;
+                        border: 3px solid rgba(41,51,63,255);
+                        border-radius: 200px;
+                        padding: 3px 5px;
+                    }
+                    /* Dropdown-Bereich rechts (mit Pfeil) */
+                    QComboBox::drop-down {
+                        subcontrol-origin: padding;
+                        subcontrol-position: top right;
+                        width: 0px;                  
+                        background-color: #191E24;
+                    }
+                    QComboBox QAbstractItemView {
+                        background-color: #191E24;
+                        color: #ffffff;
+                        padding: 8px;
+                        selection-background-color: rgba(41,51,63,255);
+                        selection-color: #0B839C;
+                        border-bottom-left-radius: 8px;
+                        border-bottom-right-radius: 8px;
+                        text-align:left;
+                    }
+                """
+    elif green:
+        sst = """   
+                     QComboBox {
+                        background-color:  #191E24;
+                        color: #228B22;
+                        border: 3px solid rgba(41,51,63,255);
+                        border-radius: 200px;
+                        padding: 3px 5px;
+                    }
+                    /* Dropdown-Bereich rechts (mit Pfeil) */
+                    QComboBox::drop-down {
+                        subcontrol-origin: padding;
+                        subcontrol-position: top right;
+                        width: 0px;                  
+                        background-color: #191E24;
+                    }
+                    QComboBox QAbstractItemView {
+                        background-color: #191E24;
+                        color: #ffffff;
+                        padding: 8px;
+                        selection-background-color: rgba(41,51,63,255);
+                        selection-color: #0B839C;
+                        border-bottom-left-radius: 8px;
+                        border-bottom-right-radius: 8px;
+                        text-align:left;
+                    }
+                """
     return sst
 
 
@@ -854,8 +906,8 @@ def audio_file_display():
     sst = """
         QListWidget {
             background: #191E24;
-            border: 1px solid #444;
-            border-radius: 8px;
+            border: 1px solid #191E24;
+            border-radius: 20px;
             padding: 4px;
         }
         
@@ -867,7 +919,7 @@ def audio_file_display():
         
         /* Hover-Effekt */
         QListWidget::item:hover {
-            background: #3a3a3a;
+            background: rgba(41,51,63,255);
         }
         
         /* Aktuell ausgewähltes Item */
@@ -883,4 +935,116 @@ def audio_file_display():
             outline: none;
         }
         """
+    return sst
+
+
+def waveform():
+    return """
+    WaveformWidget {
+        background-color: #191E24;
+        border: 4px solid rgba(41,51,63,255);
+
+        qproperty-playedColor: #0B839C;
+        qproperty-unplayedColor: rgba(41,51,63,255);
+        qproperty-playheadColor: #DB8004;
+    }
+    """
+
+
+# Media Buttons --------------------------------------------------------------------------------------------------------
+
+def button_media_play(active):
+    if active:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/media/button_media_play_2.png) 0 0 0 0 stretch stretch;
+                }"""
+    else:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/media/button_media_play_0.png) 0 0 0 0 stretch stretch;
+                }
+                QPushButton:hover {
+                    border-image: url(./src/gui/ico/media/button_media_play_1.png) 0 0 0 0 stretch stretch;
+                }
+            """
+    return sst
+
+
+def button_media_pause(active):
+    if active:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/media/button_media_pause_2.png) 0 0 0 0 stretch stretch;
+                }"""
+    else:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/media/button_media_pause_0.png) 0 0 0 0 stretch stretch;
+                }
+                QPushButton:hover {
+                    border-image: url(./src/gui/ico/media/button_media_pause_1.png) 0 0 0 0 stretch stretch;
+                }
+            """
+    return sst
+
+
+def button_media_stop():
+    sst = """QPushButton {
+                border-image: url(./src/gui/ico/media/button_media_stop_0.png) 0 0 0 0 stretch stretch;
+            }
+            QPushButton:hover {
+                border-image: url(./src/gui/ico/media/button_media_stop_1.png) 0 0 0 0 stretch stretch;
+            }
+            QPushButton:pressed {
+                border-image: url(./src/gui/ico/media/button_media_stop_2.png) 0 0 0 0 stretch stretch;
+            }
+        """
+    return sst
+
+
+def button_media_previous():
+    sst = """QPushButton {
+                border-image: url(./src/gui/ico/media/button_media_previous_0.png) 0 0 0 0 stretch stretch;
+            }
+            QPushButton:hover {
+                border-image: url(./src/gui/ico/media/button_media_previous_1.png) 0 0 0 0 stretch stretch;
+            }
+            QPushButton:pressed {
+                border-image: url(./src/gui/ico/media/button_media_previous_2.png) 0 0 0 0 stretch stretch;
+            }
+        """
+    return sst
+
+
+def button_media_next():
+    sst = """QPushButton {
+                border-image: url(./src/gui/ico/media/button_media_next_0.png) 0 0 0 0 stretch stretch;
+            }
+            QPushButton:hover {
+                border-image: url(./src/gui/ico/media/button_media_next_1.png) 0 0 0 0 stretch stretch;
+            }
+            QPushButton:pressed {
+                border-image: url(./src/gui/ico/media/button_media_next_2.png) 0 0 0 0 stretch stretch;
+            }
+        """
+    return sst
+
+
+def button_media_replay(locked=False):
+    if locked:
+        sst = """QPushButton {
+                        border-image: url(./src/gui/ico/media/button_media_replay_3.png) 0 0 0 0 stretch stretch;
+                    }
+                    QPushButton:hover {
+                        border-image: url(./src/gui/ico/media/button_media_replay_1.png) 0 0 0 0 stretch stretch;
+                    }
+                """
+    else:
+        sst = """QPushButton {
+                    border-image: url(./src/gui/ico/media/button_media_replay_0.png) 0 0 0 0 stretch stretch;
+                }
+                QPushButton:hover {
+                    border-image: url(./src/gui/ico/media/button_media_replay_1.png) 0 0 0 0 stretch stretch;
+                }
+                QPushButton:pressed {
+                    border-image: url(./src/gui/ico/media/button_media_replay_2.png) 0 0 0 0 stretch stretch;
+                }
+            """
     return sst

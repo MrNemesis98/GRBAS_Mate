@@ -1,5 +1,5 @@
 """
-Copyright © MrNemesis98, GitHub, 2025
+Copyright © MrNemesis98, GitHub, 2026
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files, to deal in the software without restriction, including without limitation
@@ -127,10 +127,12 @@ def get_param_recs(parameter=None,
 
 files, paths = get_param_recs(parameter="B", severity_level=2, gender=None, articulation=None)
 
+"""
 for file in files:
     print(file)
 for file in paths:
     print(file)
+    """
 
 # articulation filter is established but yet there are no single v or s files,
 # only audiofiles that combine vs

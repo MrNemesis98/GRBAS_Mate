@@ -1,5 +1,4 @@
-"""
-Copyright © MrNemesis98, GitHub, 2025
+Copyright © MrNemesis98, GitHub, 2026
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files, to deal in the software without restriction, including without limitation
@@ -30,7 +29,7 @@ You can share, copy and modify this dataset so long as you give appropriate cred
 and indicate if changes were made, but you may not do so in a way that suggests the rights holder has endorsed you or
 your use of the dataset. Note that further permission may be required for any content within the dataset that is
 identified as belonging to a third party.
-"""
+
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -42,7 +41,7 @@ The app is currently under development.
 As soon as the first version is finalized there will be an official release version, published to the repository in form of an .exe file.
 
 For downloading the app please follow this link to the OSF Project: https://doi.org/10.17605/OSF.IO/PTQG4.
-Under Files/Github you can download single Pythonfiles or source material.
+Under Files/GitHub you can download single Pythonfiles or source material.
 Please pay attention to the MIT and CCBY 4.0 License terms.
 
 

@@ -1,5 +1,5 @@
 """
-Copyright © MrNemesis98, GitHub, 2025
+Copyright © MrNemesis98, GitHub, 2026
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files, to deal in the software without restriction, including without limitation
@@ -35,6 +35,7 @@ identified as belonging to a third party.
 import sys
 
 from PyQt5.QtGui import QFont, QPalette
+from PyQt5.QtMultimedia import QMediaPlayer
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QGraphicsOpacityEffect, QComboBox, \
     QStyledItemDelegate, QStyleOptionComboBox, QStylePainter, QStyle, QListWidget, QScrollArea, QFrame, QSizePolicy
 from PyQt5.QtCore import QPropertyAnimation, QRect, QEasingCurve, QAbstractAnimation, QEventLoop, QVariantAnimation, \
@@ -43,20 +44,23 @@ from PyQt5.QtCore import Qt, QTimer, QPoint
 from PyQt5.QtWidgets import QGraphicsColorizeEffect
 from PyQt5.QtCore import QSequentialAnimationGroup, QPauseAnimation
 from PyQt5.QtGui import QColor
+from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
+from PyQt5.QtCore import QUrl
 
 # icons for buttons: https://icons8.de/icons/set/free-icons--style-glyph-neue
 
 
 import GUI_Style_Sheets as GSS
-import GUI_Sound_Manager as GSM
+import savedata_manager as SDM
 
 import audiodata_manager as ADM
-import savedata_manager as SDM
+import audiodata_visualizer as ADV
 
 if SDM.get_current_language() == "en":
     import GUI_Text_Manager_EN as GTM
 else:
-    import GUI_Text_Manager_EN as GTM
+    pass
+    # import GUI_Text_Manager_DE as GTM
 
 
 def wait_ms(ms: int):
@@ -337,7 +341,8 @@ class MainWindow(QWidget):
         # QComboBoxes for Recording Filtering
         self.parameter_filter = CenteredComboBox(self)
         self.parameter_filter.setStyleSheet(GSS.recording_filter_boxes())
-        self.parameter_filter.setFont(QFont("Arial", int(self.parameter_filter.height() / 2.6)))
+        (self.parameter_filter.view()).setSpacing(6)
+        self.parameter_filter.setFont(QFont("Arial", int(self.parameter_filter.height() / 2.5)))
         self.parameter_filter.addItems(GTM.QComboBox_parameter_filter())
         self.parameter_filter.setCurrentIndex(7)
         self.parameter_filter.currentIndexChanged.connect(
@@ -345,7 +350,8 @@ class MainWindow(QWidget):
 
         self.severity_filter = CenteredComboBox(self)
         self.severity_filter.setStyleSheet(GSS.recording_filter_boxes())
-        self.severity_filter.setFont(QFont("Arial", int(self.severity_filter.height() / 2.6)))
+        (self.severity_filter.view()).setSpacing(6)
+        self.severity_filter.setFont(QFont("Arial", int(self.severity_filter.height() / 2.5)))
         self.severity_filter.addItems(GTM.QComboBox_severity_filter())
         self.severity_filter.setCurrentIndex(5)
         self.severity_filter.currentIndexChanged.connect(
@@ -353,7 +359,8 @@ class MainWindow(QWidget):
 
         self.gender_filter = CenteredComboBox(self)
         self.gender_filter.setStyleSheet(GSS.recording_filter_boxes())
-        self.gender_filter.setFont(QFont("Arial", int(self.gender_filter.height() / 2.6)))
+        (self.gender_filter.view()).setSpacing(6)
+        self.gender_filter.setFont(QFont("Arial", int(self.gender_filter.height() / 2.5)))
         self.gender_filter.addItems(GTM.QComboBox_gender_filter())
         self.gender_filter.setCurrentIndex(2)
         self.gender_filter.currentIndexChanged.connect(
@@ -361,14 +368,16 @@ class MainWindow(QWidget):
 
         self.articulation_filter = CenteredComboBox(self)
         self.articulation_filter.setStyleSheet(GSS.recording_filter_boxes())
-        self.articulation_filter.setFont(QFont("Arial", int(self.articulation_filter.height() / 2.6)))
+        (self.articulation_filter.view()).setSpacing(6)
+        self.articulation_filter.setFont(QFont("Arial", int(self.articulation_filter.height() / 2.5)))
         self.articulation_filter.addItems(GTM.QComboBox_articulation_filter())
-        self.articulation_filter.setCurrentIndex(2)
+        self.articulation_filter.setCurrentIndex(3)
         self.articulation_filter.currentIndexChanged.connect(
             lambda: self.submenu_recordings_filter(initiated_by="a"))
 
         self.audio_file_display = QListWidget(self)
         self.audio_file_display.setStyleSheet(GSS.audio_file_display())
+        self.audio_file_display.setFont(QFont("Robo", 13))
 
         # Scroll Bar ---------------------------------------------------------------------------------------------------
 
@@ -379,6 +388,35 @@ class MainWindow(QWidget):
         # Animations ---------------------------------------------------------------------------------------------------
         self._anim_label_fade = None
         self._anim_label_slide = None
+
+        # Objects for Media Player and Audio File Management -----------------------------------------------------------
+        self.media_player = QMediaPlayer(self)
+        self.audio_file_names = None
+        self.audio_file_paths = None
+        self.name_of_selected_files = None
+        self.path_of_selected_file = None
+
+        self.waveform = ADV.WaveformWidget(self)
+        self.media_player.positionChanged.connect(self.waveform.setPosition)
+        self.media_player.durationChanged.connect(self.waveform.setDuration)
+        self.waveform.seekRequested.connect(self.media_player.setPosition)
+
+        self._peaks_cache = {}  # dict[path -> list[float]]
+
+        self.button_media_play_and_pause = QPushButton(self)
+        self.button_media_play_and_pause.setStyleSheet(GSS.button_media_play(active=False))
+
+        self.button_media_stop = QPushButton(self)
+        self.button_media_stop.setStyleSheet(GSS.button_media_stop())
+
+        self.button_media_previous = QPushButton(self)
+        self.button_media_previous.setStyleSheet(GSS.button_media_previous())
+
+        self.button_media_next = QPushButton(self)
+        self.button_media_next.setStyleSheet(GSS.button_media_next())
+
+        self.button_media_replay = QPushButton(self)
+        self.button_media_replay.setStyleSheet(GSS.button_media_replay())
 
         self.menu_home()
 
@@ -435,10 +473,16 @@ class MainWindow(QWidget):
         self.articulation_filter.hide()
 
         self.audio_file_display.hide()
+        self.waveform.hide()
+
+        self.button_media_previous.hide()
+        self.button_media_replay.hide()
+        self.button_media_play_and_pause.hide()
+        self.button_media_stop.hide()
+        self.button_media_next.hide()
 
     # Main Menu Layouts ************************************************************************************************
     def menu_info(self):
-        print("Info")
         self.system_status = "menu_info"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="info")
@@ -448,30 +492,30 @@ class MainWindow(QWidget):
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=True))
         self.label_menu_title.show()
 
-        self.button_assistance_1.setGeometry(250, 200, 300, 70)
+        self.button_assistance_1.setGeometry(250, 680, 300, 70)
         self.button_assistance_1.setStyleSheet(GSS.button_assistance_1(selected=True))
         self.button_assistance_1.setText(GTM.button_assistance_1(menu="info"))
         self.button_assistance_1.clicked.connect(lambda: self.submenus_info(engaged_by_button_assistance_nr=1))
         self.button_assistance_1.show()
 
-        self.button_assistance_2.setGeometry(550, 200, 300, 70)
+        self.button_assistance_2.setGeometry(550, 680, 300, 70)
         self.button_assistance_2.setStyleSheet(GSS.button_assistance_2(selected=False))
         self.button_assistance_2.setText(GTM.button_assistance_2(menu="info"))
         self.button_assistance_2.clicked.connect(lambda: self.submenus_info(engaged_by_button_assistance_nr=2))
         self.button_assistance_2.show()
 
-        self.button_assistance_3.setGeometry(850, 200, 350, 70)
+        self.button_assistance_3.setGeometry(850, 680, 350, 70)
         self.button_assistance_3.setStyleSheet(GSS.button_assistance_3(selected=False))
         self.button_assistance_3.setText(GTM.button_assistance_3(menu="info"))
         self.button_assistance_3.clicked.connect(lambda: self.submenus_info(engaged_by_button_assistance_nr=3))
         self.button_assistance_3.show()
 
-        self.label_text_1.setGeometry(130, 330, 1100, 380)
+        self.label_text_1.setGeometry(130, 175, 1100, 465)
         self.label_text_1.setStyleSheet(GSS.label_text(no_background=True))
+        self.animation_label_fade(in_or_out="in", label_object=self.label_text_1, duration=0)
         self.submenus_info(engaged_by_button_assistance_nr=0, first_call=True)
 
     def menu_faq(self):
-        print("FAQ")
         self.system_status = "menu_faq"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="faq")
@@ -482,7 +526,6 @@ class MainWindow(QWidget):
         self.label_menu_title.show()
 
     def menu_home(self):
-        print("Home")
         self.system_status = "menu_home_1"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="home")
@@ -527,7 +570,6 @@ class MainWindow(QWidget):
         self.submenu_home_1(first_call=True)
 
     def menu_description(self):
-        print("Description")
         self.system_status = "menu_description_1"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="description")
@@ -566,8 +608,7 @@ class MainWindow(QWidget):
 
         self.submenus_description(to="start", first_call=True)
 
-    def menu_recordings(self, clear_audio_file_display=True):
-        print("Recordings")
+    def menu_recordings(self, remember_selected_audio_files=True):
         self.system_status = "menu_recordings"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="recordings")
@@ -590,39 +631,39 @@ class MainWindow(QWidget):
 
         # set filters
         self.label_text_7.setGeometry(150, 250, 200, 30)
-        self.label_text_7.setText("Parameter")
+        self.label_text_7.setText(GTM.label_text_7(menu="recordings"))
         self.label_text_7.setStyleSheet(GSS.label_text(no_background=True))
         self.label_text_7.show()
 
         self.parameter_filter.setGeometry(150, 280, 200, 50)
-        self.parameter_filter.setFont(QFont("Arial", int(self.parameter_filter.height() / 2.7)))
+        # self.parameter_filter.setFont(QFont("Arial", int(self.parameter_filter.height() / 3.5)))
         self.parameter_filter.show()
 
         self.label_text_8.setGeometry(470, 250, 200, 30)
-        self.label_text_8.setText("Severity")
+        self.label_text_8.setText(GTM.label_text_8(menu="recordings"))
         self.label_text_8.setStyleSheet(GSS.label_text(no_background=True))
         self.label_text_8.show()
 
         self.severity_filter.setGeometry(470, 280, 200, 50)
-        self.severity_filter.setFont(QFont("Arial", int(self.severity_filter.height() / 2.7)))
+        # self.severity_filter.setFont(QFont("Arial", int(self.severity_filter.height() / 3)))
         self.severity_filter.show()
 
         self.label_text_9.setGeometry(790, 250, 200, 30)
-        self.label_text_9.setText("Gender of Speaker")
+        self.label_text_9.setText(GTM.label_text_9(menu="recordings"))
         self.label_text_9.setStyleSheet(GSS.label_text(no_background=True))
         self.label_text_9.show()
 
         self.gender_filter.setGeometry(790, 280, 200, 50)
-        self.gender_filter.setFont(QFont("Arial", int(self.gender_filter.height() / 2.7)))
+        # self.gender_filter.setFont(QFont("Arial", int(self.gender_filter.height() / 2.7)))
         self.gender_filter.show()
 
         self.label_text_10.setGeometry(1110, 250, 200, 30)
-        self.label_text_10.setText("Type of Articulation")
+        self.label_text_10.setText(GTM.label_text_10(menu="recordings"))
         self.label_text_10.setStyleSheet(GSS.label_text(no_background=True))
         self.label_text_10.show()
 
         self.articulation_filter.setGeometry(1110, 280, 200, 50)
-        self.articulation_filter.setFont(QFont("Arial", int(self.articulation_filter.height() / 2.7)))
+        # self.articulation_filter.setFont(QFont("Arial", int(self.articulation_filter.height() / 2.7)))
         self.articulation_filter.show()
 
         # set files list frame -----------------------------------------
@@ -637,9 +678,10 @@ class MainWindow(QWidget):
         self.label_text_5.show()
 
         self.audio_file_display.setGeometry(133, 453, 569, 294)
+        self.audio_file_display.clicked.connect(self.submenu_recordings_load_audio)
         self.audio_file_display.show()
 
-        # set "select and play" frame ----------------------------------
+        # set "Media Player" frame ----------------------------------
         self.label_text_3.setGeometry(755, 450, 575, 300)
         self.label_text_3.setStyleSheet(GSS.label_text(frame_only=True))
         self.label_text_3.clear()
@@ -650,14 +692,29 @@ class MainWindow(QWidget):
         self.label_text_6.setText(GTM.label_text_6(menu="recordings"))
         self.label_text_6.show()
 
-        self.button_switch_left.setGeometry(1170, 400, 70, 70)
-        self.button_switch_left.hide()
+        self.waveform.setGeometry(755, 520, 575, 140)
+        self.waveform.setStyleSheet(GSS.waveform())
+        # self.waveform.raise_()
+        self.waveform.show()
 
-        self.button_switch_right.setGeometry(1260, 400, 70, 70)
-        self.button_switch_right.hide()
+        self.button_media_previous.setGeometry(817, 690, 50, 50)
+        self.button_media_previous.show()
+
+        self.button_media_replay.setGeometry(917, 690, 50, 50)
+        self.button_media_replay.show()
+
+        self.button_media_play_and_pause.setGeometry(1017, 690, 50, 50)
+        self.button_media_play_and_pause.clicked.connect(self.submenu_recordings_play_audio)
+        self.button_media_play_and_pause.show()
+
+        self.button_media_stop.setGeometry(1117, 690, 50, 50)
+        self.button_media_stop.clicked.connect(self.submenu_recordings_stop_audio)
+        self.button_media_stop.show()
+
+        self.button_media_next.setGeometry(1217, 690, 50, 50)
+        self.button_media_next.show()
 
     def menu_training(self):
-        print("Training")
         self.system_status = "menu_training"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="training")
@@ -687,7 +744,6 @@ class MainWindow(QWidget):
             in_or_out="in", label_object=self.label_text_1, duration=1000))
 
     def menu_settings(self):
-        print("Settings")
         self.system_status = "menu_settings"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="settings")
@@ -922,6 +978,12 @@ class MainWindow(QWidget):
                 self.button_param_strain.setStyleSheet(GSS.button_param_S(selected=True))
                 self.button_param_strain.setEnabled(False)
 
+    def disable_filter_checkboxes(self, enable_instead=False):
+        self.parameter_filter.setEnabled(enable_instead)
+        self.severity_filter.setEnabled(enable_instead)
+        self.gender_filter.setEnabled(enable_instead)
+        self.articulation_filter.setEnabled(enable_instead)
+
     def reset_text_label_stylesheets(self):
         self.label_text_1.setStyleSheet(GSS.label_text())
         self.label_text_2.setStyleSheet(GSS.label_text())
@@ -975,7 +1037,7 @@ class MainWindow(QWidget):
                 self.label_text_1.setWordWrap(True)
                 self.label_text_1.setText(GTM.label_text_1(menu="info", var_1=3,
                                                            software_version=self.software_version))
-                self.scroll.setWidget(self.label_text_1)
+                # self.scroll.setWidget(self.label_text_1)
 
     def submenu_home_1(self, first_call=False):
 
@@ -1295,7 +1357,7 @@ class MainWindow(QWidget):
 
             QTimer.singleShot(700, execute_consequences)
 
-    def submenu_recordings_filter(self):
+    def submenu_recordings_filter(self, initiated_by=""):
 
         # also: if parameter is set and level is still 0, level will be reset to all options
 
@@ -1307,7 +1369,6 @@ class MainWindow(QWidget):
             # simple case distinction for every filter shall ensure
             # stability of filter reading even if the texts for the QComboboxes are changed
             # -> the call for ADM.get_param_recs() is therefore based on the filters´ indexes, not textual descriptions
-
             parameter = None
             if self.parameter_filter.currentIndex() == 0:
                 parameter = "I"
@@ -1336,35 +1397,94 @@ class MainWindow(QWidget):
             articulation = str(self.articulation_filter.currentIndex()) \
                 if self.articulation_filter.currentIndex() != 3 else None
 
+            def update_audio_file_selection_display():
+                self.audio_file_names, self.audio_file_paths = ADM.get_param_recs(parameter=parameter,
+                                                                                  severity_level=severity,
+                                                                                  gender=gender,
+                                                                                  articulation=articulation)
+
+                self.audio_file_display.setUpdatesEnabled(False)
+                self.audio_file_display.clear()
+
+                for file in self.audio_file_names:
+                    self.audio_file_display.addItem(file)
+
+                self.audio_file_display.setUpdatesEnabled(True)
+                self.audio_file_display.repaint()
+
             # check dependencies -------------------------------------------------------------
 
             # 1) A selection of severity to "Level 0" resets parameter to "All Options"
-            if severity == "0":
+            if initiated_by == "s" and severity == "0" and self.parameter_filter.currentIndex() != 7:
+                self.disable_filter_checkboxes()
+                self.parameter_filter.setStyleSheet(GSS.recording_filter_boxes(red=True))
                 self.parameter_filter.blockSignals(True)
-                self.parameter_filter.setCurrentIndex(7)
-                self.parameter_filter.blockSignals(False)
+                QTimer.singleShot(800, lambda: self.parameter_filter.setCurrentIndex(7))
+                QTimer.singleShot(800, lambda: self.parameter_filter.setStyleSheet(
+                    GSS.recording_filter_boxes(green=True)))
+                QTimer.singleShot(1500, lambda: self.parameter_filter.blockSignals(False))
+                QTimer.singleShot(1500, lambda: self.parameter_filter.setStyleSheet(GSS.recording_filter_boxes()))
+                QTimer.singleShot(1500, lambda: self.disable_filter_checkboxes(enable_instead=True))
                 parameter = None
 
+                QTimer.singleShot(800, lambda: update_audio_file_selection_display())
+
             # 2) If parameter is set and severity is 0, severity will be reset to "All Options"
-            if self.parameter_filter.currentIndex() != 7 and severity == "0":
+            elif initiated_by == "p" and self.parameter_filter.currentIndex() != 7 and severity == "0":
+                self.disable_filter_checkboxes()
+                self.severity_filter.setStyleSheet(GSS.recording_filter_boxes(red=True))
                 self.severity_filter.blockSignals(True)
-                self.severity_filter.setCurrentIndex(5)
-                self.severity_filter.blockSignals(False)
+                QTimer.singleShot(800, lambda: self.severity_filter.setCurrentIndex(5))
+                QTimer.singleShot(800, lambda: self.severity_filter.setStyleSheet(
+                    GSS.recording_filter_boxes(green=True)))
+                QTimer.singleShot(1500, lambda: self.severity_filter.blockSignals(False))
+                QTimer.singleShot(1500, lambda: self.severity_filter.setStyleSheet(GSS.recording_filter_boxes()))
+                QTimer.singleShot(1500, lambda: self.disable_filter_checkboxes(enable_instead=True))
                 severity = None
 
-            file_names, file_paths = ADM.get_param_recs(parameter=parameter,
-                                                        severity_level=severity,
-                                                        gender=gender,
-                                                        articulation=articulation)
+                QTimer.singleShot(800, lambda: update_audio_file_selection_display())
 
-            self.audio_file_display.setUpdatesEnabled(False)
-            self.audio_file_display.clear()
+            else:
+                update_audio_file_selection_display()
 
-            for file in file_names:
-                self.audio_file_display.addItem(file)
+    def submenu_recordings_load_audio(self):
+        if self.system_status.startswith("menu_recordings"):
 
-            self.audio_file_display.setUpdatesEnabled(True)
-            self.audio_file_display.repaint()
+            self.waveform.setPeaks([])
+            self.waveform.setDuration(1)
+            self.waveform.setPosition(0)
+
+            self.media_player.stop()
+            name_of_selected_file = self.audio_file_display.currentItem().text()
+            path_of_selected_file = self.audio_file_paths[self.audio_file_names.index(name_of_selected_file)]
+            self.media_player.setMedia(QMediaContent(QUrl.fromLocalFile(path_of_selected_file)))
+
+            # peaks = ADV.compute_peaks_wav_16bit(path_of_selected_file, target_points=max(300, self.waveform.width()))
+            # self.waveform.setPeaks(peaks)
+
+            if path_of_selected_file not in self._peaks_cache:
+
+                target = max(300, self.waveform.width())
+                self._peaks_cache[path_of_selected_file] = ADV.compute_peaks_wav_16bit(
+                    path_of_selected_file, target_points=target)
+
+            self.waveform.setPeaks(self._peaks_cache[path_of_selected_file])
+
+    def submenu_recordings_play_audio(self):
+        if self.system_status.startswith("menu_recordings"):
+            if self.media_player.mediaStatus() != QMediaPlayer.NoMedia:
+                self.media_player.play()
+
+    def submenu_recordings_pause_audio(self):
+        if self.system_status.startswith("menu_recordings"):
+            self.media_player.pause()
+
+    def submenu_recordings_stop_audio(self):
+        if self.system_status.startswith("menu_recordings"):
+            self.media_player.stop()
+            self.media_player.setPosition(0)
+
+
 
 
 app = QApplication(sys.argv)
@@ -1372,4 +1492,10 @@ gui = MainWindow()
 gui.show()
 sys.exit(app.exec_())
 
-# Copyright and Version Info in one menu -> keep horizontal navigation just like in the other menus
+
+# ideas for settings:
+
+# color theme: dark / light (two GSS versions)
+# languages: en, de, it, es, fr, po (six GTM versions)
+# copyright: disable copyright warning in home menu (checkbox), show copyright in headline (checkbox)
+# memory: remember filtered audio files (checkbox, will be questioned when calling recordings_menu)

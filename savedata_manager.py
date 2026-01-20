@@ -1,5 +1,5 @@
 """
-Copyright © MrNemesis98, GitHub, 2025
+Copyright © MrNemesis98, GitHub, 2026
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files, to deal in the software without restriction, including without limitation
@@ -82,9 +82,7 @@ def set_current_language(lang="en"):
     update_savedata()
 
 
-print(get_current_language())
 set_current_language()
-print(get_current_language())
 
 """
 # Sector 2: Manage system variables for console.py ---------------------------------------------------------------------

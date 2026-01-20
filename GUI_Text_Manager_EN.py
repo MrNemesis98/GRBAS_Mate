@@ -1,5 +1,5 @@
 """
-Copyright © MrNemesis98, GitHub, 2025
+Copyright © MrNemesis98, GitHub, 2026
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files, to deal in the software without restriction, including without limitation
@@ -39,7 +39,7 @@ def window_title():
 
 def label_main_headline_background(with_copyright=False):
     return ("   GRBAS_Mate   [ɡɹæps me͜ɪt̚]"
-            "\t\tCopyright © MrNemesis98, GitHub, 2025") \
+            "\t\tCopyright © MrNemesis98, GitHub, 2026") \
         if with_copyright else "   GRBAS_Mate   [ɡɹæps me͜ɪt̚]"
 
 
@@ -77,7 +77,7 @@ def label_text_1(menu, var_1=0, software_version=""):
         # Version Information
         if var_1 == 1:
             text = f"""
-                <p style="text-align: justify; line-height: 2.0; font-family: Arial;">
+                <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     Currently installed version of this software:\t{software_version}
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
@@ -105,15 +105,15 @@ def label_text_1(menu, var_1=0, software_version=""):
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                         The final step will be a tool for automatic voice quality analysis, integrated into this 
-                        software. This will be part of a Masters thesis project and is planned for summer 2026.
+                        software. This will be part of a Masters thesis project and is planned for autumn 2026.
                     </p>"""
             return text
         # Copyright
         elif var_1 == 3:
-            text = """<p style="text-align: justify; line-height: 1.5; font-family: Arial;">
-                  Copyright © MrNemesis98, GitHub, 2025
+            text = """<p style="text-align: justify; line-height: 1.1; font-family: Arial;">
+                  Copyright © MrNemesis98, GitHub, 2026
                 </p>
-                <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
+                <p style="text-align: justify; line-height: 1.1; font-family: Arial;">
                 This software was published under MIT License, declared as follows:
                   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
                   associated documentation files, to deal in the software without restriction, including without
@@ -121,7 +121,7 @@ def label_text_1(menu, var_1=0, software_version=""):
                   of the software, and to permit persons to whom the software is furnished to do so, subject to the 
                   following conditions:
                 </p>
-                <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
+                <p style="text-align: justify; line-height: 1.1; font-family: Arial;">
                   The above copyright notice and this permission notice shall be included in all copies or substantial 
                   portions of the software. The program is provided “as is”, without warranty of any kind, express or 
                   implied, including but not limited to the warranties of merchantability, fitness for a particular 
@@ -129,10 +129,10 @@ def label_text_1(menu, var_1=0, software_version=""):
                   claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, 
                   out of or in connection with the software or the use or other dealings in the software.
                 </p>
-                <p style="text-align: justify; line-height: 1.5; font-family: Arial; color: #DB8004;">
+                <p style="text-align: justify; line-height: 1.1; font-family: Arial; color: #DB8004;">
                   By using GRBAS_Mate or one of its components you agree to all these conditions. 
                 </p>
-                <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
+                <p style="text-align: justify; line-height: 1.1; font-family: Arial;">
                 Hint: Feel free to have a look at the copyright options in the settings menu!
                 </p>"""
             return text
@@ -558,7 +558,7 @@ def label_text_6(menu):
         return "Parameter Descriptions"
 
     elif menu.lower() == "recordings":
-        return "Select and Play Audio"
+        return "Media Player"
 
     elif menu.lower() == "training":
         return "Training Mode"
@@ -570,6 +570,120 @@ def label_text_6(menu):
         return "Unkown Value!"
 
 
+def label_text_7(menu):
+    if menu.lower() == "info":
+        return "Information Center"
+
+    elif menu.lower() == "copyright":
+        return "Copyright"
+
+    elif menu.lower() == "faq":
+        return "User Guide"
+
+    elif menu.lower() == "home":
+        return "Home"
+
+    elif menu.lower() == "description":
+        return "Parameter Descriptions"
+
+    elif menu.lower() == "recordings":
+        return "Parameter"
+
+    elif menu.lower() == "training":
+        return "Training Mode"
+
+    elif menu.lower() == "settings":
+        return "Settings"
+
+    else:
+        return "Unkown Value!"
+
+
+def label_text_8(menu):
+    if menu.lower() == "info":
+        return "Information Center"
+
+    elif menu.lower() == "copyright":
+        return "Copyright"
+
+    elif menu.lower() == "faq":
+        return "User Guide"
+
+    elif menu.lower() == "home":
+        return "Home"
+
+    elif menu.lower() == "description":
+        return "Parameter Descriptions"
+
+    elif menu.lower() == "recordings":
+        return "Severity"
+
+    elif menu.lower() == "training":
+        return "Training Mode"
+
+    elif menu.lower() == "settings":
+        return "Settings"
+
+    else:
+        return "Unkown Value!"
+
+
+def label_text_9(menu):
+    if menu.lower() == "info":
+        return "Information Center"
+
+    elif menu.lower() == "copyright":
+        return "Copyright"
+
+    elif menu.lower() == "faq":
+        return "User Guide"
+
+    elif menu.lower() == "home":
+        return "Home"
+
+    elif menu.lower() == "description":
+        return "Parameter Descriptions"
+
+    elif menu.lower() == "recordings":
+        return "Gender of Speaker"
+
+    elif menu.lower() == "training":
+        return "Training Mode"
+
+    elif menu.lower() == "settings":
+        return "Settings"
+
+    else:
+        return "Unkown Value!"
+
+
+def label_text_10(menu):
+    if menu.lower() == "info":
+        return "Information Center"
+
+    elif menu.lower() == "copyright":
+        return "Copyright"
+
+    elif menu.lower() == "faq":
+        return "User Guide"
+
+    elif menu.lower() == "home":
+        return "Home"
+
+    elif menu.lower() == "description":
+        return "Parameter Descriptions"
+
+    elif menu.lower() == "recordings":
+        return "Type of Articulation"
+
+    elif menu.lower() == "training":
+        return "Training Mode"
+
+    elif menu.lower() == "settings":
+        return "Settings"
+
+    else:
+        return "Unkown Value!"
 # Textual input for buttons --------------------------------------------------------------------------------------------
 
 def button_assistance_1(menu):
