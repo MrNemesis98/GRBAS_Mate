@@ -114,7 +114,7 @@ class MainWindow(QWidget):
     system_sounds = False
     show_copyright_notice_in_gui_headline = True
     show_copyright_notice_in_home_menu = True
-    include_multilevel_recordings = True
+    audio_replay = False
 
     def __init__(self):
         super().__init__()
@@ -404,7 +404,7 @@ class MainWindow(QWidget):
         self._peaks_cache = {}  # dict[path -> list[float]]
 
         self.button_media_play_and_pause = QPushButton(self)
-        self.button_media_play_and_pause.setStyleSheet(GSS.button_media_play(active=False))
+        self.button_media_play_and_pause.setStyleSheet(GSS.button_media_play())
 
         self.button_media_stop = QPushButton(self)
         self.button_media_stop.setStyleSheet(GSS.button_media_stop())
@@ -697,14 +697,18 @@ class MainWindow(QWidget):
         # self.waveform.raise_()
         self.waveform.show()
 
+        self.media_player.mediaStatusChanged.connect(self.submenu_recordings_replay_audio)
+
         self.button_media_previous.setGeometry(817, 690, 50, 50)
+        self.button_media_previous.clicked.connect(self.submenu_recordings_previous_audio)
         self.button_media_previous.show()
 
         self.button_media_replay.setGeometry(917, 690, 50, 50)
+        self.button_media_replay.clicked.connect(self.submenu_recordings_replay_audio_ctrl)
         self.button_media_replay.show()
 
         self.button_media_play_and_pause.setGeometry(1017, 690, 50, 50)
-        self.button_media_play_and_pause.clicked.connect(self.submenu_recordings_play_audio)
+        self.button_media_play_and_pause.clicked.connect(self.submenu_recordings_play_and_pause_audio)
         self.button_media_play_and_pause.show()
 
         self.button_media_stop.setGeometry(1117, 690, 50, 50)
@@ -712,6 +716,7 @@ class MainWindow(QWidget):
         self.button_media_stop.show()
 
         self.button_media_next.setGeometry(1217, 690, 50, 50)
+        self.button_media_next.clicked.connect(self.submenu_recordings_next_audio)
         self.button_media_next.show()
 
     def menu_training(self):
@@ -1455,6 +1460,8 @@ class MainWindow(QWidget):
             self.waveform.setPosition(0)
 
             self.media_player.stop()
+            self.media_player.setPosition(0)
+
             name_of_selected_file = self.audio_file_display.currentItem().text()
             path_of_selected_file = self.audio_file_paths[self.audio_file_names.index(name_of_selected_file)]
             self.media_player.setMedia(QMediaContent(QUrl.fromLocalFile(path_of_selected_file)))
@@ -1470,19 +1477,69 @@ class MainWindow(QWidget):
 
             self.waveform.setPeaks(self._peaks_cache[path_of_selected_file])
 
-    def submenu_recordings_play_audio(self):
+    def submenu_recordings_play_and_pause_audio(self):
         if self.system_status.startswith("menu_recordings"):
-            if self.media_player.mediaStatus() != QMediaPlayer.NoMedia:
-                self.media_player.play()
 
-    def submenu_recordings_pause_audio(self):
-        if self.system_status.startswith("menu_recordings"):
-            self.media_player.pause()
+            # play:
+            if (self.media_player.state() == self.media_player.PausedState
+                    or self.media_player.state() == self.media_player.StoppedState):
+                if self.media_player.mediaStatus() != QMediaPlayer.NoMedia:
+                    self.media_player.play()
+                    self.button_media_play_and_pause.setStyleSheet(GSS.button_media_pause())
+
+            # pause:
+            if self.media_player.state() == self.media_player.PlayingState:
+                self.media_player.pause()
+                self.button_media_play_and_pause.setStyleSheet(GSS.button_media_play())
 
     def submenu_recordings_stop_audio(self):
         if self.system_status.startswith("menu_recordings"):
-            self.media_player.stop()
-            self.media_player.setPosition(0)
+            if self.media_player.state() == self.media_player.PlayingState:
+                self.media_player.stop()
+                self.media_player.setPosition(0)
+                self.button_media_play_and_pause.setStyleSheet(GSS.button_media_play())
+
+    def submenu_recordings_previous_audio(self):
+        if self.system_status.startswith("menu_recordings"):
+            if self.media_player.state() == self.media_player.PlayingState:
+                self.media_player.stop()
+                self.media_player.setPosition(0)
+
+            if self.audio_file_display.currentRow() == 0:
+                self.audio_file_display.setCurrentRow(len(self.audio_file_names) - 1)
+            else:
+                self.audio_file_display.setCurrentRow(self.audio_file_display.currentRow() - 1)
+
+            self.submenu_recordings_load_audio()
+
+    def submenu_recordings_next_audio(self):
+        if self.system_status.startswith("menu_recordings"):
+            if self.media_player.state() == self.media_player.PlayingState:
+                self.media_player.stop()
+                self.media_player.setPosition(0)
+
+            if self.audio_file_display.currentRow() == len(self.audio_file_names) - 1:
+                self.audio_file_display.setCurrentRow(0)
+            else:
+                self.audio_file_display.setCurrentRow(self.audio_file_display.currentRow() + 1)
+
+            self.submenu_recordings_load_audio()
+
+    def submenu_recordings_replay_audio(self):
+        if self.system_status.startswith("menu_recordings"):
+            if self.media_player.state() == self.media_player.StoppedState and self.media_player.EndOfMedia:
+                # self.media_player.setPosition(0)
+                # self.media_player.play()
+                print("bäh!")
+
+    def submenu_recordings_replay_audio_ctrl(self):
+        if self.system_status.startswith("menu_recordings"):
+            if self.audio_replay:
+                self.audio_replay = False
+                self.button_media_replay.setStyleSheet(GSS.button_media_replay(locked=False))
+            else:
+                self.audio_replay = True
+                self.button_media_replay.setStyleSheet(GSS.button_media_replay(locked=True))
 
 
 

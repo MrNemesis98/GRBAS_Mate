@@ -953,35 +953,31 @@ def waveform():
 
 # Media Buttons --------------------------------------------------------------------------------------------------------
 
-def button_media_play(active):
-    if active:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/media/button_media_play_2.png) 0 0 0 0 stretch stretch;
-                }"""
-    else:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/media/button_media_play_0.png) 0 0 0 0 stretch stretch;
-                }
-                QPushButton:hover {
-                    border-image: url(./src/gui/ico/media/button_media_play_1.png) 0 0 0 0 stretch stretch;
-                }
-            """
+def button_media_play():
+    sst = """QPushButton {
+                border-image: url(./src/gui/ico/media/button_media_play_0.png) 0 0 0 0 stretch stretch;
+            }
+            QPushButton:hover {
+                border-image: url(./src/gui/ico/media/button_media_play_1.png) 0 0 0 0 stretch stretch;
+            }
+            QPushButton:pressed {
+                border-image: url(./src/gui/ico/media/button_media_play_2.png) 0 0 0 0 stretch stretch;
+            }
+        """
     return sst
 
 
-def button_media_pause(active):
-    if active:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/media/button_media_pause_2.png) 0 0 0 0 stretch stretch;
-                }"""
-    else:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/media/button_media_pause_0.png) 0 0 0 0 stretch stretch;
-                }
-                QPushButton:hover {
-                    border-image: url(./src/gui/ico/media/button_media_pause_1.png) 0 0 0 0 stretch stretch;
-                }
-            """
+def button_media_pause():
+    sst = """QPushButton {
+                border-image: url(./src/gui/ico/media/button_media_pause_0.png) 0 0 0 0 stretch stretch;
+            }
+            QPushButton:hover {
+                border-image: url(./src/gui/ico/media/button_media_pause_1.png) 0 0 0 0 stretch stretch;
+            }
+            QPushButton:pressed {
+                border-image: url(./src/gui/ico/media/button_media_pause_2.png) 0 0 0 0 stretch stretch;
+            }
+        """
     return sst
 
 
@@ -1044,7 +1040,7 @@ def button_media_replay(locked=False):
                     border-image: url(./src/gui/ico/media/button_media_replay_1.png) 0 0 0 0 stretch stretch;
                 }
                 QPushButton:pressed {
-                    border-image: url(./src/gui/ico/media/button_media_replay_2.png) 0 0 0 0 stretch stretch;
+                    border-image: url(./src/gui/ico/media/button_media_replay_3.png) 0 0 0 0 stretch stretch;
                 }
             """
     return sst
