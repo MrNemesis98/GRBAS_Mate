@@ -840,8 +840,6 @@ def recording_filter_boxes(red=False, green=False):
                 color: #ffffff;
                 selection-background-color: rgba(41,51,63,255);
                 selection-color: #0B839C;
-                border-bottom-left-radius: 8px;
-                border-bottom-right-radius: 8px;
             }
         """
     if red:
@@ -955,10 +953,10 @@ def waveform():
 
 def button_media_play():
     sst = """QPushButton {
-                border-image: url(./src/gui/ico/media/button_media_play_0.png) 0 0 0 0 stretch stretch;
+                border-image: url(./src/gui/ico/media/button_media_play_1.png) 0 0 0 0 stretch stretch;
             }
             QPushButton:hover {
-                border-image: url(./src/gui/ico/media/button_media_play_1.png) 0 0 0 0 stretch stretch;
+                border-image: url(./src/gui/ico/media/button_media_play_0.png) 0 0 0 0 stretch stretch;
             }
             QPushButton:pressed {
                 border-image: url(./src/gui/ico/media/button_media_play_2.png) 0 0 0 0 stretch stretch;
@@ -969,13 +967,13 @@ def button_media_play():
 
 def button_media_pause():
     sst = """QPushButton {
-                border-image: url(./src/gui/ico/media/button_media_pause_0.png) 0 0 0 0 stretch stretch;
+                border-image: url(./src/gui/ico/media/button_media_pause_2.png) 0 0 0 0 stretch stretch;
             }
             QPushButton:hover {
                 border-image: url(./src/gui/ico/media/button_media_pause_1.png) 0 0 0 0 stretch stretch;
             }
             QPushButton:pressed {
-                border-image: url(./src/gui/ico/media/button_media_pause_2.png) 0 0 0 0 stretch stretch;
+                border-image: url(./src/gui/ico/media/button_media_pause_0.png) 0 0 0 0 stretch stretch;
             }
         """
     return sst
@@ -983,10 +981,10 @@ def button_media_pause():
 
 def button_media_stop():
     sst = """QPushButton {
-                border-image: url(./src/gui/ico/media/button_media_stop_0.png) 0 0 0 0 stretch stretch;
+                border-image: url(./src/gui/ico/media/button_media_stop_1.png) 0 0 0 0 stretch stretch;
             }
             QPushButton:hover {
-                border-image: url(./src/gui/ico/media/button_media_stop_1.png) 0 0 0 0 stretch stretch;
+                border-image: url(./src/gui/ico/media/button_media_stop_0.png) 0 0 0 0 stretch stretch;
             }
             QPushButton:pressed {
                 border-image: url(./src/gui/ico/media/button_media_stop_2.png) 0 0 0 0 stretch stretch;
@@ -997,10 +995,10 @@ def button_media_stop():
 
 def button_media_previous():
     sst = """QPushButton {
-                border-image: url(./src/gui/ico/media/button_media_previous_0.png) 0 0 0 0 stretch stretch;
+                border-image: url(./src/gui/ico/media/button_media_previous_1.png) 0 0 0 0 stretch stretch;
             }
             QPushButton:hover {
-                border-image: url(./src/gui/ico/media/button_media_previous_1.png) 0 0 0 0 stretch stretch;
+                border-image: url(./src/gui/ico/media/button_media_previous_0.png) 0 0 0 0 stretch stretch;
             }
             QPushButton:pressed {
                 border-image: url(./src/gui/ico/media/button_media_previous_2.png) 0 0 0 0 stretch stretch;
@@ -1011,10 +1009,10 @@ def button_media_previous():
 
 def button_media_next():
     sst = """QPushButton {
-                border-image: url(./src/gui/ico/media/button_media_next_0.png) 0 0 0 0 stretch stretch;
+                border-image: url(./src/gui/ico/media/button_media_next_1.png) 0 0 0 0 stretch stretch;
             }
             QPushButton:hover {
-                border-image: url(./src/gui/ico/media/button_media_next_1.png) 0 0 0 0 stretch stretch;
+                border-image: url(./src/gui/ico/media/button_media_next_0.png) 0 0 0 0 stretch stretch;
             }
             QPushButton:pressed {
                 border-image: url(./src/gui/ico/media/button_media_next_2.png) 0 0 0 0 stretch stretch;
@@ -1028,19 +1026,53 @@ def button_media_replay(locked=False):
         sst = """QPushButton {
                         border-image: url(./src/gui/ico/media/button_media_replay_3.png) 0 0 0 0 stretch stretch;
                     }
-                    QPushButton:hover {
-                        border-image: url(./src/gui/ico/media/button_media_replay_1.png) 0 0 0 0 stretch stretch;
-                    }
                 """
     else:
         sst = """QPushButton {
-                    border-image: url(./src/gui/ico/media/button_media_replay_0.png) 0 0 0 0 stretch stretch;
+                    border-image: url(./src/gui/ico/media/button_media_replay_1.png) 0 0 0 0 stretch stretch;
                 }
                 QPushButton:hover {
-                    border-image: url(./src/gui/ico/media/button_media_replay_1.png) 0 0 0 0 stretch stretch;
+                    border-image: url(./src/gui/ico/media/button_media_replay_0.png) 0 0 0 0 stretch stretch;
                 }
                 QPushButton:pressed {
                     border-image: url(./src/gui/ico/media/button_media_replay_3.png) 0 0 0 0 stretch stretch;
                 }
             """
+    return sst
+
+
+def volume_slider():
+    sst = """QSlider::groove:horizontal {
+            height: 8px;
+            background: #191E24;
+            border-radius: 3px;
+        }
+        
+        QSlider::handle:horizontal {
+            width: 14px;
+            margin: -4px 0;
+            border-radius: 7px;
+            background: #DB8004;
+        }
+        
+        QSlider::sub-page:horizontal {
+            background: #0B839C;
+            border-radius: 3px;
+        }
+        
+        QSlider::add-page:horizontal {
+            background: #191E24;
+            border-radius: 3px;
+        }
+        """
+    return sst
+
+
+def label_text_time_display_layout():
+    sst = """
+        QLabel {
+            color: #DB8004;
+            font-size: 22px;
+            }
+        """
     return sst

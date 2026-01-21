@@ -684,6 +684,34 @@ def label_text_10(menu):
 
     else:
         return "Unkown Value!"
+
+def label_text_11(menu):
+    if menu.lower() == "info":
+        return "Information Center"
+
+    elif menu.lower() == "copyright":
+        return "Copyright"
+
+    elif menu.lower() == "faq":
+        return "User Guide"
+
+    elif menu.lower() == "home":
+        return "Home"
+
+    elif menu.lower() == "description":
+        return "Parameter Descriptions"
+
+    elif menu.lower() == "recordings":
+        return "Recordings"
+
+    elif menu.lower() == "training":
+        return "Training Mode"
+
+    elif menu.lower() == "settings":
+        return "Settings"
+
+    else:
+        return "Unkown Value!"
 # Textual input for buttons --------------------------------------------------------------------------------------------
 
 def button_assistance_1(menu):

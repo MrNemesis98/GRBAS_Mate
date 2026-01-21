@@ -37,7 +37,8 @@ import sys
 from PyQt5.QtGui import QFont, QPalette
 from PyQt5.QtMultimedia import QMediaPlayer
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QGraphicsOpacityEffect, QComboBox, \
-    QStyledItemDelegate, QStyleOptionComboBox, QStylePainter, QStyle, QListWidget, QScrollArea, QFrame, QSizePolicy
+    QStyledItemDelegate, QStyleOptionComboBox, QStylePainter, QStyle, QListWidget, QScrollArea, QFrame, QSizePolicy, \
+    QSlider
 from PyQt5.QtCore import QPropertyAnimation, QRect, QEasingCurve, QAbstractAnimation, QEventLoop, QVariantAnimation, \
     QSignalBlocker
 from PyQt5.QtCore import Qt, QTimer, QPoint
@@ -90,11 +91,10 @@ class CenteredComboBox(QComboBox):
             QStyle.CC_ComboBox, opt, QStyle.SC_ComboBoxEditField, self
         )
 
-        # 3) Text eliden & zentriert zeichnen
         text = opt.currentText
         text = p.fontMetrics().elidedText(text, Qt.ElideRight, text_rect.width())
 
-        align = Qt.AlignHCenter | Qt.AlignVCenter  # <-- hier ggf. auf AlignLeft ändern
+        align = Qt.AlignHCenter | Qt.AlignVCenter
         p.drawItemText(
             text_rect,
             align,
@@ -109,12 +109,25 @@ class MainWindow(QWidget):
     system_status = None
     software_version = "v1.0"
 
-    # Settings variables (to be saved in savedata.txt)
+    # Settings variables (to be saved in savedata.txt) *****************************************************************
     gui_language = "eng"
-    system_sounds = False
+
+    colour_theme_dark = True
+
     show_copyright_notice_in_gui_headline = True
     show_copyright_notice_in_home_menu = True
+
+    remember_filtered_audio_files = True
+    remember_media_player_settings = True
+    audio_render_quality = 33
+
+    # system variables for media player control ------------------------------------------------------------------------
     audio_replay = False
+    audio_loaded = False
+    audio_filtered = False
+    audio_played_completely_manually_before = False
+    audio_currently_playing = False
+    _duration_ms = 0
 
     def __init__(self):
         super().__init__()
@@ -327,7 +340,34 @@ class MainWindow(QWidget):
         self.label_text_10.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
         self.label_text_10.setTextFormat(Qt.RichText)
 
-        # Buttons (menu internal)
+        # for headlines
+        self.label_text_11 = QLabel(self)
+        self.label_text_11.setStyleSheet(GSS.label_text())
+        self.label_text_11.setAlignment(Qt.AlignVCenter | Qt.AlignCenter)
+        self.label_text_11.setWordWrap(True)
+        self.label_text_11.setTextFormat(Qt.RichText)
+        self.label_text_11.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
+        self.label_text_11.setTextFormat(Qt.RichText)
+
+        # for headlines
+        self.label_text_12 = QLabel(self)
+        self.label_text_12.setStyleSheet(GSS.label_text())
+        self.label_text_12.setAlignment(Qt.AlignVCenter | Qt.AlignCenter)
+        self.label_text_12.setWordWrap(True)
+        self.label_text_12.setTextFormat(Qt.RichText)
+        self.label_text_12.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
+        self.label_text_12.setTextFormat(Qt.RichText)
+
+        # for headlines
+        self.label_text_13 = QLabel(self)
+        self.label_text_13.setStyleSheet(GSS.label_text())
+        self.label_text_13.setAlignment(Qt.AlignVCenter | Qt.AlignCenter)
+        self.label_text_13.setWordWrap(True)
+        self.label_text_13.setTextFormat(Qt.RichText)
+        self.label_text_13.setTextInteractionFlags(Qt.TextBrowserInteraction)  # Links & Selektion
+        self.label_text_13.setTextFormat(Qt.RichText)
+
+        # Buttons (menu internal) --------------------------------------------------------------------------------------
         self.button_switch_right = QPushButton(self)
         self.button_switch_left = QPushButton(self)
         self.button_switch_down = QPushButton(self)
@@ -338,7 +378,7 @@ class MainWindow(QWidget):
         self.button_assistance_2 = QPushButton(self)
         self.button_assistance_3 = QPushButton(self)
 
-        # QComboBoxes for Recording Filtering
+        # QComboBoxes for Recording Filtering --------------------------------------------------------------------------
         self.parameter_filter = CenteredComboBox(self)
         self.parameter_filter.setStyleSheet(GSS.recording_filter_boxes())
         (self.parameter_filter.view()).setSpacing(6)
@@ -391,15 +431,30 @@ class MainWindow(QWidget):
 
         # Objects for Media Player and Audio File Management -----------------------------------------------------------
         self.media_player = QMediaPlayer(self)
+
         self.audio_file_names = None
         self.audio_file_paths = None
         self.name_of_selected_files = None
         self.path_of_selected_file = None
 
         self.waveform = ADV.WaveformWidget(self)
-        self.media_player.positionChanged.connect(self.waveform.setPosition)
-        self.media_player.durationChanged.connect(self.waveform.setDuration)
         self.waveform.seekRequested.connect(self.media_player.setPosition)
+
+        self._wave_timer = QTimer(self)
+        self._wave_timer.setInterval(int(self.audio_render_quality))
+        self._wave_timer.timeout.connect(self._tick_waveform)
+
+        self.media_player.stateChanged.connect(self._on_player_state_changed)
+        self.media_player.mediaStatusChanged.connect(self.submenu_recordings_check_for_audio_replay)
+        self.media_player.setVolume(75)
+
+        self.slider_volume = QSlider(Qt.Horizontal, self)
+        self.slider_volume.setRange(0, 100)
+        self.slider_volume.setSingleStep(1)
+        self.slider_volume.setValue(75)
+        self.slider_volume.setStyleSheet(GSS.volume_slider())
+        self.slider_volume.valueChanged.connect(self.media_player.setVolume)
+        self.slider_volume.valueChanged.connect(self.submenu_recordings_update_volume_display)
 
         self._peaks_cache = {}  # dict[path -> list[float]]
 
@@ -433,6 +488,33 @@ class MainWindow(QWidget):
     def headline_mouse_release(self, event):
         self._drag_active = False
 
+    # Connection with WaveformWidget ***********************************************************************************
+    def _on_player_state_changed(self, state):
+        if state == QMediaPlayer.PlayingState:
+            self._wave_timer.start()
+        else:
+            self._wave_timer.stop()
+
+    def _tick_waveform(self):
+        dur = self.media_player.duration()
+        if dur <= 0:
+            return
+        pos = self.media_player.position()
+
+        self.waveform.setDuration(dur)
+        self.waveform.setPosition(pos)
+
+        self.submenu_recordings_update_time_displays(pos)
+
+    # Player Time Management *******************************************************************************************
+    def _on_duration_changed(self, ms: int):
+        self._duration_ms = max(0, ms)
+        # direkt einmal aktualisieren (z.B. nach dem Laden)
+        self.submenu_recordings_update_time_displays(self.media_player.position())
+
+    def _on_position_changed(self, ms: int):
+        self.submenu_recordings_update_time_displays(ms)
+
     # Menu independent functions ***************************************************************************************
     def hide_all_menu_internal_elements(self):
         self.label_menu_title.hide()
@@ -447,6 +529,9 @@ class MainWindow(QWidget):
         self.label_text_8.hide()
         self.label_text_9.hide()
         self.label_text_10.hide()
+        self.label_text_11.hide()
+        self.label_text_12.hide()
+        self.label_text_13.hide()
 
         self.button_switch_right.hide()
         self.button_switch_left.hide()
@@ -474,6 +559,8 @@ class MainWindow(QWidget):
 
         self.audio_file_display.hide()
         self.waveform.hide()
+        self.slider_volume.hide()
+        self.submenu_recordings_stop_audio()
 
         self.button_media_previous.hide()
         self.button_media_replay.hide()
@@ -612,6 +699,7 @@ class MainWindow(QWidget):
         self.system_status = "menu_recordings"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="recordings")
+        self.disconnect_media_player_elements()
         self.reset_text_label_stylesheets()
 
         self.label_menu_title.setText(GTM.label_menu_title(menu="recordings"))
@@ -692,32 +780,69 @@ class MainWindow(QWidget):
         self.label_text_6.setText(GTM.label_text_6(menu="recordings"))
         self.label_text_6.show()
 
-        self.waveform.setGeometry(755, 520, 575, 140)
+        # volume
+        self.label_text_11.setGeometry(892, 465, 301, 30)
+        self.label_text_11.setStyleSheet(GSS.label_text(no_background=True))
+        self.label_text_11.show()
+
+        self.slider_volume.setGeometry(892, 495, 301, 30)
+        self.slider_volume.show()
+        self.submenu_recordings_update_volume_display()
+
+        # time displays
+        self.label_text_12.setGeometry(755, 465, 125, 60)
+        self.label_text_12.setStyleSheet(GSS.label_text(no_background=True))
+        self.label_text_12.setText("00:00:000")
+        self.label_text_12.show()
+
+        self.label_text_13.setGeometry(1205, 465, 125, 60)
+        self.label_text_13.setStyleSheet(GSS.label_text_time_display_layout())
+        self.label_text_13.setText("-00:00:000")
+        self.label_text_13.show()
+
+        self.waveform.setGeometry(755, 530, 575, 140)
         self.waveform.setStyleSheet(GSS.waveform())
-        # self.waveform.raise_()
+        self.media_player.positionChanged.connect(self.waveform.setPosition)
+        self.media_player.durationChanged.connect(self.waveform.setDuration)
+        self.media_player.durationChanged.connect(self._on_duration_changed)
+        self.media_player.positionChanged.connect(self._on_position_changed)
         self.waveform.show()
 
-        self.media_player.mediaStatusChanged.connect(self.submenu_recordings_replay_audio)
+        # self.media_player.mediaStatusChanged.connect(self.submenu_recordings_check_for_audio_replay)
 
-        self.button_media_previous.setGeometry(817, 690, 50, 50)
+        self.button_media_previous.setGeometry(817, 685, 50, 50)
         self.button_media_previous.clicked.connect(self.submenu_recordings_previous_audio)
         self.button_media_previous.show()
 
-        self.button_media_replay.setGeometry(917, 690, 50, 50)
+        self.button_media_replay.setGeometry(917, 685, 50, 50)
         self.button_media_replay.clicked.connect(self.submenu_recordings_replay_audio_ctrl)
         self.button_media_replay.show()
 
-        self.button_media_play_and_pause.setGeometry(1017, 690, 50, 50)
+        self.button_media_play_and_pause.setGeometry(1017, 685, 50, 50)
         self.button_media_play_and_pause.clicked.connect(self.submenu_recordings_play_and_pause_audio)
         self.button_media_play_and_pause.show()
 
-        self.button_media_stop.setGeometry(1117, 690, 50, 50)
+        self.button_media_stop.setGeometry(1117, 685, 50, 50)
         self.button_media_stop.clicked.connect(self.submenu_recordings_stop_audio)
         self.button_media_stop.show()
 
-        self.button_media_next.setGeometry(1217, 690, 50, 50)
+        self.button_media_next.setGeometry(1217, 685, 50, 50)
         self.button_media_next.clicked.connect(self.submenu_recordings_next_audio)
         self.button_media_next.show()
+
+        if not self.remember_filtered_audio_files:
+            self.parameter_filter.setCurrentIndex(7)
+            self.severity_filter.setCurrentIndex(5)
+            self.gender_filter.setCurrentIndex(2)
+            self.articulation_filter.setCurrentIndex(3)
+            self.audio_file_display.clear()
+            self.audio_loaded = False
+            self.audio_filtered = False
+
+        if not self.remember_media_player_settings:
+            self.media_player.setVolume(75)
+            self.slider_volume.setValue(75)
+            self.submenu_recordings_replay_audio_ctrl(set_offline=True)
 
     def menu_training(self):
         self.system_status = "menu_training"
@@ -983,6 +1108,14 @@ class MainWindow(QWidget):
                 self.button_param_strain.setStyleSheet(GSS.button_param_S(selected=True))
                 self.button_param_strain.setEnabled(False)
 
+    def disconnect_media_player_elements(self):
+        self.audio_file_display.disconnect()
+        self.button_media_play_and_pause.disconnect()
+        self.button_media_stop.disconnect()
+        self.button_media_replay.disconnect()
+        self.button_media_previous.disconnect()
+        self.button_media_next.disconnect()
+
     def disable_filter_checkboxes(self, enable_instead=False):
         self.parameter_filter.setEnabled(enable_instead)
         self.severity_filter.setEnabled(enable_instead)
@@ -994,8 +1127,6 @@ class MainWindow(QWidget):
         self.label_text_2.setStyleSheet(GSS.label_text())
         self.label_text_3.setStyleSheet(GSS.label_text())
         self.label_text_4.setStyleSheet(GSS.label_text())
-
-        # Update-Funktion: Selektiertes Item mittig + Farbe setzen
 
     def update_filter_selection(self, filter_object, idx):
         for i in range(filter_object.count()):
@@ -1403,6 +1534,9 @@ class MainWindow(QWidget):
                 if self.articulation_filter.currentIndex() != 3 else None
 
             def update_audio_file_selection_display():
+                if self.audio_currently_playing:
+                    self.submenu_recordings_stop_audio()
+
                 self.audio_file_names, self.audio_file_paths = ADM.get_param_recs(parameter=parameter,
                                                                                   severity_level=severity,
                                                                                   gender=gender,
@@ -1416,6 +1550,13 @@ class MainWindow(QWidget):
 
                 self.audio_file_display.setUpdatesEnabled(True)
                 self.audio_file_display.repaint()
+
+                self.audio_filtered = True
+                self.audio_loaded = False
+
+                self.waveform.setPeaks([])
+                self.waveform.setDuration(1)
+                self.waveform.setPosition(0)
 
             # check dependencies -------------------------------------------------------------
 
@@ -1455,6 +1596,10 @@ class MainWindow(QWidget):
     def submenu_recordings_load_audio(self):
         if self.system_status.startswith("menu_recordings"):
 
+            if self.audio_currently_playing:
+                self.button_media_play_and_pause.setStyleSheet(GSS.button_media_play())
+
+            self._wave_timer.stop()
             self.waveform.setPeaks([])
             self.waveform.setDuration(1)
             self.waveform.setPosition(0)
@@ -1465,83 +1610,124 @@ class MainWindow(QWidget):
             name_of_selected_file = self.audio_file_display.currentItem().text()
             path_of_selected_file = self.audio_file_paths[self.audio_file_names.index(name_of_selected_file)]
             self.media_player.setMedia(QMediaContent(QUrl.fromLocalFile(path_of_selected_file)))
+            self.media_player.durationChanged.connect(self.waveform.setDuration)
 
             # peaks = ADV.compute_peaks_wav_16bit(path_of_selected_file, target_points=max(300, self.waveform.width()))
             # self.waveform.setPeaks(peaks)
 
             if path_of_selected_file not in self._peaks_cache:
-
                 target = max(300, self.waveform.width())
                 self._peaks_cache[path_of_selected_file] = ADV.compute_peaks_wav_16bit(
                     path_of_selected_file, target_points=target)
 
             self.waveform.setPeaks(self._peaks_cache[path_of_selected_file])
+            self.audio_played_completely_manually_before = False
+            self.audio_loaded = True
 
     def submenu_recordings_play_and_pause_audio(self):
+
         if self.system_status.startswith("menu_recordings"):
 
             # play:
-            if (self.media_player.state() == self.media_player.PausedState
-                    or self.media_player.state() == self.media_player.StoppedState):
-                if self.media_player.mediaStatus() != QMediaPlayer.NoMedia:
-                    self.media_player.play()
-                    self.button_media_play_and_pause.setStyleSheet(GSS.button_media_pause())
+            if not self.audio_currently_playing and self.audio_filtered and self.audio_loaded:
+                self.media_player.play()
+                self.button_media_play_and_pause.setStyleSheet(GSS.button_media_pause())
+                self.audio_played_completely_manually_before = True
+                self.audio_currently_playing = True
 
             # pause:
-            if self.media_player.state() == self.media_player.PlayingState:
+            elif self.audio_currently_playing:
                 self.media_player.pause()
                 self.button_media_play_and_pause.setStyleSheet(GSS.button_media_play())
+                self.audio_currently_playing = False
 
-    def submenu_recordings_stop_audio(self):
-        if self.system_status.startswith("menu_recordings"):
-            if self.media_player.state() == self.media_player.PlayingState:
-                self.media_player.stop()
-                self.media_player.setPosition(0)
-                self.button_media_play_and_pause.setStyleSheet(GSS.button_media_play())
+    def submenu_recordings_stop_audio(self, do_not_reset_audio_played_completely_var=False):
+        if self.audio_currently_playing:
+            self.media_player.stop()
+            self.button_media_play_and_pause.setStyleSheet(GSS.button_media_play())
+            self.audio_currently_playing = False
+
+            if hasattr(self, "_wave_timer"):
+                self._wave_timer.stop()
+
+        self.waveform.setPosition(0)
+        self.submenu_recordings_update_time_displays(0)
+
+        self.media_player.setPosition(0)
+        if not do_not_reset_audio_played_completely_var:
+            self.audio_played_completely_manually_before = False
 
     def submenu_recordings_previous_audio(self):
         if self.system_status.startswith("menu_recordings"):
-            if self.media_player.state() == self.media_player.PlayingState:
-                self.media_player.stop()
-                self.media_player.setPosition(0)
 
-            if self.audio_file_display.currentRow() == 0:
-                self.audio_file_display.setCurrentRow(len(self.audio_file_names) - 1)
-            else:
-                self.audio_file_display.setCurrentRow(self.audio_file_display.currentRow() - 1)
+            self.submenu_recordings_stop_audio()
 
-            self.submenu_recordings_load_audio()
+            if self.audio_filtered and self.audio_loaded and self.media_player.mediaStatus() != QMediaPlayer.NoMedia:
+                if self.audio_file_display.currentRow() == 0:
+                    self.audio_file_display.setCurrentRow(len(self.audio_file_names) - 1)
+                else:
+                    self.audio_file_display.setCurrentRow(self.audio_file_display.currentRow() - 1)
+
+                self.submenu_recordings_load_audio()
 
     def submenu_recordings_next_audio(self):
         if self.system_status.startswith("menu_recordings"):
-            if self.media_player.state() == self.media_player.PlayingState:
-                self.media_player.stop()
-                self.media_player.setPosition(0)
 
-            if self.audio_file_display.currentRow() == len(self.audio_file_names) - 1:
-                self.audio_file_display.setCurrentRow(0)
-            else:
-                self.audio_file_display.setCurrentRow(self.audio_file_display.currentRow() + 1)
+            self.submenu_recordings_stop_audio()
 
-            self.submenu_recordings_load_audio()
+            if self.audio_filtered and self.audio_loaded and self.media_player.mediaStatus() != QMediaPlayer.NoMedia:
+                if self.audio_file_display.currentRow() == len(self.audio_file_names) - 1:
+                    self.audio_file_display.setCurrentRow(0)
+                else:
+                    self.audio_file_display.setCurrentRow(self.audio_file_display.currentRow() + 1)
 
-    def submenu_recordings_replay_audio(self):
-        if self.system_status.startswith("menu_recordings"):
-            if self.media_player.state() == self.media_player.StoppedState and self.media_player.EndOfMedia:
-                # self.media_player.setPosition(0)
-                # self.media_player.play()
-                print("bäh!")
+                self.submenu_recordings_load_audio()
 
-    def submenu_recordings_replay_audio_ctrl(self):
-        if self.system_status.startswith("menu_recordings"):
+    def submenu_recordings_check_for_audio_replay(self):
+
+        # end of file
+        if self.media_player.mediaStatus() == 7:
+            self.submenu_recordings_stop_audio(do_not_reset_audio_played_completely_var=True)
+
             if self.audio_replay:
+                self.submenu_recordings_play_and_pause_audio()
+                self.button_media_play_and_pause.setStyleSheet(GSS.button_media_pause())
+
+    def submenu_recordings_replay_audio_ctrl(self, set_offline):
+        if self.system_status.startswith("menu_recordings"):
+            if set_offline:
                 self.audio_replay = False
                 self.button_media_replay.setStyleSheet(GSS.button_media_replay(locked=False))
             else:
-                self.audio_replay = True
-                self.button_media_replay.setStyleSheet(GSS.button_media_replay(locked=True))
+                if self.audio_replay:
+                    self.audio_replay = False
+                    self.button_media_replay.setStyleSheet(GSS.button_media_replay(locked=False))
+                else:
+                    self.audio_replay = True
+                    self.button_media_replay.setStyleSheet(GSS.button_media_replay(locked=True))
 
+    def submenu_recordings_update_volume_display(self):
+        if self.system_status.startswith("menu_recordings"):
+            text = "Volume: " + str(self.slider_volume.value()) + "%"
+            self.label_text_11.setText(text)
 
+    def submenu_recordings_update_time_displays(self, pos_ms: int):
+        pos_ms = max(0, pos_ms)
+        dur_ms = max(0, self._duration_ms)
+
+        # Display 1: bisher abgespielt
+        self.label_text_12.setText(self.submenu_recordings_time_format_fmt_ms_mmssmmm(pos_ms))
+
+        # Display 2: Restzeit = Gesamt - Position
+        remaining = max(0, dur_ms - pos_ms)
+        self.label_text_13.setText("-" + self.submenu_recordings_time_format_fmt_ms_mmssmmm(remaining))
+
+    def submenu_recordings_time_format_fmt_ms_mmssmmm(self, ms: int) -> str:
+        ms = max(0, ms)
+        minutes = ms // 60000
+        seconds = (ms % 60000) // 1000
+        millis = ms % 1000
+        return f"{minutes:02d}:{seconds:02d}.{millis:03d}"
 
 
 app = QApplication(sys.argv)
@@ -1549,10 +1735,14 @@ gui = MainWindow()
 gui.show()
 sys.exit(app.exec_())
 
-
 # ideas for settings:
 
-# color theme: dark / light (two GSS versions)
+# color_theme: dark / light (two GSS versions)
 # languages: en, de, it, es, fr, po (six GTM versions)
-# copyright: disable copyright warning in home menu (checkbox), show copyright in headline (checkbox)
+# copyright: show copyright warning in home menu (checkbox), show copyright in headline (checkbox)
 # memory: remember filtered audio files (checkbox, will be questioned when calling recordings_menu)
+# audio_render_quality:     Debug: 1FPS (1000),
+#                           Eco: 10 FPS (100ms),
+#                           Normal: 30 FPS (33ms),
+#                           High: 60 FPS (16ms),
+#                           Ultra: 100 FPS (10ms)

@@ -6,7 +6,6 @@ import wave
 import struct
 
 
-
 class WaveformWidget(QWidget):
     seekRequested = pyqtSignal(int)  # ms
 
