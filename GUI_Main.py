@@ -31,8 +31,7 @@ and indicate if changes were made, but you may not do so in a way that suggests 
 your use of the dataset. Note that further permission may be required for any content within the dataset that is
 identified as belonging to a third party.
 """
-
-import sys
+import os, sys
 
 from PyQt5.QtGui import QFont, QPalette
 from PyQt5.QtMultimedia import QMediaPlayer
@@ -105,6 +104,28 @@ class CenteredComboBox(QComboBox):
         )
 
 
+def submenu_recordings_time_format_fmt_ms_mmssmmm(ms: int) -> str:
+    ms = max(0, ms)
+    minutes = ms // 60000
+    seconds = (ms % 60000) // 1000
+    millis = ms % 1000
+    return f"{minutes:02d}:{seconds:02d}.{millis:03d}"
+
+
+def update_filter_selection(filter_object, idx):
+    for i in range(filter_object.count()):
+        filter_object.setItemData(i, Qt.AlignLeft, Qt.TextAlignmentRole)
+        filter_object.setItemData(i, None, Qt.ForegroundRole)
+    if idx >= 0:
+        # Header (0) → mittig + grau, echte Werte → mittig + weiß
+        if idx == 0:
+            filter_object.setItemData(0, Qt.AlignCenter, Qt.TextAlignmentRole)
+            filter_object.setItemData(0, QColor("#aaaaaa"), Qt.ForegroundRole)
+        else:
+            filter_object.setItemData(idx, Qt.AlignCenter, Qt.TextAlignmentRole)
+            filter_object.setItemData(idx, QColor("#ffffff"), Qt.ForegroundRole)
+
+
 class MainWindow(QWidget):
     system_status = None
     software_version = "v1.0"
@@ -117,7 +138,7 @@ class MainWindow(QWidget):
     show_copyright_notice_in_gui_headline = True
     show_copyright_notice_in_home_menu = True
 
-    remember_filtered_audio_files = True
+    remember_filtered_audio_files = True    # -> is handled as false if shortcut at descriptions menu is used
     remember_media_player_settings = True
     audio_render_quality = 33
 
@@ -377,6 +398,7 @@ class MainWindow(QWidget):
         self.button_assistance_1 = QPushButton(self)
         self.button_assistance_2 = QPushButton(self)
         self.button_assistance_3 = QPushButton(self)
+        self.button_assistance_4 = QPushButton(self)
 
         # QComboBoxes for Recording Filtering --------------------------------------------------------------------------
         self.parameter_filter = CenteredComboBox(self)
@@ -473,6 +495,9 @@ class MainWindow(QWidget):
         self.button_media_replay = QPushButton(self)
         self.button_media_replay.setStyleSheet(GSS.button_media_replay())
 
+        # Objects for Settings Menu ------------------------------------------------------------------------------------
+
+
         self.menu_home()
 
     # Window Behaviour *************************************************************************************************
@@ -541,6 +566,7 @@ class MainWindow(QWidget):
         self.button_assistance_1.hide()
         self.button_assistance_2.hide()
         self.button_assistance_3.hide()
+        self.button_assistance_4.hide()
 
         self.button_param_start.hide()
         self.button_param_instability.hide()
@@ -582,18 +608,21 @@ class MainWindow(QWidget):
         self.button_assistance_1.setGeometry(250, 680, 300, 70)
         self.button_assistance_1.setStyleSheet(GSS.button_assistance_1(selected=True))
         self.button_assistance_1.setText(GTM.button_assistance_1(menu="info"))
+        self.button_assistance_1.disconnect()
         self.button_assistance_1.clicked.connect(lambda: self.submenus_info(engaged_by_button_assistance_nr=1))
         self.button_assistance_1.show()
 
         self.button_assistance_2.setGeometry(550, 680, 300, 70)
         self.button_assistance_2.setStyleSheet(GSS.button_assistance_2(selected=False))
         self.button_assistance_2.setText(GTM.button_assistance_2(menu="info"))
+        self.button_assistance_2.disconnect()
         self.button_assistance_2.clicked.connect(lambda: self.submenus_info(engaged_by_button_assistance_nr=2))
         self.button_assistance_2.show()
 
         self.button_assistance_3.setGeometry(850, 680, 350, 70)
         self.button_assistance_3.setStyleSheet(GSS.button_assistance_3(selected=False))
         self.button_assistance_3.setText(GTM.button_assistance_3(menu="info"))
+        self.button_assistance_3.disconnect()
         self.button_assistance_3.clicked.connect(lambda: self.submenus_info(engaged_by_button_assistance_nr=3))
         self.button_assistance_3.show()
 
@@ -695,7 +724,7 @@ class MainWindow(QWidget):
 
         self.submenus_description(to="start", first_call=True)
 
-    def menu_recordings(self, remember_selected_audio_files=True):
+    def menu_recordings(self, initiated_by_descriptions_shortcut = False, parameter_to_filter=""):
         self.system_status = "menu_recordings"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="recordings")
@@ -844,6 +873,33 @@ class MainWindow(QWidget):
             self.slider_volume.setValue(75)
             self.submenu_recordings_replay_audio_ctrl(set_offline=True)
 
+        if initiated_by_descriptions_shortcut:
+            self.severity_filter.setCurrentIndex(5)
+            self.gender_filter.setCurrentIndex(2)
+            self.articulation_filter.setCurrentIndex(3)
+            self.audio_file_display.clear()
+            self.audio_loaded = False
+            self.audio_filtered = False
+
+            if parameter_to_filter == "I":
+                self.parameter_filter.setCurrentIndex(0)
+            elif parameter_to_filter == "F":
+                self.parameter_filter.setCurrentIndex(1)
+            elif parameter_to_filter == "G":
+                self.parameter_filter.setCurrentIndex(2)
+            elif parameter_to_filter == "R":
+                self.parameter_filter.setCurrentIndex(3)
+            elif parameter_to_filter == "B":
+                self.parameter_filter.setCurrentIndex(4)
+            elif parameter_to_filter == "A":
+                self.parameter_filter.setCurrentIndex(5)
+            elif parameter_to_filter == "S":
+                self.parameter_filter.setCurrentIndex(6)
+            else:
+                self.parameter_filter.setCurrentIndex(7)
+
+            self.submenu_recordings_filter(initiated_by="descriptions_shortcut")
+
     def menu_training(self):
         self.system_status = "menu_training"
         self.hide_all_menu_internal_elements()
@@ -882,6 +938,62 @@ class MainWindow(QWidget):
         self.label_menu_title.setText(GTM.label_menu_title(menu="settings"))
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
         self.label_menu_title.show()
+
+        self.label_text_1.setGeometry(110, 360, 180, 240)
+        self.label_text_1.setStyleSheet(GSS.label_settings_zero())
+        self.label_text_1.setText("")
+        self.label_text_1.show()
+
+        self.label_text_2.setGeometry(540, 160, 600, 200)
+        self.label_text_2.setStyleSheet(GSS.label_settings_frame_top())
+        self.label_text_2.setText("")
+        self.label_text_2.show()
+
+        self.label_text_3.setGeometry(720, 480, 600, 200)
+        self.label_text_3.setStyleSheet(GSS.label_settings_frame_bottom())
+        self.label_text_3.setText("")
+        self.label_text_3.show()
+
+        self.label_text_4.setGeometry(570, 190, 720, 460)
+        self.label_text_4.setStyleSheet(GSS.label_text(dark_background=True))
+        self.label_text_4.setText("")
+        self.label_text_4.show()
+
+        self.label_text_5.setGeometry(570, 705, 720, 70)
+        self.label_text_5.setStyleSheet(GSS.label_text(dark_background=True))
+        self.animation_label_fade(in_or_out="out", label_object=self.label_text_5, duration=0)
+        self.label_text_5.setText(GTM.label_text_5(menu="settings"))
+        self.label_text_5.hide()
+
+        self.button_assistance_1.setGeometry(135, 275, 300, 80)
+        self.button_assistance_1.setStyleSheet(GSS.button_assistance_1(selected=False, settings=True))
+        self.button_assistance_1.setText(GTM.button_assistance_1(menu="settings"))
+        self.button_assistance_1.disconnect()
+        self.button_assistance_1.clicked.connect(lambda: self.submenus_settings(setting=1))
+        self.button_assistance_1.show()
+
+        self.button_assistance_2.setGeometry(135, 385, 300, 80)
+        self.button_assistance_2.setStyleSheet(GSS.button_assistance_2(selected=False, settings=True))
+        self.button_assistance_2.setText(GTM.button_assistance_2(menu="settings"))
+        self.button_assistance_2.disconnect()
+        self.button_assistance_2.clicked.connect(lambda: self.submenus_settings(setting=2))
+        self.button_assistance_2.show()
+
+        self.button_assistance_3.setGeometry(135, 495, 300, 80)
+        self.button_assistance_3.setStyleSheet(GSS.button_assistance_3(selected=False, settings=True))
+        self.button_assistance_3.setText(GTM.button_assistance_3(menu="settings"))
+        self.button_assistance_3.disconnect()
+        self.button_assistance_3.clicked.connect(lambda: self.submenus_settings(setting=3))
+        self.button_assistance_3.show()
+
+        self.button_assistance_4.setGeometry(135, 650, 300, 80)
+        self.button_assistance_4.setStyleSheet(GSS.button_assistance_4(settings=True))
+        self.button_assistance_4.setText(GTM.button_assistance_4(menu="settings"))
+        self.button_assistance_4.disconnect()
+        self.button_assistance_4.clicked.connect(lambda: self.submenu_setting_restart())
+        self.button_assistance_4.show()
+
+
 
     # Animations *******************************************************************************************************
     def animation_label_fade(self, in_or_out, label_object: QLabel, duration=800):
@@ -1128,19 +1240,6 @@ class MainWindow(QWidget):
         self.label_text_3.setStyleSheet(GSS.label_text())
         self.label_text_4.setStyleSheet(GSS.label_text())
 
-    def update_filter_selection(self, filter_object, idx):
-        for i in range(filter_object.count()):
-            filter_object.setItemData(i, Qt.AlignLeft, Qt.TextAlignmentRole)
-            filter_object.setItemData(i, None, Qt.ForegroundRole)
-        if idx >= 0:
-            # Header (0) → mittig + grau, echte Werte → mittig + weiß
-            if idx == 0:
-                filter_object.setItemData(0, Qt.AlignCenter, Qt.TextAlignmentRole)
-                filter_object.setItemData(0, QColor("#aaaaaa"), Qt.ForegroundRole)
-            else:
-                filter_object.setItemData(idx, Qt.AlignCenter, Qt.TextAlignmentRole)
-                filter_object.setItemData(idx, QColor("#ffffff"), Qt.ForegroundRole)
-
     # Menu Functionality - Submenus ------------------------------------------------------------------------------------
 
     def submenus_info(self, engaged_by_button_assistance_nr, first_call=False):
@@ -1173,7 +1272,6 @@ class MainWindow(QWidget):
                 self.label_text_1.setWordWrap(True)
                 self.label_text_1.setText(GTM.label_text_1(menu="info", var_1=3,
                                                            software_version=self.software_version))
-                # self.scroll.setWidget(self.label_text_1)
 
     def submenu_home_1(self, first_call=False):
 
@@ -1352,7 +1450,8 @@ class MainWindow(QWidget):
                     self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
                                                                                  dress_as_recording=True))
                     self.button_switch_down.setEnabled(True)
-                    # self.button_switch_down.clicked.connect(lambda: )
+                    self.button_switch_down.clicked.connect(
+                        lambda: self.menu_recordings(initiated_by_descriptions_shortcut=True, parameter_to_filter="I"))
 
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="I")
 
@@ -1371,7 +1470,8 @@ class MainWindow(QWidget):
                     self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
                                                                                  dress_as_recording=True))
                     self.button_switch_down.setEnabled(True)
-                    # self.button_switch_down.clicked.connect(lambda: )
+                    self.button_switch_down.clicked.connect(
+                        lambda: self.menu_recordings(initiated_by_descriptions_shortcut=True, parameter_to_filter="F"))
 
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="F")
 
@@ -1408,7 +1508,8 @@ class MainWindow(QWidget):
                     self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
                                                                                  dress_as_recording=True))
                     self.button_switch_down.setEnabled(True)
-                    # self.button_switch_down.clicked.connect(lambda: )
+                    self.button_switch_down.clicked.connect(
+                        lambda: self.menu_recordings(initiated_by_descriptions_shortcut=True, parameter_to_filter="G"))
 
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="G")
 
@@ -1427,7 +1528,8 @@ class MainWindow(QWidget):
                     self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
                                                                                  dress_as_recording=True))
                     self.button_switch_down.setEnabled(True)
-                    # self.button_switch_down.clicked.connect(lambda: )
+                    self.button_switch_down.clicked.connect(
+                        lambda: self.menu_recordings(initiated_by_descriptions_shortcut=True, parameter_to_filter="R"))
 
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="R")
 
@@ -1446,7 +1548,8 @@ class MainWindow(QWidget):
                     self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
                                                                                  dress_as_recording=True))
                     self.button_switch_down.setEnabled(True)
-                    # self.button_switch_down.clicked.connect(lambda: )
+                    self.button_switch_down.clicked.connect(
+                        lambda: self.menu_recordings(initiated_by_descriptions_shortcut=True, parameter_to_filter="B"))
 
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="B")
 
@@ -1465,7 +1568,8 @@ class MainWindow(QWidget):
                     self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
                                                                                  dress_as_recording=True))
                     self.button_switch_down.setEnabled(True)
-                    # self.button_switch_down.clicked.connect(lambda: )
+                    self.button_switch_down.clicked.connect(
+                        lambda: self.menu_recordings(initiated_by_descriptions_shortcut=True, parameter_to_filter="A"))
 
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="A")
 
@@ -1483,7 +1587,8 @@ class MainWindow(QWidget):
                     self.button_switch_down.setStyleSheet(GSS.button_switch_down(active=True, waiting=False,
                                                                                  dress_as_recording=True))
                     self.button_switch_down.setEnabled(True)
-                    # self.button_switch_down.clicked.connect(lambda: )
+                    self.button_switch_down.clicked.connect(
+                        lambda: self.menu_recordings(initiated_by_descriptions_shortcut=True, parameter_to_filter="S"))
 
                     self.disconnect_parameter_buttons(connect_instead=True, menu="description", selected_button="S")
                 else:
@@ -1494,8 +1599,6 @@ class MainWindow(QWidget):
             QTimer.singleShot(700, execute_consequences)
 
     def submenu_recordings_filter(self, initiated_by=""):
-
-        # also: if parameter is set and level is still 0, level will be reset to all options
 
         if not self.system_status.startswith("menu_recordings"):
             pass
@@ -1562,6 +1665,7 @@ class MainWindow(QWidget):
 
             # 1) A selection of severity to "Level 0" resets parameter to "All Options"
             if initiated_by == "s" and severity == "0" and self.parameter_filter.currentIndex() != 7:
+                self.audio_file_display.clear()
                 self.disable_filter_checkboxes()
                 self.parameter_filter.setStyleSheet(GSS.recording_filter_boxes(red=True))
                 self.parameter_filter.blockSignals(True)
@@ -1577,6 +1681,7 @@ class MainWindow(QWidget):
 
             # 2) If parameter is set and severity is 0, severity will be reset to "All Options"
             elif initiated_by == "p" and self.parameter_filter.currentIndex() != 7 and severity == "0":
+                self.audio_file_display.clear()
                 self.disable_filter_checkboxes()
                 self.severity_filter.setStyleSheet(GSS.recording_filter_boxes(red=True))
                 self.severity_filter.blockSignals(True)
@@ -1587,6 +1692,19 @@ class MainWindow(QWidget):
                 QTimer.singleShot(1500, lambda: self.severity_filter.setStyleSheet(GSS.recording_filter_boxes()))
                 QTimer.singleShot(1500, lambda: self.disable_filter_checkboxes(enable_instead=True))
                 severity = None
+
+                QTimer.singleShot(800, lambda: update_audio_file_selection_display())
+
+            elif initiated_by == "descriptions_shortcut":
+                self.audio_file_display.clear()
+                self.parameter_filter.blockSignals(True)
+                QTimer.singleShot(0, lambda: self.parameter_filter.setStyleSheet(
+                    GSS.recording_filter_boxes(red=True)))
+                QTimer.singleShot(800, lambda: self.parameter_filter.setStyleSheet(
+                    GSS.recording_filter_boxes(green=True)))
+                QTimer.singleShot(1500, lambda: self.parameter_filter.setStyleSheet(
+                    GSS.recording_filter_boxes()))
+                QTimer.singleShot(1500, lambda: self.parameter_filter.blockSignals(False))
 
                 QTimer.singleShot(800, lambda: update_audio_file_selection_display())
 
@@ -1715,19 +1833,20 @@ class MainWindow(QWidget):
         pos_ms = max(0, pos_ms)
         dur_ms = max(0, self._duration_ms)
 
-        # Display 1: bisher abgespielt
-        self.label_text_12.setText(self.submenu_recordings_time_format_fmt_ms_mmssmmm(pos_ms))
+        self.label_text_12.setText(submenu_recordings_time_format_fmt_ms_mmssmmm(pos_ms))
 
-        # Display 2: Restzeit = Gesamt - Position
         remaining = max(0, dur_ms - pos_ms)
-        self.label_text_13.setText("-" + self.submenu_recordings_time_format_fmt_ms_mmssmmm(remaining))
+        self.label_text_13.setText("-" + submenu_recordings_time_format_fmt_ms_mmssmmm(remaining))
 
-    def submenu_recordings_time_format_fmt_ms_mmssmmm(self, ms: int) -> str:
-        ms = max(0, ms)
-        minutes = ms // 60000
-        seconds = (ms % 60000) // 1000
-        millis = ms % 1000
-        return f"{minutes:02d}:{seconds:02d}.{millis:03d}"
+    def submenus_settings(self, setting=0):
+        if self.system_status.startswith("menu_settings"):
+            pass
+
+    def submenu_setting_restart(self):
+        if self.system_status.startswith("menu_settings"):
+            python = sys.executable
+            args = sys.argv[:]
+            os.execv(python, [python] + args)
 
 
 app = QApplication(sys.argv)
@@ -1737,12 +1856,19 @@ sys.exit(app.exec_())
 
 # ideas for settings:
 
-# color_theme: dark / light (two GSS versions)
-# languages: en, de, it, es, fr, po (six GTM versions)
-# copyright: show copyright warning in home menu (checkbox), show copyright in headline (checkbox)
-# memory: remember filtered audio files (checkbox, will be questioned when calling recordings_menu)
-# audio_render_quality:     Debug: 1FPS (1000),
-#                           Eco: 10 FPS (100ms),
-#                           Normal: 30 FPS (33ms),
-#                           High: 60 FPS (16ms),
-#                           Ultra: 100 FPS (10ms)
+# general GUI settings:
+#                         color_theme:  dark / light (two GSS versions)
+#                         languages:    en, de, it, es, fr, po (six GTM versions)
+
+# copyright options:
+#                       show copyright warning in home menu (checkbox)
+#                       show copyright in headline (checkbox)
+
+# media player:
+#               remember filtered audio files (checkbox, will be questioned when calling recordings_menu)
+#               remember media player settings (checkbox, will be questioned when calling recordings_menu)
+#               audio_render_quality:      Debug: 1FPS (1000),
+#                                          Eco: 10 FPS (100ms),
+#                                          Normal: 30 FPS (33ms),
+#                                          High: 60 FPS (16ms),
+#                                          Ultra: 100 FPS (10ms)

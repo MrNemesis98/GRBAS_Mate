@@ -87,7 +87,7 @@ def label_text_1(menu, var_1=0, software_version=""):
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     This software as well as its open access material shall serve as a contribution to the research 
-                    field of clinical phonetics and as a tool in practical context of home assessment or even 
+                    field of clinical phonetics and as a tool in study context, for home assessment or even 
                     ENT diagnostics.
                 </p>"""
             return text
@@ -150,8 +150,8 @@ def label_text_1(menu, var_1=0, software_version=""):
                     dysfunctions and associate them with expert benchmark.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                It is created for home assessment, but can serve as an assistance tool in diagnosis for professional 
-                context, too.
+                It is created for study contexts, but can serve as an assistance tool for home assessment or for 
+                professional context, too.
                 </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                 This first version provides sample recordings of several parameters according to the commonly used 
                 GRBAS scale with different severity levels.
@@ -167,14 +167,15 @@ def label_text_1(menu, var_1=0, software_version=""):
                     descriptions</span> of every IF-GRBAS parameter.
                     Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
                     </p>
-                    </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    There is also the possibility to jump straight to the dedicated recording menu for the parameter 
-                    you’ve selected.
-                    </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    If you want to skip the descriptions you can access the recordings in the training mode menu
+                    If you want to skip the descriptions, you can access sample audio via the recordings menu
                     (third option on the left navigational bar).
                     </p>
+                    </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
+                    There is also the possibility to jump straight to the dedicated recordings for the parameter 
+                    you’ve selected by clicking on the headphones in the right corner.
+                    </p>
+                    
                     """
         elif var_1 == 2:
             text = """
@@ -535,7 +536,10 @@ def label_text_5(menu):
         return "Training Mode"
 
     elif menu.lower() == "settings":
-        return "Settings"
+        text = """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 22px; color: #8B0000;">
+                    Note: For applying all changes the app needs to be restarted.
+                </p>"""
+        return text
 
     else:
         return "Unkown Value!"
@@ -712,6 +716,8 @@ def label_text_11(menu):
 
     else:
         return "Unkown Value!"
+
+
 # Textual input for buttons --------------------------------------------------------------------------------------------
 
 def button_assistance_1(menu):
@@ -737,7 +743,7 @@ def button_assistance_1(menu):
         return "Training Mode"
 
     elif menu.lower() == "settings":
-        return "Settings"
+        return "General / GUI"
 
     else:
         return "Unkown Value!"
@@ -766,7 +772,7 @@ def button_assistance_2(menu):
         return "Training Mode"
 
     elif menu.lower() == "settings":
-        return "Settings"
+        return "Copyright Options"
 
     else:
         return "Unkown Value!"
@@ -795,7 +801,36 @@ def button_assistance_3(menu):
         return "Training Mode"
 
     elif menu.lower() == "settings":
-        return "Settings"
+        return "Media Player"
+
+    else:
+        return "Unknown Value!"
+
+
+def button_assistance_4(menu):
+    if menu.lower() == "info":
+        return "Copyright Statement"
+
+    elif menu.lower() == "copyright":
+        return "Copyright"
+
+    elif menu.lower() == "faq":
+        return "User Guide"
+
+    elif menu.lower() == "home":
+        return "Home"
+
+    elif menu.lower() == "description":
+        return "Parameter Descriptions"
+
+    elif menu.lower() == "recordings":
+        return "Parameter Recordings"
+
+    elif menu.lower() == "training":
+        return "Training Mode"
+
+    elif menu.lower() == "settings":
+        return "Restart Now"
 
     else:
         return "Unknown Value!"

@@ -120,7 +120,7 @@ def label_main_nav_bar_background():
     sst = """
     QLabel {
         background-color: rgba(25,30,36,255);
-        border-right: 2px solid rgba(12,14,17,255);
+        border-right: 3px solid rgba(12,14,17,255);
         }
     """
     return sst
@@ -509,91 +509,297 @@ def button_switch_up(active, waiting=False):
     return sst
 
 
-def button_assistance_1(selected):
-    if selected:
-        sst = f"""QPushButton {{
-                            background-color: #191E24;
-                            background-repeat: no-repeat;
-                            background-position: center;
-                            font-size: 25px;
-                            font-weight: bold;
-                            color: #0B839C;
-                            border: 0px;
-                            border-bottom-left-radius: 35px;
-                            border-top-left-radius: 35px;
-                            }}"""
-    else:
-        sst = f"""QPushButton{{
-                            background-color: #191E24;
+def button_assistance_1(selected=False, settings=False):
+    if settings:
+        if selected:
+            sst = f"""QPushButton {{
+                            background: qlineargradient(
+                                spread:pad, x1:1, y1:0, x2:1, y2:1,
+                                stop:0   rgba(25,30,36,255), 
+                                stop:0.85 rgba(25,30,36,255), 
+                                stop:0.97  #0B839C,           
+                                stop:1.0  #0B839C              
+                                );
                             background-repeat: no-repeat;
                             background-position: center;
                             font-size: 25px;
                             font-weight: bold;
                             color: #FFFFFF;
-                            border: 0px;
-                            border-bottom-left-radius: 35px;
-                            border-top-left-radius: 35px;
-                            }}
+                            border: 3px solid rgba(12,14,17,255);
+                            }}"""
+        else:
+            sst = f"""QPushButton{{
+                               background: qlineargradient(
+                                    spread:pad, x1:0, y1:0, x2:1, y2:1,
+                                    stop:0   rgba(25,30,36,255),  
+                                    stop:0.85 rgba(25,30,36,255),  
+                                    stop:0.97  #0B839C,            
+                                    stop:1.0  #0B839C         
+                                    );
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                font-size: 25px;
+                                font-weight: bold;
+                                color: rgba(124,124,126,255);
+                                border: 3px solid rgba(12,14,17,255);
+                                }}
                     QPushButton:hover {{
-                    background-color: #191E24;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    font-size: 25px;
-                    font-weight: bold;
-                    color: #0B839C;
-                    border: 0px;
-                    border-bottom-left-radius: 35px;
-                    border-top-left-radius: 35px;
-                    }}"""
+                                    background: qlineargradient(
+                                        spread:pad, x1:1, y1:0, x2:1, y2:1,
+                                        stop:0   rgba(25,30,36,255),  
+                                        stop:0.85 rgba(25,30,36,255), 
+                                        stop:0.97  #0B839C            
+                                        stop:1.0  #0B839C             
+                                    );
+                                    background-repeat: no-repeat;
+                                    background-position: center;
+                                    font-size: 25px;
+                                    font-weight: bold;
+                                    color: rgba(124,124,126,255);
+                                    border: 3px solid rgba(12,14,17,255);
+                                    }}"""
+
+    else:
+        if selected:
+            sst = f"""QPushButton {{
+                                background-color: #191E24;
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                font-size: 25px;
+                                font-weight: bold;
+                                color: #0B839C;
+                                border: 0px;
+                                border-bottom-left-radius: 35px;
+                                border-top-left-radius: 35px;
+                                }}"""
+        else:
+            sst = f"""QPushButton{{
+                                background-color: #191E24;
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                font-size: 25px;
+                                font-weight: bold;
+                                color: #FFFFFF;
+                                border: 0px;
+                                border-bottom-left-radius: 35px;
+                                border-top-left-radius: 35px;
+                                }}
+                        QPushButton:hover {{
+                        background-color: #191E24;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        font-size: 25px;
+                        font-weight: bold;
+                        color: #0B839C;
+                        border: 0px;
+                        border-bottom-left-radius: 35px;
+                        border-top-left-radius: 35px;
+                        }}"""
     return sst
 
 
-def button_assistance_2(selected):
-    if selected:
-        sst = f"""QPushButton {{
-                            background-color: #191E24;
-                            background-repeat: no-repeat;
-                            background-position: center;
-                            font-size: 25px;
-                            font-weight: bold;
-                            color: #0B839C;
-                            border: 0px;
-                            }}"""
+def button_assistance_2(selected=False, settings=False):
+    if settings:
+        if selected:
+            sst = f"""QPushButton {{
+                                background: qlineargradient(
+                                    spread:pad, x1:1, y1:0, x2:1, y2:1,
+                                    stop:0   rgba(25,30,36,255), 
+                                    stop:0.85 rgba(25,30,36,255),  
+                                    stop:0.97  #DB8004,            
+                                    stop:1.0  #DB8004            
+                                    );
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                font-size: 25px;
+                                font-weight: bold;
+                                color: #FFFFFF;
+                                border: 3px solid rgba(12,14,17,255);
+                                }}"""
+        else:
+            sst = f"""QPushButton{{
+                               background: qlineargradient(
+                                    spread:pad, x1:0, y1:0, x2:1, y2:1,
+                                    stop:0   rgba(25,30,36,255),  
+                                    stop:0.85 rgba(25,30,36,255),  
+                                    stop:0.97  #DB8004,            
+                                    stop:1.0  #DB8004         
+                                    );
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                font-size: 25px;
+                                font-weight: bold;
+                                color: rgba(124,124,126,255);
+                                border: 3px solid rgba(12,14,17,255);
+                                }}
+                    QPushButton:hover {{
+                                    background: qlineargradient(
+                                        spread:pad, x1:1, y1:0, x2:1, y2:1,
+                                        stop:0   rgba(25,30,36,255),  
+                                        stop:0.85 rgba(25,30,36,255), 
+                                        stop:0.97  #DB8004,            
+                                        stop:1.0  #DB8004             
+                                    );
+                                    background-repeat: no-repeat;
+                                    background-position: center;
+                                    font-size: 25px;
+                                    font-weight: bold;
+                                    color: rgba(124,124,126,255);
+                                    border: 3px solid rgba(12,14,17,255);
+                                    }}"""
     else:
-        sst = f"""QPushButton{{
-                            background-color: #191E24;
+        if selected:
+            sst = f"""QPushButton {{
+                                background-color: #191E24;
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                font-size: 25px;
+                                font-weight: bold;
+                                color: #0B839C;
+                                border: 0px;
+                                }}"""
+        else:
+            sst = f"""QPushButton{{
+                                background-color: #191E24;
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                font-size: 25px;
+                                font-weight: bold;
+                                color: #FFFFFF;
+                                border: 0px;
+                                }}
+                        QPushButton:hover {{
+                        background-color: #191E24;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        font-size: 25px;
+                        font-weight: bold;
+                        color: #0B839C;
+                        border: 0px;
+                        }}"""
+    return sst
+
+
+def button_assistance_3(selected=False, settings=False):
+    if settings:
+        if selected:
+            sst = f"""QPushButton {{
+                            background: qlineargradient(
+                                spread:pad, x1:1, y1:0, x2:1, y2:1,
+                                stop:0   rgba(25,30,36,255),   
+                                stop:0.85 rgba(25,30,36,255),  
+                                stop:0.97  #7030A0,             
+                                stop:1.0  #7030A0             
+                                );
                             background-repeat: no-repeat;
                             background-position: center;
                             font-size: 25px;
                             font-weight: bold;
                             color: #FFFFFF;
-                            border: 0px;
-                            }}
+                            border: 3px solid rgba(12,14,17,255);
+                            }}"""
+        else:
+            sst = f"""QPushButton{{
+                               background: qlineargradient(
+                                    spread:pad, x1:0, y1:0, x2:1, y2:1,
+                                    stop:0   rgba(25,30,36,255),  
+                                    stop:0.85 rgba(25,30,36,255),  
+                                    stop:0.97  #7030A0,            
+                                    stop:1.0  #7030A0         
+                                    );
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                font-size: 25px;
+                                font-weight: bold;
+                                color: rgba(124,124,126,255);
+                                border: 3px solid rgba(12,14,17,255);
+                                }}
                     QPushButton:hover {{
-                    background-color: #191E24;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    font-size: 25px;
-                    font-weight: bold;
-                    color: #0B839C;
-                    border: 0px;
-                    }}"""
+                                    background: qlineargradient(
+                                        spread:pad, x1:1, y1:0, x2:1, y2:1,
+                                        stop:0   rgba(25,30,36,255),  
+                                        stop:0.85 rgba(25,30,36,255), 
+                                        stop:0.97  #7030A0,            
+                                        stop:1.0  #7030A0             
+                                    );
+                                    background-repeat: no-repeat;
+                                    background-position: center;
+                                    font-size: 25px;
+                                    font-weight: bold;
+                                    color: rgba(124,124,126,255);
+                                    border: 3px solid rgba(12,14,17,255);
+                                    }}"""
+    else:
+        if selected:
+            sst = f"""QPushButton {{
+                                background-color: #191E24;
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                font-size: 25px;
+                                font-weight: bold;
+                                color: #DB8004;
+                                border: 0px;
+                                border-bottom-right-radius: 35px;
+                                border-top-right-radius: 35px;
+                                }}"""
+        else:
+            sst = f"""QPushButton{{
+                                background-color: #191E24;
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                font-size: 25px;
+                                font-weight: bold;
+                                color: #FFFFFF;
+                                border: 0px;
+                                border-bottom-right-radius: 35px;
+                                border-top-right-radius: 35px;
+                                }}
+                        QPushButton:hover {{
+                        background-color: #191E24;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        font-size: 25px;
+                        font-weight: bold;
+                        color: #DB8004;
+                        border: 0px;
+                        border-bottom-right-radius: 35px;
+                        border-top-right-radius: 35px;
+                        }}"""
     return sst
 
 
-def button_assistance_3(selected):
-    if selected:
-        sst = f"""QPushButton {{
-                            background-color: #191E24;
+def button_assistance_4(settings=False):
+    if settings:
+        sst = f"""QPushButton{{
+                           background: qlineargradient(
+                                spread:pad, x1:0, y1:0, x2:1, y2:1,
+                                stop:0   rgba(25,30,36,255),  
+                                stop:0.85 rgba(25,30,36,255),  
+                                stop:0.97  #8B0000,            
+                                stop:1.0  #8B0000         
+                                );
                             background-repeat: no-repeat;
                             background-position: center;
                             font-size: 25px;
                             font-weight: bold;
-                            color: #DB8004;
-                            border: 0px;
-                            border-bottom-right-radius: 35px;
-                            border-top-right-radius: 35px;
-                            }}"""
+                            color: rgba(124,124,126,255);
+                            border: 3px solid rgba(12,14,17,255);
+                            }}
+                QPushButton:hover {{
+                                background: qlineargradient(
+                                    spread:pad, x1:1, y1:0, x2:1, y2:1,
+                                    stop:0   rgba(25,30,36,255),  
+                                    stop:0.85 rgba(25,30,36,255), 
+                                    stop:0.97  #8B0000,            
+                                    stop:1.0  #8B0000             
+                                );
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                font-size: 25px;
+                                font-weight: bold;
+                                color: #8B0000;
+                                border: 3px solid rgba(12,14,17,255);
+                                }}"""
     else:
         sst = f"""QPushButton{{
                             background-color: #191E24;
@@ -1075,4 +1281,78 @@ def label_text_time_display_layout():
             font-size: 22px;
             }
         """
+    return sst
+
+
+def label_settings_zero():
+    sst = """
+            QLabel {
+                background-color: transparent;
+                border-left: 5px solid rgba(12,14,17,255);
+                border-bottom: 5px solid rgba(12,14,17,255);
+            }"""
+    return sst
+
+
+def label_settings_frame_top(highlight_for_setting=0):
+    if highlight_for_setting == 1:
+        sst = """
+            QLabel {
+                background-color: transparent;
+                border-left: 5px solid #0B839C;
+                border-top: 5px solid #0B839C;
+            }"""
+    elif highlight_for_setting == 2:
+        sst = """
+            QLabel {
+                background-color: transparent;
+                border-left: 5px solid #DB8004;
+                border-top: 5px solid #DB8004;
+            }"""
+    elif highlight_for_setting == 3:
+        sst = """
+            QLabel {
+                background-color: transparent;
+                border-left: 5px solid #7030A0;
+                border-top: 5px solid #7030A0;
+            }"""
+    else:
+        sst = """
+            QLabel {
+                background-color: transparent;
+                border-left: 5px solid rgba(12,14,17,255);
+                border-top: 5px solid rgba(12,14,17,255);
+            }"""
+    return sst
+
+
+def label_settings_frame_bottom(highlight_for_setting=0):
+    if highlight_for_setting == 1:
+        sst = """
+            QLabel {
+                background-color: transparent;
+                border-right: 5px solid #0B839C;
+                border-bottom: 5px solid #0B839C;
+            }"""
+    elif highlight_for_setting == 2:
+        sst = """
+            QLabel {
+                background-color: transparent;
+                border-right: 5px solid #DB8004;
+                border-bottom: 5px solid #DB8004;
+            }"""
+    elif highlight_for_setting == 3:
+        sst = """
+            QLabel {
+                background-color: transparent;
+                border-right: 5px solid #7030A0;
+                border-bottom: 5px solid #7030A0;
+            }"""
+    else:
+        sst = """
+            QLabel {
+                background-color: transparent;
+                border-right: 5px solid rgba(12,14,17,255);
+                border-bottom: 5px solid rgba(12,14,17,255);
+            }"""
     return sst
