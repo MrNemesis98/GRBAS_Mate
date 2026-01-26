@@ -238,4 +238,4 @@ def set_audio_render_quality(value):
 
 
 # Refreshing settings for next release:
-set_all_settings_to_default()
+# set_all_settings_to_default()

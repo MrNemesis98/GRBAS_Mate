@@ -545,7 +545,7 @@ def label_text_5(menu):
         return "Unkown Value!"
 
 
-def label_text_6(menu):
+def label_text_6(menu, var=0):
     if menu.lower() == "info":
         return "Information Center"
 
@@ -568,7 +568,18 @@ def label_text_6(menu):
         return "Training Mode"
 
     elif menu.lower() == "settings":
-        return "Settings"
+        if var == 1:
+            return """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 30px; color: #FFFFF;">
+                        Define The Visual Appearance of GRBAS_Mate
+                    </p>"""
+        elif var == 2:
+            return """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 30px; color: #DB8004;">
+                                    Manage Copyright Notices within GRBAS_Mate
+                      </p>"""
+        elif var == 3:
+            return """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 30px; color: #DB8004;">
+                                                Control the Behaviour of the Media Player
+                      </p>"""
 
     else:
         return "Unkown Value!"
@@ -597,13 +608,15 @@ def label_text_7(menu):
         return "Training Mode"
 
     elif menu.lower() == "settings":
-        return "Settings"
+        return """<p style="text-align: left; qproperty-alignment: AlignVCenter; line-height: 1.2; font-family: Robo; font-size: 25px; color: #FFFFFF;">
+                                Colour Theme:
+                            </p>"""
 
     else:
         return "Unkown Value!"
 
 
-def label_text_8(menu):
+def label_text_8(menu, var=0):
     if menu.lower() == "info":
         return "Information Center"
 
@@ -626,7 +639,18 @@ def label_text_8(menu):
         return "Training Mode"
 
     elif menu.lower() == "settings":
-        return "Settings"
+        if var == 1:
+            return """<p style="text-align: left; qproperty-alignment: AlignVCenter; line-height: 1.2; font-family: Robo; font-size: 25px; color: #FFFFFF;">
+                                Language:
+                      </p>"""
+        elif var == 2:
+            return """<p style="text-align: left; line-height: 1.2; font-family: Robo; font-size: 25px; color: #0B839C;">
+                               
+                      </p>"""
+        elif var == 3:
+            return """<p style="text-align: left; line-height: 1.2; font-family: Robo; font-size: 25px; color: #0B839C;">
+
+                      </p>"""
 
     else:
         return "Unkown Value!"
@@ -853,22 +877,9 @@ def QComboBox_articulation_filter():
     return ["Vowel", "Sentence", "Both in 1 file", "All Options"]
 
 
-"""
-Notes:
-IFGRBAS 
--> R in Mitte, Breite: 60 zu 70 Höhe
-Range: 130 (label_text_1) bis 1260+70= 1330 (button_switch_right) == 1200
-da Breite gleich 60: 1200/2 = 600 und 60/2 = 30, 
-also Startpunkt 130+600-30 == 700 und Endpunkt 130+600+30 == 760
+def QComboBox_colour_choice():
+    return ["Light", "Dark"]
 
-alle Startpunkte:
 
-I: 520-60 = 460
-F: 580-60 = 520
--: 640-60 = 580
-G: 700-60 = 640
-R: 700
-B: 700+60 = 760
-A: 760+60 = 820
-S: 820+60 = 880
-"""
+def QComboBox_language_choice():
+    return ["English", "Deutsch", "Italiano", "Español", "Français", "Polski", "Türkçe"]

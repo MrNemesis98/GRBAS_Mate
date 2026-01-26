@@ -54,17 +54,19 @@ import savedata_manager as SDM
 import audiodata_manager as ADM
 import audiodata_visualizer as ADV
 
-if SDM.get_colour_theme() == 0:
+if SDM.get_colour_theme() == 1:
     import GUI_Style_Sheets_DRK as GSS
 else:
-    pass
-    # import GUI_Style_Sheets_LGHT as GSS
+    # assume default_settings
+    SDM.set_colour_theme(1)
+    import GUI_Style_Sheets_DRK as GSS
 
 if SDM.get_current_language() == 0:
     import GUI_Text_Manager_EN as GTM
 else:
-    pass
-    # import GUI_Text_Manager_DE as GTM
+    # assume default settings
+    SDM.set_current_language(0)
+    import GUI_Text_Manager_EN as GTM
 
 
 def wait_ms(ms: int):
@@ -134,20 +136,18 @@ class MainWindow(QWidget):
     system_status = None
     software_version = "v1.0"
 
-
     # Settings variables (saved in and loaded from savedata.txt) *******************************************************
-    GUI_current_language = SDM.get_current_language()
-    GUI_colour_theme = SDM.get_colour_theme()
+    # GUI_current_language = SDM.get_current_language()     approximately not needed, since demands restart
+    # GUI_colour_theme = SDM.get_colour_theme()             and can therefore be questioned directly from SDM
 
     CRS_show_home_statement = True if SDM.get_show_home_statement() == 1 else False
     CRS_show_headline_statement = True if SDM.get_show_headline_statement() == 1 else False
 
     MPS_remember_filtered_audio_files = True if SDM.get_remember_filtered_audio_files() == 1 else False
-        # -> is handled as false if shortcut at descriptions menu is used!
+    # -> is handled as false if shortcut at descriptions menu is used!
     MPS_remember_media_player_settings = True if SDM.get_remember_media_player_settings() == 1 else False
     MPS_auto_play_recordings = True if SDM.get_auto_play_recordings() == 1 else False
     MPS_audio_render_quality = SDM.get_audio_render_quality()
-
 
     # system variables for media player control ------------------------------------------------------------------------
     audio_replay = False
@@ -156,6 +156,9 @@ class MainWindow(QWidget):
     audio_played_completely_manually_before = False
     audio_currently_playing = False
     _duration_ms = 0
+
+    # system variables for settings menu -------------------------------------------------------------------------------
+    restart_option_unlocked = False
 
     def __init__(self):
         super().__init__()
@@ -178,7 +181,7 @@ class MainWindow(QWidget):
 
         self.label_main_headline_background = QLabel(self)
         self.label_main_headline_background.setText(GTM.label_main_headline_background(with_copyright=True)) \
-            if self.show_copyright_notice_in_gui_headline \
+            if self.CRS_show_headline_statement \
             else self.label_main_headline_background.setText(GTM.label_main_headline_background(with_copyright=False))
         self.label_main_headline_background.setFont(QFont('Noto Sans IPA', 28, QFont.Bold))
         self.label_main_headline_background.setGeometry(0, 0, 1380, 80)
@@ -471,15 +474,15 @@ class MainWindow(QWidget):
 
         self._wave_timer = QTimer(self)
         if self.MPS_audio_render_quality == 0:
-            self._wave_timer.setInterval(1000)      # 1 FPS (Debug)
+            self._wave_timer.setInterval(1000)  # 1 FPS (Debug)
         elif self.MPS_audio_render_quality == 1:
-            self._wave_timer.setInterval(100)       # 10 FPS (Eco)
+            self._wave_timer.setInterval(100)  # 10 FPS (Eco)
         elif self.MPS_audio_render_quality == 2:
-            self._wave_timer.setInterval(33)        # 30 FPS (Normal, default)
+            self._wave_timer.setInterval(33)  # 30 FPS (Normal, default)
         elif self.MPS_audio_render_quality == 3:
-            self._wave_timer.setInterval(16)        # 60 FPS (High)
+            self._wave_timer.setInterval(16)  # 60 FPS (High)
         elif self.MPS_audio_render_quality == 4:
-            self._wave_timer.setInterval(10)        # 100 FPS (Ultra)
+            self._wave_timer.setInterval(10)  # 100 FPS (Ultra)
         else:
             self._wave_timer.setInterval(33)
 
@@ -517,14 +520,24 @@ class MainWindow(QWidget):
         # Objects for Settings Menu ------------------------------------------------------------------------------------
 
         self.colour_theme_choice = CenteredComboBox(self)
-        self.colour_theme_choice.setStyleSheet()
+        self.colour_theme_choice.setStyleSheet(GSS.language_and_colour_choice())
         (self.colour_theme_choice.view()).setSpacing(6)
-        self.colour_theme_choice.setFont(QFont("Arial", int(self.severity_filter.height() / 2.5)))
-        self.colour_theme_choice.addItems(GTM.QComboBox_severity_filter())
-        self.colour_theme_choice.setCurrentIndex(5)
+        self.colour_theme_choice.setFont(QFont("Arial", int(self.colour_theme_choice.height() / 2.5)))
+        self.colour_theme_choice.addItems(GTM.QComboBox_colour_choice())
+        self.colour_theme_choice.setCurrentIndex(SDM.get_colour_theme())
         self.colour_theme_choice.currentIndexChanged.connect(
-            lambda: self.submenu_recordings_filter(initiated_by="s"))
+            lambda: (SDM.set_colour_theme(self.colour_theme_choice.currentIndex()),
+                     self.submenu_settings_unlock_restart()))
 
+        self.language_choice = CenteredComboBox(self)
+        self.language_choice.setStyleSheet(GSS.language_and_colour_choice())
+        (self.language_choice.view()).setSpacing(6)
+        self.language_choice.setFont(QFont("Arial", int(self.language_choice.height() / 2.5)))
+        self.language_choice.addItems(GTM.QComboBox_language_choice())
+        self.language_choice.setCurrentIndex(SDM.get_current_language())
+        self.language_choice.currentIndexChanged.connect(
+            lambda: (SDM.set_current_language(self.language_choice.currentIndex()),
+                     self.submenu_settings_unlock_restart()))
 
         self.checkbox_copyright_home = QCheckBox(self)
         self.checkbox_copyright_home.setStyleSheet(GSS.checkboxes_copyright())
@@ -627,6 +640,12 @@ class MainWindow(QWidget):
         self.button_media_play_and_pause.hide()
         self.button_media_stop.hide()
         self.button_media_next.hide()
+
+        self.colour_theme_choice.hide()
+        self.language_choice.hide()
+
+        self.checkbox_copyright_home.hide()
+        self.checkbox_copyright_headline.hide()
 
     # Main Menu Layouts ************************************************************************************************
     def menu_info(self):
@@ -758,7 +777,7 @@ class MainWindow(QWidget):
 
         self.submenus_description(to="start", first_call=True)
 
-    def menu_recordings(self, initiated_by_descriptions_shortcut = False, parameter_to_filter=""):
+    def menu_recordings(self, initiated_by_descriptions_shortcut=False, parameter_to_filter=""):
         self.system_status = "menu_recordings"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="recordings")
@@ -973,11 +992,13 @@ class MainWindow(QWidget):
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
         self.label_menu_title.show()
 
+        # frame for buttons
         self.label_text_1.setGeometry(110, 360, 180, 240)
         self.label_text_1.setStyleSheet(GSS.label_settings_zero())
         self.label_text_1.setText("")
         self.label_text_1.show()
 
+        # frames
         self.label_text_2.setGeometry(540, 160, 600, 200)
         self.label_text_2.setStyleSheet(GSS.label_settings_frame_top())
         self.label_text_2.setText("")
@@ -988,11 +1009,18 @@ class MainWindow(QWidget):
         self.label_text_3.setText("")
         self.label_text_3.show()
 
+        # big (dark) background (from 570 to 1290)
         self.label_text_4.setGeometry(570, 190, 720, 460)
         self.label_text_4.setStyleSheet(GSS.label_text(dark_background=True))
         self.label_text_4.setText("")
         self.label_text_4.show()
 
+        # for the submenu headline
+        self.label_text_6.setGeometry(590, 210, 680, 80)
+        self.label_text_6.setStyleSheet(GSS.label_text(no_background=True))
+        self.label_text_6.hide()
+
+        # restart notice
         self.label_text_5.setGeometry(570, 705, 720, 70)
         self.label_text_5.setStyleSheet(GSS.label_text(dark_background=True))
         self.animation_label_fade(in_or_out="out", label_object=self.label_text_5, duration=0)
@@ -1021,13 +1049,15 @@ class MainWindow(QWidget):
         self.button_assistance_3.show()
 
         self.button_assistance_4.setGeometry(135, 650, 300, 80)
-        self.button_assistance_4.setStyleSheet(GSS.button_assistance_4(settings=True))
+        self.button_assistance_4.clicked.connect(lambda: self.submenu_settings_execute_restart())
         self.button_assistance_4.setText(GTM.button_assistance_4(menu="settings"))
-        self.button_assistance_4.disconnect()
-        self.button_assistance_4.clicked.connect(lambda: self.submenu_setting_restart())
+        if self.restart_option_unlocked:
+            self.button_assistance_4.setStyleSheet(GSS.button_assistance_4(deactivated=False, settings=True))
+            self.button_assistance_4.setEnabled(True)
+        else:
+            self.button_assistance_4.setStyleSheet(GSS.button_assistance_4(deactivated=True, settings=True))
+            self.button_assistance_4.setEnabled(False)
         self.button_assistance_4.show()
-
-
 
     # Animations *******************************************************************************************************
     def animation_label_fade(self, in_or_out, label_object: QLabel, duration=800):
@@ -1874,12 +1904,54 @@ class MainWindow(QWidget):
 
     def submenus_settings(self, setting=0):
         if self.system_status.startswith("menu_settings"):
+            self.system_status = "menu_settings_1"
             if setting == 1:
 
-                self.
+                self.button_assistance_1.setStyleSheet(GSS.button_assistance_1(selected=True, settings=True))
+                self.button_assistance_2.setStyleSheet(GSS.button_assistance_2(selected=False, settings=True))
+                self.button_assistance_3.setStyleSheet(GSS.button_assistance_3(selected=False, settings=True))
 
+                # headline
+                self.label_text_6.setText(GTM.label_text_6(menu="settings", var=1))
+                self.label_text_6.show()
 
-    def submenu_setting_restart(self):
+                # text for colour choice
+                self.label_text_7.setGeometry(705, 355, 450, 90)
+                self.label_text_7.setStyleSheet(GSS.label_text(settings=True))
+                self.label_text_7.setText(GTM.label_text_7(menu="settings"))
+                self.label_text_7.show()
+
+                self.colour_theme_choice.setGeometry(925, 370, 200, 60)
+                self.colour_theme_choice.setUpdatesEnabled(False)
+                self.colour_theme_choice.setCurrentIndex(SDM.get_colour_theme())
+                self.colour_theme_choice.setUpdatesEnabled(True)
+                self.colour_theme_choice.show()
+
+                # text for language choice
+                self.label_text_8.setGeometry(705, 475, 450, 90)
+                self.label_text_8.setStyleSheet(GSS.label_text(settings=True))
+                self.label_text_8.setText(GTM.label_text_8(menu="settings", var=1))
+                self.label_text_8.show()
+
+                self.language_choice.setGeometry(925, 490, 200, 60)
+                self.language_choice.setUpdatesEnabled(False)
+                self.language_choice.setCurrentIndex(SDM.get_current_language())
+                self.language_choice.setUpdatesEnabled(True)
+                self.language_choice.show()
+
+            elif setting == 2:
+                self.system_status = "menu_settings_2"
+                self.button_assistance_1.setStyleSheet(GSS.button_assistance_1(selected=False, settings=True))
+                self.button_assistance_2.setStyleSheet(GSS.button_assistance_2(selected=True, settings=True))
+                self.button_assistance_3.setStyleSheet(GSS.button_assistance_3(selected=False, settings=True))
+
+    def submenu_settings_unlock_restart(self):
+        if self.system_status.startswith("menu_settings_"):
+            self.restart_option_unlocked = True
+            self.button_assistance_4.setEnabled(True)
+            self.button_assistance_4.setStyleSheet(GSS.button_assistance_4(deactivated=False, settings=True))
+
+    def submenu_settings_execute_restart(self):
         if self.system_status.startswith("menu_settings"):
             python = sys.executable
             args = sys.argv[:]
@@ -1890,22 +1962,3 @@ app = QApplication(sys.argv)
 gui = MainWindow()
 gui.show()
 sys.exit(app.exec_())
-
-# ideas for settings:
-
-# general GUI settings:
-#                         color_theme:  dark / light (two GSS versions)                 restart
-#                         languages:    en, de, it, es, fr, po (six GTM versions)       restart
-
-# copyright options:
-#                       show copyright warning in home menu (checkbox)
-#                       show copyright in headline (checkbox)
-
-# media player:
-#               remember filtered audio files (checkbox, will be questioned when calling recordings_menu)
-#               remember media player settings (checkbox, will be questioned when calling recordings_menu)
-#               audio_render_quality:      Debug: 1FPS (1000),
-#                                          Eco: 10 FPS (100ms),
-#                                          Normal: 30 FPS (33ms),
-#                                          High: 60 FPS (16ms),
-#                                          Ultra: 100 FPS (10ms)

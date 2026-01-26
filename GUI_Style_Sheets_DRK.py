@@ -148,8 +148,19 @@ def label_menu_title(main_ctrl):
     return sst
 
 
-def label_text(dark_background=False, no_background=False, frame_only=False, top_module=False):
-    if dark_background:
+def label_text(dark_background=False, no_background=False, frame_only=False, top_module=False, settings=False):
+    if settings:
+        sst = """
+            QLabel {
+                color: rgb(220, 220, 220);
+                background-color: transparent;
+                font-size: 25px;
+                border-radius: 20px;
+                padding: 20px;
+                border: 3px solid rgba(12, 14, 17, 255)
+                }
+            """
+    elif dark_background:
         sst = """
             QLabel {
                 color: rgb(220, 220, 220);
@@ -768,38 +779,55 @@ def button_assistance_3(selected=False, settings=False):
     return sst
 
 
-def button_assistance_4(settings=False):
+def button_assistance_4(deactivated=False, settings=False):
     if settings:
-        sst = f"""QPushButton{{
-                           background: qlineargradient(
-                                spread:pad, x1:0, y1:0, x2:1, y2:1,
-                                stop:0   rgba(25,30,36,255),  
-                                stop:0.85 rgba(25,30,36,255),  
-                                stop:0.97  #8B0000,            
-                                stop:1.0  #8B0000         
-                                );
-                            background-repeat: no-repeat;
-                            background-position: center;
-                            font-size: 25px;
-                            font-weight: bold;
-                            color: rgba(124,124,126,255);
-                            border: 3px solid rgba(12,14,17,255);
-                            }}
-                QPushButton:hover {{
-                                background: qlineargradient(
-                                    spread:pad, x1:1, y1:0, x2:1, y2:1,
+        if deactivated:
+            sst = f"""QPushButton{{
+                       background: qlineargradient(
+                            spread:pad, x1:0, y1:0, x2:1, y2:1,
+                            stop:0   rgba(25,30,36,255),  
+                            stop:0.85 rgba(25,30,36,255),  
+                            stop:0.97  rgba(41,51,63,255),            
+                            stop:1.0  rgba(41,51,63,255)         
+                            );
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        font-size: 25px;
+                        font-weight: bold;
+                        color: rgba(124,124,126,255);
+                        border: 3px solid rgba(12,14,17,255);
+                        }}"""
+        else:
+            sst = f"""QPushButton{{
+                               background: qlineargradient(
+                                    spread:pad, x1:0, y1:0, x2:1, y2:1,
                                     stop:0   rgba(25,30,36,255),  
-                                    stop:0.85 rgba(25,30,36,255), 
+                                    stop:0.85 rgba(25,30,36,255),  
                                     stop:0.97  #8B0000,            
-                                    stop:1.0  #8B0000             
-                                );
+                                    stop:1.0  #8B0000         
+                                    );
                                 background-repeat: no-repeat;
                                 background-position: center;
                                 font-size: 25px;
                                 font-weight: bold;
-                                color: #8B0000;
+                                color: rgba(124,124,126,255);
                                 border: 3px solid rgba(12,14,17,255);
-                                }}"""
+                                }}
+                    QPushButton:hover {{
+                                    background: qlineargradient(
+                                        spread:pad, x1:1, y1:0, x2:1, y2:1,
+                                        stop:0   rgba(25,30,36,255),  
+                                        stop:0.85 rgba(25,30,36,255), 
+                                        stop:0.97  #8B0000,            
+                                        stop:1.0  #8B0000             
+                                    );
+                                    background-repeat: no-repeat;
+                                    background-position: center;
+                                    font-size: 25px;
+                                    font-weight: bold;
+                                    color: #8B0000;
+                                    border: 3px solid rgba(12,14,17,255);
+                                    }}"""
     else:
         sst = f"""QPushButton{{
                             background-color: #191E24;
@@ -1355,6 +1383,32 @@ def label_settings_frame_bottom(highlight_for_setting=0):
                 border-right: 5px solid rgba(12,14,17,255);
                 border-bottom: 5px solid rgba(12,14,17,255);
             }"""
+    return sst
+
+
+def language_and_colour_choice():
+    sst = """   
+             QComboBox {
+                background-color:  #191E24;
+                color: #f0f0f0;   
+                border: 3px solid #0B839C;
+                border-radius: 200px;
+                padding: 3px 5px;
+            }
+            /* Dropdown-Bereich rechts (mit Pfeil) */
+            QComboBox::drop-down {
+                subcontrol-origin: padding;
+                subcontrol-position: top right;
+                width: 0px;                  
+                background-color: #191E24;
+            }
+            QComboBox QAbstractItemView {
+                background-color: #191E24;
+                color: #ffffff;
+                selection-background-color: rgba(41,51,63,255);
+                selection-color: #0B839C;
+            }
+        """
     return sst
 
 
