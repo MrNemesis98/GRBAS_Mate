@@ -1356,3 +1356,30 @@ def label_settings_frame_bottom(highlight_for_setting=0):
                 border-bottom: 5px solid rgba(12,14,17,255);
             }"""
     return sst
+
+
+def checkboxes_copyright():
+    return """
+    QCheckBox {
+        color: #E0E0E0;
+        spacing: 8px;
+        font-size: 13px;
+    }
+    QCheckBox::indicator {
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        border: 1px solid #666;
+        background: #1e1e1e;
+    }
+    QCheckBox::indicator:checked {
+        background: #43A047;
+        border: 1px solid #66BB6A;
+    }
+    QCheckBox::indicator:unchecked {
+        background: #141414;
+    }
+    QCheckBox::indicator:hover {
+        border: 1px solid #FFFFFF;
+    }
+    """

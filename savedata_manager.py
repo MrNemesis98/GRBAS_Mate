@@ -33,12 +33,28 @@ identified as belonging to a third party.
 """
 
 """
-Settings for GRBAS_Mate:
-- (L1) Language: English (default), Deutsch, Italiano, Espanol (, Polski)
-- (CRS) Copyright Settings: Show_statement_in_home_menu, show_statement_in_headline_bar
-- (AS) Audio Settings: Volume, Play_Recordings_Automatically
+Settings list for GRBAS_Mate:
 
-Language Settings already implemented here.
+1) GUI:     -> Colour Theme: Light (0), Dark (1, default))                                                       Restart
+            -> Language:    English     (0, default)                                                             Restart
+                            Deutsch     (1)
+                            Italiano    (2)
+                            Español     (3)
+                            Français     (4)
+                            Polski      (5)
+                            Türkçe      (6)
+
+2) CRS (Copyright Settings):    -> Show_home_statement:       yes (1, default), no (0)                  
+                                -> Show_headline_statement:   yes (1, default), no (0)
+                                
+3) MPS (Media Player Settings):     -> remember_filtered_audio_files:    yes (1), no (0, default)                
+                                    -> remember_media_player_settings:   yes (1), no (0, default)
+                                    -> auto_play_recordings:             yes (1), no (0, default)
+                                    -> audio_render_quality:       Debug: 1FPS (1000),      (0)                  Restart
+                                                                   Eco: 10 FPS (100ms),     (1)
+                                                                   Normal: 30 FPS (33ms),   (2, default)
+                                                                   High: 60 FPS (16ms),     (3)
+                                                                   Ultra: 100 FPS (10ms)    (4)
 """
 
 
@@ -46,29 +62,100 @@ sd = open("src/sys/savedata.txt", "r")
 raw_data = sd.readlines()
 sd.close()
 
-# Sector 1: Manage Language Settings -------------------------------------------------------------------------
-lang_savedata = raw_data[0]
-lang_savedata_list = lang_savedata.split('/')
-lang_savedata_list.remove(lang_savedata_list[0])
 
-current_language = str((lang_savedata_list[0]))
+# Sector 1: Load GUI Settings ------------------------------------------------------------------------------------------
+GUI_savedata = raw_data[0]
+GUI_savedata_list = GUI_savedata.split('/')
+GUI_savedata_list.remove(GUI_savedata_list[0])
+GUI_savedata_list.remove(GUI_savedata_list[-1])
+
+colour_theme = int((GUI_savedata_list[0]).split(":")[1])
+current_language = int((GUI_savedata_list[1]).split(":")[1])
 
 
+# Sector 2: Load Copyright Settings ------------------------------------------------------------------------------------
+CRS_savedata = raw_data[1]
+CRS_savedata_list = CRS_savedata.split('/')
+CRS_savedata_list.remove(CRS_savedata_list[0])
+CRS_savedata_list.remove(CRS_savedata_list[-1])
+
+show_home_statement = int((CRS_savedata_list[0]).split(":")[1])
+show_headline_statement = int((CRS_savedata_list[1]).split(":")[1])
+
+# Sector 3: Load Media Player Settings ---------------------------------------------------------------------------------
+MPS_savedata = raw_data[2]
+MPS_savedata_list = MPS_savedata.split('/')
+MPS_savedata_list.remove(MPS_savedata_list[0])
+MPS_savedata_list.remove(MPS_savedata_list[-1])
+
+remember_filtered_audio_files = int((MPS_savedata_list[0]).split(":")[1])
+remember_media_player_settings = int((MPS_savedata_list[1]).split(":")[1])
+auto_play_recordings = int((MPS_savedata_list[2]).split(":")[1])
+audio_render_quality = int((MPS_savedata_list[3]).split(":")[1])
+
+
+# Sector 4: Generic Functions ------------------------------------------------------------------------------------------
 def update_savedata():
+    global colour_theme
     global current_language
+    global show_home_statement
+    global show_headline_statement
+    global remember_filtered_audio_files
+    global remember_media_player_settings
+    global auto_play_recordings
+    global audio_render_quality
 
-    # Save data from other sectors before overwriting
-    sd = open("src/sys/savedata.txt", "r")
-    new_savedata = sd.readlines()
-    lang_data = new_savedata[0]
-    sd.close()
-
-    # write savedata.txt, update database data only
+    # write savedata.txt
     sd = open("src/sys/savedata.txt", "w")
-    text = ("L1:/" + str(current_language) +
-            "/\n")
+    text = ("GUI" +
+            "/theme:" + str(colour_theme) +
+            "/lang:" + str(current_language) + "/\n" +
+            "CRS" +
+            "/home:" + str(show_home_statement) +
+            "/hdln:" + str(show_headline_statement) + "/\n" +
+            "MPS" +
+            "/rmmbr_faf:" + str(remember_filtered_audio_files) +
+            "/rmmbr_mps:" + str(remember_media_player_settings) +
+            "/apr:" + str(auto_play_recordings) +
+            "/arq:" + str(audio_render_quality) + "/\n")
     sd.write(text)
     sd.close()
+
+
+def set_all_settings_to_default():
+    global colour_theme
+    global current_language
+    global show_home_statement
+    global show_headline_statement
+    global remember_filtered_audio_files
+    global remember_media_player_settings
+    global auto_play_recordings
+    global audio_render_quality
+
+    colour_theme = 1
+    current_language = 0
+
+    show_home_statement = 1
+    show_headline_statement = 1
+
+    remember_filtered_audio_files = 0
+    remember_media_player_settings = 0
+    auto_play_recordings = 0
+    audio_render_quality = 2
+
+    update_savedata()
+
+
+# Sector 5: Manage GUI Settings ----------------------------------------------------------------------------------------
+def get_colour_theme():
+    global colour_theme
+    return colour_theme
+
+
+def set_colour_theme(value):
+    global colour_theme
+    colour_theme = value if value in [0, 1] else 1
+    update_savedata()
 
 
 def get_current_language():
@@ -76,247 +163,79 @@ def get_current_language():
     return current_language
 
 
-def set_current_language(lang="en"):
+def set_current_language(value):
     global current_language
-    current_language = lang
+    current_language = value if value in [0, 1, 2, 3, 4, 5, 6] else 0
     update_savedata()
 
 
-set_current_language()
-
-"""
-# Sector 2: Manage system variables for console.py ---------------------------------------------------------------------
-system_data = data[1]
-variables_list = system_data.split('/')
-variables_list.remove(variables_list[0])
-first_start = (variables_list[0].split(":")[1])
-term_output_policy = (variables_list[1].split(":")[1])
-one_line_output = (variables_list[2].split(":")[1])
-headline_printing = (variables_list[3].split(":")[1])
-alphabetical_output = variables_list[4].split(":")
-auto_scan_filters = variables_list[5].split(":")[1]
-output_detail_level = (variables_list[6].split(":")[1])
-system_sound_level = (variables_list[7].split(":")[1])
-request_error = (variables_list[8].split(":")[1])
+# Sector 6: Manage CRS Settings ----------------------------------------------------------------------------------------
+def get_show_home_statement():
+    global show_home_statement
+    return show_home_statement
 
 
-def update_system_data():
-    global data
-    global first_start
-    global term_output_policy
-    global one_line_output
-    global headline_printing
-    global alphabetical_output
-    global auto_scan_filters
-    global output_detail_level
-    global system_sound_level
-    global request_error
-
-    # Save data from other sectors before overwriting
-    sd = open("src/data/savedata.txt", "r")
-    data = sd.readlines()
-    sd.close()
-
-    # write savedata.txt, update system data only
-    sd = open("src/data/savedata.txt", "w")
-    text = ((database_data + "sys:" +
-             "/fs:" + str(first_start) +
-             "/top:" + str(term_output_policy) +
-             "/onel:" + str(one_line_output) +
-             "/hdlp:" + str(headline_printing) +
-             "/" + str(alphabetical_output[0]) + ":" + str(alphabetical_output[1]) +
-             "/asf:" + str(auto_scan_filters) +
-             "/odlvl:" + str(output_detail_level) +
-             "/ssl:" + str(system_sound_level) +
-             "/re:" + str(request_error) +
-             "/\n"))
-    sd.write(text)
-    sd.close()
+def set_show_home_statement(value):
+    global show_home_statement
+    show_home_statement = value if value in [0, 1] else 1
+    update_savedata()
 
 
-def get_first_start():
-    global first_start
-    return True if first_start == "1" else False
+def get_show_headline_statement():
+    global show_headline_statement
+    return show_headline_statement
 
 
-def set_first_start(fs=False):
-    global first_start
-    first_start = "1" if fs else "0"
-    update_system_data()
+def set_show_headline_statement(value):
+    global show_headline_statement
+    show_headline_statement = value if value in [0, 1] else 1
+    update_savedata()
 
 
-def get_term_output_policy():
-    global term_output_policy
-    return int(term_output_policy)
+# Sector 7: Manage MPS Settings ----------------------------------------------------------------------------------------
+def get_remember_filtered_audio_files():
+    global remember_filtered_audio_files
+    return remember_filtered_audio_files
 
 
-def get_term_output_policy_as_text():
-    global term_output_policy
-    if term_output_policy == "1":
-        return "\t2) Term Output Policy:\t\tonly found terms"
-    elif term_output_policy == "2":
-        return "\t2) Term Output Policy:\t\tonly not found terms"
-    else:
-        return "\t2) Term Output Policy:\t\tall terms"
+def set_remember_filtered_audio_files(value):
+    global remember_filtered_audio_files
+    remember_filtered_audio_files = value if value in [0, 1] else 0
+    update_savedata()
 
 
-def set_term_output_policy(top):
-    global term_output_policy
-    term_output_policy = top
-    update_system_data()
+def get_remember_media_player_settings():
+    global remember_media_player_settings
+    return remember_media_player_settings
 
 
-def get_one_line_output():
-    global one_line_output
-    return True if one_line_output == "1" else False
+def set_remember_media_player_settings(value):
+    global remember_media_player_settings
+    remember_media_player_settings = value if value in [0, 1] else 0
+    update_savedata()
 
 
-def get_one_line_output_as_text():
-    global one_line_output
-    if one_line_output == "1":
-        return "\t3) Output Format:\t\tone-line"
-    else:
-        return "\t3) Output Format:\t\tmulti-line"
+def get_auto_play_recordings():
+    global auto_play_recordings
+    return auto_play_recordings
 
 
-def set_one_line_output(onel):
-    global one_line_output
-    one_line_output = "1" if onel else "0"
-    update_system_data()
+def set_auto_play_recordings(value):
+    global auto_play_recordings
+    auto_play_recordings = value if value in [0, 1] else 0
+    update_savedata()
 
 
-def get_headline_printing():
-    global headline_printing
-    return int(headline_printing)
+def get_audio_render_quality():
+    global audio_render_quality
+    return audio_render_quality
 
 
-def get_headline_printing_as_text():
-    global headline_printing
-    if headline_printing == "1":
-        return "\t4) Headline Printing:\t\tonly at top of excel"
-    elif headline_printing == "2":
-        return "\t4) Headline Printing:\t\tfor every new document scanned in"
-    else:
-        return "\t4) Headline Printing:\t\tfor every new term printed"
+def set_audio_render_quality(value):
+    global audio_render_quality
+    audio_render_quality = value if value in [0, 1, 2, 3, 4] else 2
+    update_savedata()
 
 
-def set_headline_printing(hdlp):
-    global headline_printing
-    headline_printing = hdlp
-    update_system_data()
-
-
-def get_alphabetical_output():
-    global alphabetical_output
-    alphabetical = False
-    ascending = False
-    if alphabetical_output[0].split("=")[1] == "1":
-        alphabetical = True
-    if alphabetical_output[1].split("=")[1] == "1":
-        ascending = True
-    return alphabetical, ascending
-
-
-def get_alphabetical_output_as_text():
-    abc, asc = get_alphabetical_output()
-
-    if abc and asc:
-        return "\t5) Alphabetical Output:\t\talphabetical, ascending"
-    elif abc and not asc:
-        return "\t5) Alphabetical Output:\t\talphabetical, descending"
-    else:
-        return "\t5) Alphabetical Output:\t\tnon-alphabetical"
-
-
-def set_alphabetical_output(abc, asc):
-    global alphabetical_output
-    alphabetical_output[0] = "abc=1" if abc else "abc=0"
-    alphabetical_output[1] = "asc=1" if asc else "asc=0"
-    update_system_data()
-
-
-def get_auto_scan_filters():
-    global auto_scan_filters
-    return auto_scan_filters
-
-
-def get_auto_scan_filters_as_text():
-    global auto_scan_filters
-
-    if auto_scan_filters == "Noun":
-        return "\t6) Auto Scan PoS Filters:\tnouns only"
-    elif auto_scan_filters == "Verb":
-        return "\t6) Auto Scan PoS Filters:\tverbs only"
-    elif auto_scan_filters == "Adjective":
-        return "\t6) Auto Scan PoS Filters:\tadjectives only"
-    elif auto_scan_filters == "Adverb":
-        return "\t6) Auto Scan PoS Filters:\tadverbs only"
-    elif auto_scan_filters == "Preposition":
-        return "\t6) Auto Scan PoS Filters:\tprepositions only"
-    elif auto_scan_filters == "Phrase":
-        return "\t6) Auto Scan PoS Filters:\tphrases only"
-    elif auto_scan_filters == "Noun, Verb, Adjective, Adverb, Preposition, Phrase":
-        return "\t6) Auto Scan PoS Filters:\tall pos types, no restrictions"
-    else:
-        return "\t6) Auto Scan PoS Filters:\t" + str(auto_scan_filters)
-
-
-def set_auto_scan_filters(asf):
-    global auto_scan_filters
-    auto_scan_filters = asf
-    update_system_data()
-
-
-def get_output_detail_level():
-    global output_detail_level
-    return int(output_detail_level)
-
-
-def get_output_detail_level_as_text():
-    global output_detail_level
-
-    if output_detail_level == "1":
-        return "\t7) Output Detail Level:\t\tlevel 1, term data"
-    elif output_detail_level == "2":
-        return "\t7) Output Detail Level:\t\tlevel 2, morph data"
-    else:
-        return "\t7) Output Detail Level:\t\tlevel 3, all data"
-
-
-def set_output_detail_level(odlvl):
-    global output_detail_level
-    output_detail_level = odlvl
-    update_system_data()
-
-
-def get_system_sound_level():
-    global system_sound_level
-    return int(system_sound_level)
-
-
-def get_system_sound_level_as_text():
-    global system_sound_level
-    if system_sound_level == "1":
-        return "\t8) System Sound Level:\t\tlevel 1, no sounds"
-    elif system_sound_level == "2":
-        return "\t8) System Sound Level:\t\tlevel 2, notifications only"
-    else:
-        return "\t8) System Sound Level:\t\tlevel 3, all sounds"
-
-
-def set_system_sound_level(ssl):
-    global system_sound_level
-    system_sound_level = ssl
-    update_system_data()
-
-
-def get_request_error():
-    global request_error
-    return int(request_error)
-
-
-def set_request_error(error_code):
-    global request_error
-    request_error = str(error_code)
-    update_system_data()
-"""
+# Refreshing settings for next release:
+set_all_settings_to_default()

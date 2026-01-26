@@ -37,7 +37,7 @@ from PyQt5.QtGui import QFont, QPalette
 from PyQt5.QtMultimedia import QMediaPlayer
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QGraphicsOpacityEffect, QComboBox, \
     QStyledItemDelegate, QStyleOptionComboBox, QStylePainter, QStyle, QListWidget, QScrollArea, QFrame, QSizePolicy, \
-    QSlider
+    QSlider, QCheckBox
 from PyQt5.QtCore import QPropertyAnimation, QRect, QEasingCurve, QAbstractAnimation, QEventLoop, QVariantAnimation, \
     QSignalBlocker
 from PyQt5.QtCore import Qt, QTimer, QPoint
@@ -49,14 +49,18 @@ from PyQt5.QtCore import QUrl
 
 # icons for buttons: https://icons8.de/icons/set/free-icons--style-glyph-neue
 
-
-import GUI_Style_Sheets as GSS
 import savedata_manager as SDM
 
 import audiodata_manager as ADM
 import audiodata_visualizer as ADV
 
-if SDM.get_current_language() == "en":
+if SDM.get_colour_theme() == 0:
+    import GUI_Style_Sheets_DRK as GSS
+else:
+    pass
+    # import GUI_Style_Sheets_LGHT as GSS
+
+if SDM.get_current_language() == 0:
     import GUI_Text_Manager_EN as GTM
 else:
     pass
@@ -104,7 +108,7 @@ class CenteredComboBox(QComboBox):
         )
 
 
-def submenu_recordings_time_format_fmt_ms_mmssmmm(ms: int) -> str:
+def time_format_fmt_ms_mmssmmm(ms: int) -> str:
     ms = max(0, ms)
     minutes = ms // 60000
     seconds = (ms % 60000) // 1000
@@ -130,17 +134,20 @@ class MainWindow(QWidget):
     system_status = None
     software_version = "v1.0"
 
-    # Settings variables (to be saved in savedata.txt) *****************************************************************
-    gui_language = "eng"
 
-    colour_theme_dark = True
+    # Settings variables (saved in and loaded from savedata.txt) *******************************************************
+    GUI_current_language = SDM.get_current_language()
+    GUI_colour_theme = SDM.get_colour_theme()
 
-    show_copyright_notice_in_gui_headline = True
-    show_copyright_notice_in_home_menu = True
+    CRS_show_home_statement = True if SDM.get_show_home_statement() == 1 else False
+    CRS_show_headline_statement = True if SDM.get_show_headline_statement() == 1 else False
 
-    remember_filtered_audio_files = True    # -> is handled as false if shortcut at descriptions menu is used
-    remember_media_player_settings = True
-    audio_render_quality = 33
+    MPS_remember_filtered_audio_files = True if SDM.get_remember_filtered_audio_files() == 1 else False
+        # -> is handled as false if shortcut at descriptions menu is used!
+    MPS_remember_media_player_settings = True if SDM.get_remember_media_player_settings() == 1 else False
+    MPS_auto_play_recordings = True if SDM.get_auto_play_recordings() == 1 else False
+    MPS_audio_render_quality = SDM.get_audio_render_quality()
+
 
     # system variables for media player control ------------------------------------------------------------------------
     audio_replay = False
@@ -463,7 +470,19 @@ class MainWindow(QWidget):
         self.waveform.seekRequested.connect(self.media_player.setPosition)
 
         self._wave_timer = QTimer(self)
-        self._wave_timer.setInterval(int(self.audio_render_quality))
+        if self.MPS_audio_render_quality == 0:
+            self._wave_timer.setInterval(1000)      # 1 FPS (Debug)
+        elif self.MPS_audio_render_quality == 1:
+            self._wave_timer.setInterval(100)       # 10 FPS (Eco)
+        elif self.MPS_audio_render_quality == 2:
+            self._wave_timer.setInterval(33)        # 30 FPS (Normal, default)
+        elif self.MPS_audio_render_quality == 3:
+            self._wave_timer.setInterval(16)        # 60 FPS (High)
+        elif self.MPS_audio_render_quality == 4:
+            self._wave_timer.setInterval(10)        # 100 FPS (Ultra)
+        else:
+            self._wave_timer.setInterval(33)
+
         self._wave_timer.timeout.connect(self._tick_waveform)
 
         self.media_player.stateChanged.connect(self._on_player_state_changed)
@@ -497,6 +516,21 @@ class MainWindow(QWidget):
 
         # Objects for Settings Menu ------------------------------------------------------------------------------------
 
+        self.colour_theme_choice = CenteredComboBox(self)
+        self.colour_theme_choice.setStyleSheet()
+        (self.colour_theme_choice.view()).setSpacing(6)
+        self.colour_theme_choice.setFont(QFont("Arial", int(self.severity_filter.height() / 2.5)))
+        self.colour_theme_choice.addItems(GTM.QComboBox_severity_filter())
+        self.colour_theme_choice.setCurrentIndex(5)
+        self.colour_theme_choice.currentIndexChanged.connect(
+            lambda: self.submenu_recordings_filter(initiated_by="s"))
+
+
+        self.checkbox_copyright_home = QCheckBox(self)
+        self.checkbox_copyright_home.setStyleSheet(GSS.checkboxes_copyright())
+
+        self.checkbox_copyright_headline = QCheckBox(self)
+        self.checkbox_copyright_headline.setStyleSheet(GSS.checkboxes_copyright())
 
         self.menu_home()
 
@@ -667,7 +701,7 @@ class MainWindow(QWidget):
         self.label_text_4.setText(GTM.label_text_4(menu="home", var_1=1))
         self.label_text_4.show()
 
-        if self.show_copyright_notice_in_home_menu:
+        if self.CRS_show_home_statement:
             self.label_text_5.setGeometry(130, 720, 1000, 70)
             self.label_text_5.setStyleSheet(GSS.label_text(dark_background=False, no_background=True))
             self.label_text_5.setText(GTM.label_text_5(menu="home"))
@@ -859,7 +893,7 @@ class MainWindow(QWidget):
         self.button_media_next.clicked.connect(self.submenu_recordings_next_audio)
         self.button_media_next.show()
 
-        if not self.remember_filtered_audio_files:
+        if not self.MPS_remember_filtered_audio_files:
             self.parameter_filter.setCurrentIndex(7)
             self.severity_filter.setCurrentIndex(5)
             self.gender_filter.setCurrentIndex(2)
@@ -868,7 +902,7 @@ class MainWindow(QWidget):
             self.audio_loaded = False
             self.audio_filtered = False
 
-        if not self.remember_media_player_settings:
+        if not self.MPS_remember_media_player_settings:
             self.media_player.setVolume(75)
             self.slider_volume.setValue(75)
             self.submenu_recordings_replay_audio_ctrl(set_offline=True)
@@ -1833,14 +1867,17 @@ class MainWindow(QWidget):
         pos_ms = max(0, pos_ms)
         dur_ms = max(0, self._duration_ms)
 
-        self.label_text_12.setText(submenu_recordings_time_format_fmt_ms_mmssmmm(pos_ms))
+        self.label_text_12.setText(time_format_fmt_ms_mmssmmm(pos_ms))
 
         remaining = max(0, dur_ms - pos_ms)
-        self.label_text_13.setText("-" + submenu_recordings_time_format_fmt_ms_mmssmmm(remaining))
+        self.label_text_13.setText("-" + time_format_fmt_ms_mmssmmm(remaining))
 
     def submenus_settings(self, setting=0):
         if self.system_status.startswith("menu_settings"):
-            pass
+            if setting == 1:
+
+                self.
+
 
     def submenu_setting_restart(self):
         if self.system_status.startswith("menu_settings"):
@@ -1857,8 +1894,8 @@ sys.exit(app.exec_())
 # ideas for settings:
 
 # general GUI settings:
-#                         color_theme:  dark / light (two GSS versions)
-#                         languages:    en, de, it, es, fr, po (six GTM versions)
+#                         color_theme:  dark / light (two GSS versions)                 restart
+#                         languages:    en, de, it, es, fr, po (six GTM versions)       restart
 
 # copyright options:
 #                       show copyright warning in home menu (checkbox)
