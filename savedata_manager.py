@@ -32,6 +32,9 @@ your use of the dataset. Note that further permission may be required for any co
 identified as belonging to a third party.
 """
 
+import os
+import sys
+
 """
 Settings list for GRBAS_Mate:
 
@@ -58,10 +61,14 @@ Settings list for GRBAS_Mate:
 """
 
 
-sd = open("src/sys/savedata.txt", "r")
+def resource_path(relative_path):
+    base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
+    return os.path.join(base_path, relative_path)
+
+
+sd = open(resource_path("src/sys/savedata.txt"), "r")
 raw_data = sd.readlines()
 sd.close()
-
 
 # Sector 1: Load GUI Settings ------------------------------------------------------------------------------------------
 GUI_savedata = raw_data[0]
@@ -71,7 +78,6 @@ GUI_savedata_list.remove(GUI_savedata_list[-1])
 
 colour_theme = int((GUI_savedata_list[0]).split(":")[1])
 current_language = int((GUI_savedata_list[1]).split(":")[1])
-
 
 # Sector 2: Load Copyright Settings ------------------------------------------------------------------------------------
 CRS_savedata = raw_data[1]
@@ -238,4 +244,4 @@ def set_audio_render_quality(value):
 
 
 # Refreshing settings for next release:
-# set_all_settings_to_default()
+set_all_settings_to_default()
