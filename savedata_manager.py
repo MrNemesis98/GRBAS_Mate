@@ -112,7 +112,7 @@ def update_savedata():
     global audio_render_quality
 
     # write savedata.txt
-    sd = open("src/sys/savedata.txt", "w")
+    sd = open(resource_path("src/sys/savedata.txt"), "w")
     text = ("GUI" +
             "/theme:" + str(colour_theme) +
             "/lang:" + str(current_language) + "/\n" +

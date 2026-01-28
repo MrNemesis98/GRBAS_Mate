@@ -32,36 +32,18 @@ your use of the dataset. Note that further permission may be required for any co
 identified as belonging to a third party.
 """
 
-"""🧱
-1. solid bei border ----------------------------------------------------------------------------------------------------
+import os, sys
+from pathlib import Path
 
-border: 2px solid rgb(180, 180, 180);
-→ solid ist der Linientyp der Umrandung:
 
-Wert	Bedeutung
-solid	durchgehende Linie
-dashed	gestrichelte Linie
-dotted	gepunktete Linie
-double	doppelte Linie
-none keine Linie
+def resource_path(rel: str) -> str:
+    base = getattr(sys, "_MEIPASS", os.path.abspath("."))
+    return os.path.join(base, rel)
 
-2. border-radius
 
-border-radius: 8px;
-→ border-radius steuert die Abrundung der Ecken.
-
-Wert	Wirkung
-0px	ganz eckig (kein Radius)
-5px	leicht gerundet
-50 %	komplett rund (Kreis bei Quadrat)
-64px z.B.	maximale Rundung bei 64×64-Button
-
-➡️ Es gibt keine harte Obergrenze, aber:
-
-Wenn border-radius >= min(width, height)/2, dann wird das Objekt kreisförmig.
-
-Bei Buttons mit 64x64 wäre 32px der Maximalwert, um einen Kreis zu erzeugen.
-"""
+def qss_path(rel: str) -> str:
+    # -> C:/Users/.../button.png (ohne file:///)
+    return Path(resource_path(rel)).resolve().as_posix()
 
 
 def label_main_background():
@@ -214,310 +196,350 @@ def label_text(dark_background=False, no_background=False, frame_only=False, top
 # Main GUI Controls (4 Buttons) ----------------------------------------------------------------------------------------
 # [Info, FAQ, Minimize, Exit]
 def button_main_ctrl_info(pressed):
+    p0 = qss_path("src/gui/ico/main_ctrl/button_main_ctrl_info_0.png")
+    p1 = qss_path("src/gui/ico/main_ctrl/button_main_ctrl_info_1.png")
+    p2 = qss_path("src/gui/ico/main_ctrl/button_main_ctrl_info_2.png")
+
     if pressed:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_info_2.png) 0 0 0 0 stretch stretch;
-                }"""
-    else:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_info_0.png) 0 0 0 0 stretch stretch;
-                }
-                QPushButton:hover {
-                    border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_info_1.png) 0 0 0 0 stretch stretch;
-                }
+        return f"""
+            QPushButton {{
+                border: none;
+                border-image: url("{p2}") 0 0 0 0 stretch stretch;
+            }}
             """
-    return sst
+    else:
+        return f"""
+            QPushButton {{
+                border: none;
+                border-image: url("{p0}") 0 0 0 0 stretch stretch;
+            }}
+            QPushButton:hover {{
+                border-image: url("{p1}") 0 0 0 0 stretch stretch;
+            }}
+            """
 
 
-def button_main_ctrl_faq(pressed):
+def button_main_ctrl_faq(pressed: bool) -> str:
+    p0 = qss_path("src/gui/ico/main_ctrl/button_main_ctrl_faq_0.png")
+    p1 = qss_path("src/gui/ico/main_ctrl/button_main_ctrl_faq_1.png")
+    p2 = qss_path("src/gui/ico/main_ctrl/button_main_ctrl_faq_2.png")
+
     if pressed:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_faq_2.png) 0 0 0 0 stretch stretch;
-                }"""
+        return f"""
+        QPushButton {{
+            border: none;
+            border-image: url("{p2}") 0 0 0 0 stretch stretch;
+        }}
+        """
     else:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_faq_0.png) 0 0 0 0 stretch stretch;
-                }
-                QPushButton:hover {
-                    border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_faq_1.png) 0 0 0 0 stretch stretch;
-                }
-            """
-    return sst
+        return f"""
+        QPushButton {{
+            border: none;
+            border-image: url("{p0}") 0 0 0 0 stretch stretch;
+        }}
+        QPushButton:hover {{
+            border-image: url("{p1}") 0 0 0 0 stretch stretch;
+        }}
+        """
 
 
 def button_main_ctrl_minimize():
-    sst = """QPushButton {
-                border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_minimize_0.png) 0 0 0 0 stretch stretch;
-            }
-            QPushButton:hover {
-                border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_minimize_1.png) 0 0 0 0 stretch stretch;
-            }
+    p0 = qss_path("src/gui/ico/main_ctrl/button_main_ctrl_minimize_0.png")
+    p1 = qss_path("src/gui/ico/main_ctrl/button_main_ctrl_minimize_1.png")
+
+    return f"""
+        QPushButton {{
+            border: none;
+            border-image: url("{p0}") 0 0 0 0 stretch stretch;
+        }}
+        QPushButton:hover {{
+            border-image: url("{p1}") 0 0 0 0 stretch stretch;
+        }}
         """
-    return sst
 
 
 def button_main_ctrl_exit():
-    sst = """QPushButton {
-                border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_exit_0.png) 0 0 0 0 stretch stretch;
-            }
-            QPushButton:hover {
-                border-image: url(./src/gui/ico/main_ctrl/button_main_ctrl_exit_1.png) 0 0 0 0 stretch stretch;
-            }
-        """
-    return sst
+    p0 = qss_path("src/gui/ico/main_ctrl/button_main_ctrl_exit_0.png")
+    p1 = qss_path("src/gui/ico/main_ctrl/button_main_ctrl_exit_1.png")
+
+    return f"""
+            QPushButton {{
+                border: none;
+                border-image: url("{p0}") 0 0 0 0 stretch stretch;
+            }}
+            QPushButton:hover {{
+                border-image: url("{p1}") 0 0 0 0 stretch stretch;
+            }}
+            """
 
 
 # Main Navigation Bar (5 Buttons) --------------------------------------------------------------------------------------
 # [Home, Description, Recordings, Training, Settings]
 def button_main_nav_home(pressed):
+    p0 = qss_path("src/gui/ico/main_nav_bar/button_main_nav_home_0.png")
+    p1 = qss_path("src/gui/ico/main_nav_bar/button_main_nav_home_1.png")
+
     if pressed:
-        sst = """QPushButton {
+        return f"""QPushButton {{
                     background-color: #FFFFFF;
-                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_home_1.png) 
-                    0 0 0 0 stretch stretch;
+                    border-image: url("{p1}") 0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;
                     border: 2px solid rgba(25,30,36,255);
                     border-radius: 8px;
-                }"""
+                }}"""
     else:
-        sst = """
-                QPushButton {
+        return f"""
+                QPushButton {{
                     background-color: rgba(25,30,36,255);
-                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_home_0.png) 
-                    0 0 0 0 stretch stretch;
+                    border-image: url("{p0}") 0 0 0 0 stretch stretch;
                     background-repeat: no-repeat;
                     background-position: center;
                     border: 2px solid rgba(25,30,36,255);
                     border-radius: 8px;
-                }
-                QPushButton:hover {
+                }}
+                QPushButton:hover {{
                     background-color: rgba(41,51,63,255);
-                }
+                }}
             """
-    return sst
 
 
 def button_main_nav_description(pressed):
+    p0 = qss_path("src/gui/ico/main_nav_bar/button_main_nav_description_0.png")
+    p1 = qss_path("src/gui/ico/main_nav_bar/button_main_nav_description_1.png")
+
     if pressed:
-        sst = """QPushButton {
-                    background-color: #FFFFFF;
-                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_description_1.png) 
-                    0 0 0 0 stretch stretch;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    border: 2px solid rgba(25,30,36,255);
-                    border-radius: 8px;
-                }"""
+        return f"""QPushButton {{
+                        background-color: #FFFFFF;
+                        border-image: url("{p1}") 0 0 0 0 stretch stretch;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        border: 2px solid rgba(25,30,36,255);
+                        border-radius: 8px;
+                    }}"""
     else:
-        sst = """
-                QPushButton {
-                    background-color: rgba(25,30,36,255);
-                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_description_0.png) 
-                    0 0 0 0 stretch stretch;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    border: 2px solid rgba(25,30,36,255);
-                    border-radius: 8px;
-                }
-                QPushButton:hover {
-                    background-color: rgba(41,51,63,255);
-                }
-            """
-    return sst
+        return f"""
+                    QPushButton {{
+                        background-color: rgba(25,30,36,255);
+                        border-image: url("{p0}") 0 0 0 0 stretch stretch;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        border: 2px solid rgba(25,30,36,255);
+                        border-radius: 8px;
+                    }}
+                    QPushButton:hover {{
+                        background-color: rgba(41,51,63,255);
+                    }}
+                """
 
 
 def button_main_nav_recordings(pressed):
+    p0 = qss_path("src/gui/ico/main_nav_bar/button_main_nav_recordings_0.png")
+    p1 = qss_path("src/gui/ico/main_nav_bar/button_main_nav_recordings_1.png")
+
     if pressed:
-        sst = """QPushButton {
-                    background-color: #FFFFFF;
-                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_recordings_1.png) 
-                    0 0 0 0 stretch stretch;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    border: 2px solid rgba(25,30,36,255);
-                    border-radius: 8px;
-                }"""
+        return f"""QPushButton {{
+                        background-color: #FFFFFF;
+                        border-image: url("{p1}") 0 0 0 0 stretch stretch;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        border: 2px solid rgba(25,30,36,255);
+                        border-radius: 8px;
+                    }}"""
     else:
-        sst = """
-                QPushButton {
-                    background-color: rgba(25,30,36,255);
-                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_recordings_0.png) 
-                    0 0 0 0 stretch stretch;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    border: 2px solid rgba(25,30,36,255);
-                    border-radius: 8px;
-                }
-                QPushButton:hover {
-                    background-color: rgba(41,51,63,255);
-                }
-            """
-    return sst
+        return f"""
+                    QPushButton {{
+                        background-color: rgba(25,30,36,255);
+                        border-image: url("{p0}") 0 0 0 0 stretch stretch;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        border: 2px solid rgba(25,30,36,255);
+                        border-radius: 8px;
+                    }}
+                    QPushButton:hover {{
+                        background-color: rgba(41,51,63,255);
+                    }}
+                """
 
 
 def button_main_nav_training(pressed):
+    p0 = qss_path("src/gui/ico/main_nav_bar/button_main_nav_study_0.png")
+    p1 = qss_path("src/gui/ico/main_nav_bar/button_main_nav_study_1.png")
+
     if pressed:
-        sst = """QPushButton {
-                    background-color: #FFFFFF;
-                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_study_1.png) 
-                    0 0 0 0 stretch stretch;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    border: 2px solid rgba(25,30,36,255);
-                    border-radius: 8px;
-                }"""
+        return f"""QPushButton {{
+                        background-color: #FFFFFF;
+                        border-image: url("{p1}") 0 0 0 0 stretch stretch;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        border: 2px solid rgba(25,30,36,255);
+                        border-radius: 8px;
+                    }}"""
     else:
-        sst = """
-                QPushButton {
-                    background-color: rgba(25,30,36,255);
-                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_study_0.png) 
-                    0 0 0 0 stretch stretch;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    border: 2px solid rgba(25,30,36,255);
-                    border-radius: 8px;
-                }
-                QPushButton:hover {
-                    background-color: rgba(41,51,63,255);
-                }
-            """
-    return sst
+        return f"""
+                    QPushButton {{
+                        background-color: rgba(25,30,36,255);
+                        border-image: url("{p0}") 0 0 0 0 stretch stretch;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        border: 2px solid rgba(25,30,36,255);
+                        border-radius: 8px;
+                    }}
+                    QPushButton:hover {{
+                        background-color: rgba(41,51,63,255);
+                    }}
+                """
 
 
 def button_main_nav_settings(pressed):
+    p0 = qss_path("src/gui/ico/main_nav_bar/button_main_nav_settings_0.png")
+    p1 = qss_path("src/gui/ico/main_nav_bar/button_main_nav_settings_1.png")
+    p2 = qss_path("src/gui/ico/main_nav_bar/button_main_nav_settings_2.png")
+
     if pressed:
-        sst = """QPushButton {
-                    background-color: #FFFFFF;
-                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_settings_2.png) 
-                    0 0 0 0 stretch stretch;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    border: 2px solid rgba(25,30,36,255);
-                    border-radius: 8px;
-                }"""
+        return f"""QPushButton {{
+                        background-color: #FFFFFF;
+                        border-image: url("{p2}") 0 0 0 0 stretch stretch;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        border: 2px solid rgba(25,30,36,255);
+                        border-radius: 8px;
+                    }}"""
     else:
-        sst = """
-                QPushButton {
-                    background-color: rgba(25,30,36,255);
-                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_settings_0.png) 
-                    0 0 0 0 stretch stretch;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    border: 2px solid rgba(25,30,36,255);
-                    border-radius: 8px;
-                }
-                QPushButton:hover {
-                    background-color: rgba(41,51,63,255);
-                    border-image: url(./src/gui/ico/main_nav_bar/button_main_nav_settings_1.png) 
-                    0 0 0 0 stretch stretch;
-                }
-            """
-    return sst
+        return f"""
+                    QPushButton {{
+                        background-color: rgba(25,30,36,255);
+                        border-image: url("{p0}") 0 0 0 0 stretch stretch;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        border: 2px solid rgba(25,30,36,255);
+                        border-radius: 8px;
+                    }}
+                    QPushButton:hover {{
+                        background-color: rgba(41,51,63,255);
+                        border-image: url("{p1}") 0 0 0 0 stretch stretch;
+                    }}
+                """
 
 
 # Miscellaneous Buttons ------------------------------------------------------------------------------------------------
 def button_switch_right(active, waiting=False):
+    p0 = qss_path("src/gui/ico/miscellaneous/button_switch_right_0.png")
+    p1 = qss_path("src/gui/ico/miscellaneous/button_switch_right_1.png")
+    p2 = qss_path("src/gui/ico/miscellaneous/button_switch_right_2.png")
+    p3 = qss_path("src/gui/ico/miscellaneous/button_switch_right_3.png")
+
     if waiting:
-        sst = """QPushButton {
-                            border-image: url(./src/gui/ico/miscellaneous/button_switch_right_3.png) 
-                            0 0 0 0 stretch stretch;
-                        }"""
+        return f"""QPushButton {{
+                            border-image: url("{p3}") 0 0 0 0 stretch stretch;
+                        }}"""
     elif not active:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/miscellaneous/button_switch_right_0.png) 0 0 0 0 stretch stretch;
-                }"""
+        return f"""QPushButton {{
+                    border-image: url("{p0}") 0 0 0 0 stretch stretch;
+                }}"""
     else:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/miscellaneous/button_switch_right_1.png) 0 0 0 0 stretch stretch;
-                }
-                QPushButton:hover {
-                    border-image: url(./src/gui/ico/miscellaneous/button_switch_right_2.png) 0 0 0 0 stretch stretch;
-                }
+        return f"""QPushButton {{
+                    border-image: url("{p1}") 0 0 0 0 stretch stretch;
+                }}
+                QPushButton:hover {{
+                    border-image: url("{p2}") 0 0 0 0 stretch stretch;
+                }}
             """
-    return sst
 
 
 def button_switch_left(active, waiting=False):
+    p0 = qss_path("src/gui/ico/miscellaneous/button_switch_left_0.png")
+    p1 = qss_path("src/gui/ico/miscellaneous/button_switch_left_1.png")
+    p2 = qss_path("src/gui/ico/miscellaneous/button_switch_left_2.png")
+    p3 = qss_path("src/gui/ico/miscellaneous/button_switch_left_3.png")
+
     if waiting:
-        sst = """QPushButton {
-                            border-image: url(./src/gui/ico/miscellaneous/button_switch_left_3.png) 
-                            0 0 0 0 stretch stretch;
-                        }"""
+        return f"""QPushButton {{
+                                border-image: url("{p3}") 0 0 0 0 stretch stretch;
+                            }}"""
     elif not active:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/miscellaneous/button_switch_left_0.png) 0 0 0 0 stretch stretch;
-                }"""
+        return f"""QPushButton {{
+                        border-image: url("{p0}") 0 0 0 0 stretch stretch;
+                    }}"""
     else:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/miscellaneous/button_switch_left_1.png) 0 0 0 0 stretch stretch;
-                }
-                QPushButton:hover {
-                    border-image: url(./src/gui/ico/miscellaneous/button_switch_left_2.png) 0 0 0 0 stretch stretch;
-                }
-            """
-    return sst
+        return f"""QPushButton {{
+                        border-image: url("{p1}") 0 0 0 0 stretch stretch;
+                    }}
+                    QPushButton:hover {{
+                        border-image: url("{p2}") 0 0 0 0 stretch stretch;
+                    }}
+                """
 
 
 def button_switch_down(active, waiting=False, dress_as_recording=False):
+    p0 = qss_path("src/gui/ico/miscellaneous/button_switch_down_0.png")
+    p1 = qss_path("src/gui/ico/miscellaneous/button_switch_down_1.png")
+    p2 = qss_path("src/gui/ico/miscellaneous/button_switch_down_2.png")
+    p3 = qss_path("src/gui/ico/miscellaneous/button_switch_down_3.png")
+
+    r0 = qss_path("src/gui/ico/miscellaneous/button_recordings_0.png")
+    r1 = qss_path("src/gui/ico/miscellaneous/button_recordings_1.png")
+    r2 = qss_path("src/gui/ico/miscellaneous/button_recordings_2.png")
+
     if not dress_as_recording:
         if waiting:
-            sst = """QPushButton {
-                                border-image: url(./src/gui/ico/miscellaneous/button_switch_down_3.png) 
-                                0 0 0 0 stretch stretch;
-                            }"""
+            return f"""QPushButton {{
+                        border-image: url("{p3}") 0 0 0 0 stretch stretch;
+                    }}"""
         elif not active:
-            sst = """QPushButton {
-                        border-image: url(./src/gui/ico/miscellaneous/button_switch_down_0.png) 0 0 0 0 stretch stretch;
-                    }"""
+            return f"""QPushButton {{
+                        border-image: url("{p0}") 0 0 0 0 stretch stretch;
+                    }}"""
         else:
-            sst = """QPushButton {
-                        border-image: url(./src/gui/ico/miscellaneous/button_switch_down_1.png) 0 0 0 0 stretch stretch;
-                    }
-                    QPushButton:hover {
-                        border-image: url(./src/gui/ico/miscellaneous/button_switch_down_2.png) 0 0 0 0 stretch stretch;
-                    }
+            return f"""QPushButton {{
+                        border-image: url("{p1}") 0 0 0 0 stretch stretch;
+                    }}
+                    QPushButton:hover {{
+                        border-image: url("{p2}") 0 0 0 0 stretch stretch;
+                    }}
                 """
     else:
         if not active:
-            sst = """QPushButton {
+            return f"""QPushButton {{
                     background-color: #191E24;
                     border-radius: 35px;
-                    border-image: url(./src/gui/ico/miscellaneous/button_recordings_0.png) -5 -5 -5 -5 stretch stretch;
-                    }"""
+                    border-image: url("{r0}") 0 0 0 0 stretch stretch;
+                    }}"""
         else:
-            sst = """QPushButton {
+            return f"""QPushButton {{
                     background-color: #191E24;
                     border-radius: 35px;
-                    border-image: url(./src/gui/ico/miscellaneous/button_recordings_1.png) -5 -5 -5 -5 stretch stretch;
-                    }
-                    QPushButton:hover {
+                    border-image: url("{r1}") 0 0 0 0 stretch stretch;
+                    }}
+                    QPushButton:hover {{
                     background-color: #191E24;
                     border-radius: 35px;
-                    border-image: url(./src/gui/ico/miscellaneous/button_recordings_2.png) -5 -5 -5 -5 stretch stretch;
-                    }"""
-    return sst
+                    border-image: url("{r2}") 0 0 0 0 stretch stretch;
+                    }}"""
 
 
 def button_switch_up(active, waiting=False):
+    p0 = qss_path("src/gui/ico/miscellaneous/button_switch_up_0.png")
+    p1 = qss_path("src/gui/ico/miscellaneous/button_switch_up_1.png")
+    p2 = qss_path("src/gui/ico/miscellaneous/button_switch_up_2.png")
+    p3 = qss_path("src/gui/ico/miscellaneous/button_switch_up_3.png")
+
     if waiting:
-        sst = """QPushButton {
-                            border-image: url(./src/gui/ico/miscellaneous/button_switch_up_3.png) 
-                            0 0 0 0 stretch stretch;
-                        }"""
+        return f"""QPushButton {{
+                            border-image: url("{p3}") 0 0 0 0 stretch stretch;
+                        }}"""
     elif not active:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/miscellaneous/button_switch_up_0.png) 0 0 0 0 stretch stretch;
-                }"""
+        return f"""QPushButton {{
+                            border-image: url("{p0}") 0 0 0 0 stretch stretch;
+                        }}"""
     else:
-        sst = """QPushButton {
-                    border-image: url(./src/gui/ico/miscellaneous/button_switch_up_1.png) 0 0 0 0 stretch stretch;
-                }
-                QPushButton:hover {
-                    border-image: url(./src/gui/ico/miscellaneous/button_switch_up_2.png) 0 0 0 0 stretch stretch;
-                }
-            """
-    return sst
+        return f"""QPushButton {{
+                            border-image: url("{p1}") 0 0 0 0 stretch stretch;
+                        }}
+                        QPushButton:hover {{
+                            border-image: url("{p2}") 0 0 0 0 stretch stretch;
+                        }}
+                    """
 
 
 def button_assistance_1(selected=False, settings=False):
