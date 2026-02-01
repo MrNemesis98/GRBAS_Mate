@@ -43,7 +43,7 @@ Settings list for GRBAS_Mate:
                             Deutsch     (1)
                             Italiano    (2)
                             Español     (3)
-                            Français     (4)
+                            Français    (4)
                             Polski      (5)
                             Türkçe      (6)
 
@@ -244,4 +244,4 @@ def set_audio_render_quality(value):
 
 
 # Refreshing settings for next release:
-set_all_settings_to_default()
+# set_all_settings_to_default()

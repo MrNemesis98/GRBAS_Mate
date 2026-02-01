@@ -49,11 +49,11 @@ def label_main_background():
     sst = """
     QLabel {
         color: rgb(30, 30, 30);
-        background-color: rgba(33,39,47,255);
+        background-color: rgba(41,51,63,255);
         background: qlineargradient(
             spread:pad, x1:0, y1:0, x2:5.5, y2:5.5,
-            stop:0 rgba(33,39,47,255),  
-            stop:1 rgba(25,30,36,255)
+            stop:0 rgba(41,51,63,255),  
+            stop:1 rgba(33,42,52,255)
             );
         border-top-left-radius: 80px;
         }
@@ -112,7 +112,7 @@ def label_menu_title(main_ctrl):
         sst = """
             QLabel {
                 color: rgb(11, 131, 156);
-                background-color: rgba(33,39,47,255);
+                background-color: rgba(41,51,63,255);
                 font-size: 35px;
                 font-weight: bold;
                 }
@@ -121,7 +121,7 @@ def label_menu_title(main_ctrl):
         sst = """
             QLabel {
                 color: rgb(220, 220, 220);
-                background-color: rgba(33,39,47,255);
+                background-color: rgba(41,51,63,255);
                 font-size: 35px;
                 font-weight: bold;
                 }
@@ -129,7 +129,7 @@ def label_menu_title(main_ctrl):
     return sst
 
 
-def label_text(dark_background=False, no_background=False, frame_only=False, top_module=False, settings=False, var=0):
+def label_text(settings=False, dark_background=False, no_background=False, frame_only=False, top_module=False, var=0):
     if settings and var == 1:
         sst = """
             QLabel {
@@ -172,7 +172,7 @@ def label_text(dark_background=False, no_background=False, frame_only=False, top
             QLabel {
                 color: rgb(220, 220, 220);
                 font-size: 25px;
-                border: 4px solid rgba(41,51,63,255);
+                border: 4px solid rgba(33,39,47,255);
                 border-radius: 20px;
                 padding: 20px;
                 }
@@ -192,7 +192,7 @@ def label_text(dark_background=False, no_background=False, frame_only=False, top
         sst = """
             QLabel {
                 color: rgb(220, 220, 220);
-                background-color: rgba(41,51,63,255);
+                background-color: rgba(33,39,47,255);
                 font-size: 25px;
                 border-radius: 20px;
                 padding: 20px;
@@ -887,7 +887,6 @@ def button_assistance_4(deactivated=False, settings=False):
 # Buttons for Parameters -----------------------------------------------------------------------------------------------
 
 def button_param_start(selected=False):
-
     if selected:
         sst = f"""QPushButton {{
                                 background-color: #191E24;
@@ -934,7 +933,6 @@ def button_param_start(selected=False):
 
 
 def button_param_I(selected=False):
-
     if selected:
         sst = f"""QPushButton {{
                                 background-color: #191E24;
@@ -975,7 +973,6 @@ def button_param_I(selected=False):
 
 
 def buttons_param_F_to_A(part_of_scale_extension=False, selected=False):
-
     if part_of_scale_extension:
         if selected:
             sst = f"""QPushButton {{
@@ -1042,7 +1039,6 @@ def buttons_param_F_to_A(part_of_scale_extension=False, selected=False):
 
 
 def button_param_S(selected=False):
-
     if selected:
         sst = f"""QPushButton {{
                                 background-color: #191E24;
@@ -1172,18 +1168,18 @@ def audio_file_display():
             border-radius: 20px;
             padding: 4px;
         }
-        
+
         QListWidget::item {
             color: #ffffff;
             padding: 6px 10px;
             border-radius: 4px;
         }
-        
+
         /* Hover-Effekt */
         QListWidget::item:hover {
             background: rgba(41,51,63,255);
         }
-        
+
         /* Aktuell ausgewähltes Item */
         QListWidget::item:selected {
             background: rgba(41,51,63,255);
@@ -1191,7 +1187,7 @@ def audio_file_display():
             font-weight: bold;
             border: none;
         }
-        
+
         /* Fokusrahmen entfernen (optional) */
         QListWidget:focus {
             outline: none;
@@ -1203,11 +1199,11 @@ def audio_file_display():
 def waveform():
     return """
     WaveformWidget {
-        background-color: #191E24;
-        border: 4px solid rgba(41,51,63,255);
+        background-color: rgba(41,51,63,255);
+        border: 4px solid rgba(33,39,47,255);
 
         qproperty-playedColor: #0B839C;
-        qproperty-unplayedColor: rgba(41,51,63,255);
+        qproperty-unplayedColor: #191E24;
         qproperty-playheadColor: #DB8004;
     }
     """
@@ -1330,19 +1326,19 @@ def volume_slider():
             background: #191E24;
             border-radius: 3px;
         }
-        
+
         QSlider::handle:horizontal {
             width: 14px;
             margin: -4px 0;
             border-radius: 7px;
             background: #DB8004;
         }
-        
+
         QSlider::sub-page:horizontal {
             background: #0B839C;
             border-radius: 3px;
         }
-        
+
         QSlider::add-page:horizontal {
             background: #191E24;
             border-radius: 3px;

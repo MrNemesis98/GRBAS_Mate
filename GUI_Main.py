@@ -31,7 +31,8 @@ and indicate if changes were made, but you may not do so in a way that suggests 
 your use of the dataset. Note that further permission may be required for any content within the dataset that is
 identified as belonging to a third party.
 """
-import os, sys
+import os
+import sys
 
 from PyQt5.QtGui import QFont, QPalette
 from PyQt5.QtMultimedia import QMediaPlayer
@@ -39,7 +40,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QGraphic
     QStyledItemDelegate, QStyleOptionComboBox, QStylePainter, QStyle, QListWidget, QScrollArea, QFrame, QSizePolicy, \
     QSlider, QCheckBox
 from PyQt5.QtCore import QPropertyAnimation, QRect, QEasingCurve, QAbstractAnimation, QEventLoop, QVariantAnimation, \
-    QSignalBlocker
+    QSignalBlocker, QProcess
 from PyQt5.QtCore import Qt, QTimer, QPoint
 from PyQt5.QtWidgets import QGraphicsColorizeEffect
 from PyQt5.QtCore import QSequentialAnimationGroup, QPauseAnimation
@@ -54,14 +55,41 @@ import savedata_manager as SDM
 import audiodata_manager as ADM
 import audiodata_visualizer as ADV
 
-if SDM.get_colour_theme() == 1:
+from restart_manager import RestartManager
+
+# GUI COLOUR THEME (2 Options)
+# light theme
+if SDM.get_colour_theme() == 0:
+    import GUI_Style_Sheets_LGHT as GSS
+# dark theme
+elif SDM.get_colour_theme() == 1:
     import GUI_Style_Sheets_DRK as GSS
 else:
     # assume default_settings
     SDM.set_colour_theme(1)
     import GUI_Style_Sheets_DRK as GSS
 
+# GUI LANGUAGE (7 Options)
+# English
 if SDM.get_current_language() == 0:
+    import GUI_Text_Manager_EN as GTM
+# Deutsch
+elif SDM.get_current_language() == 1:
+    import GUI_Text_Manager_DE as GTM
+# Italiano
+elif SDM.get_current_language() == 2:
+    import GUI_Text_Manager_EN as GTM
+# Español
+elif SDM.get_current_language() == 3:
+    import GUI_Text_Manager_EN as GTM
+# Français
+elif SDM.get_current_language() == 4:
+    import GUI_Text_Manager_EN as GTM
+# Polski
+elif SDM.get_current_language() == 5:
+    import GUI_Text_Manager_EN as GTM
+# Türkçe
+elif SDM.get_current_language() == 6:
     import GUI_Text_Manager_EN as GTM
 else:
     # assume default settings
@@ -159,6 +187,7 @@ class MainWindow(QWidget):
 
     # system variables for settings menu -------------------------------------------------------------------------------
     restart_option_unlocked = False
+    restart_in_progress = False
 
     def __init__(self):
         super().__init__()
@@ -180,9 +209,6 @@ class MainWindow(QWidget):
         self.label_main_background.setStyleSheet(GSS.label_main_background())
 
         self.label_main_headline_background = QLabel(self)
-        self.label_main_headline_background.setText(GTM.label_main_headline_background(with_copyright=True)) \
-            if self.CRS_show_headline_statement \
-            else self.label_main_headline_background.setText(GTM.label_main_headline_background(with_copyright=False))
         self.label_main_headline_background.setFont(QFont('Noto Sans IPA', 28, QFont.Bold))
         self.label_main_headline_background.setGeometry(0, 0, 1380, 80)
         self.label_main_headline_background.setStyleSheet(GSS.label_main_headline_background(highlight=True))
@@ -192,6 +218,14 @@ class MainWindow(QWidget):
         self.label_main_headline_background.mouseReleaseEvent = self.headline_mouse_release
         QTimer.singleShot(4000, lambda: self.label_main_headline_background.setStyleSheet(
             GSS.label_main_headline_background(highlight=False)))
+
+        def reload_main_headline_label_copyright():
+            self.label_main_headline_background.setText(GTM.label_main_headline_background(with_copyright=True)) \
+                if self.CRS_show_headline_statement \
+                else self.label_main_headline_background.setText(
+                GTM.label_main_headline_background(with_copyright=False))
+
+        reload_main_headline_label_copyright()
 
         self.label_main_nav_bar_background = QLabel(self)
         self.label_main_nav_bar_background.setGeometry(0, 80, 80, 720)
@@ -537,15 +571,98 @@ class MainWindow(QWidget):
         self.language_choice.setCurrentIndex(SDM.get_current_language())
         self.language_choice.currentIndexChanged.connect(
             lambda: (SDM.set_current_language(self.language_choice.currentIndex()),
-                     self.submenu_settings_unlock_restart()))
+                    self.submenu_settings_unlock_restart()))
 
         self.checkbox_copyright_home = QCheckBox(self)
         self.checkbox_copyright_home.setStyleSheet(GSS.checkboxes_copyright())
+        self.checkbox_copyright_home.setText(GTM.QCheckbox_copyright_home())
+        self.checkbox_copyright_home.setCheckable(True)
+        self.checkbox_copyright_home.setChecked(True) if SDM.get_show_home_statement() else (
+            self.checkbox_copyright_home.setChecked(False))
+        self.checkbox_copyright_home.toggled.connect(
+            lambda checked: (
+                SDM.set_show_home_statement(1 if checked else 0),
+                setattr(self, "CRS_show_home_statement", checked)
+            )
+        )
 
         self.checkbox_copyright_headline = QCheckBox(self)
         self.checkbox_copyright_headline.setStyleSheet(GSS.checkboxes_copyright())
+        self.checkbox_copyright_headline.setText(GTM.QCheckbox_copyright_headline())
+        self.checkbox_copyright_headline.setCheckable(True)
+        self.checkbox_copyright_headline.setChecked(True) if SDM.get_show_headline_statement() else (
+            self.checkbox_copyright_headline.setChecked(False))
+        self.checkbox_copyright_headline.toggled.connect(
+            lambda checked: (
+                SDM.set_show_headline_statement(1 if checked else 0),
+                setattr(self, "CRS_show_headline_statement", checked),
+                reload_main_headline_label_copyright()
+            )
+        )
+
+        self.checkbox_remember_faf = QCheckBox(self)
+        self.checkbox_remember_faf.setStyleSheet(GSS.checkboxes_mps())
+        self.checkbox_remember_faf.setText(GTM.QCheckbox_remember_faf())
+        self.checkbox_remember_faf.setCheckable(True)
+        self.checkbox_remember_faf.setChecked(True) if SDM.get_remember_filtered_audio_files() else (
+            self.checkbox_remember_faf.setChecked(False))
+        self.checkbox_remember_faf.toggled.connect(
+            lambda checked: (
+                SDM.set_remember_filtered_audio_files(1 if checked else 0),
+                setattr(self, "MPS_remember_filtered_audio_files", checked)
+            )
+        )
+
+        self.checkbox_remember_mps = QCheckBox(self)
+        self.checkbox_remember_mps.setStyleSheet(GSS.checkboxes_mps())
+        self.checkbox_remember_mps.setText(GTM.QCheckbox_remember_mps())
+        self.checkbox_remember_mps.setCheckable(True)
+        self.checkbox_remember_mps.setChecked(True) if SDM.get_remember_media_player_settings() else (
+            self.checkbox_remember_mps.setChecked(False))
+        self.checkbox_remember_mps.toggled.connect(
+            lambda checked: (
+                SDM.set_remember_media_player_settings(1 if checked else 0),
+                setattr(self, "MPS_remember_media_player_settings", checked)
+            )
+        )
+
+        self.checkbox_autoplay_recordings = QCheckBox(self)
+        self.checkbox_autoplay_recordings.setStyleSheet(GSS.checkboxes_mps())
+        self.checkbox_autoplay_recordings.setText(GTM.QCheckbox_autoplay_recordings())
+        self.checkbox_autoplay_recordings.setCheckable(True)
+        self.checkbox_autoplay_recordings.setChecked(True) if SDM.get_auto_play_recordings() else (
+            self.checkbox_autoplay_recordings.setChecked(False))
+        self.checkbox_autoplay_recordings.toggled.connect(
+            lambda checked: (
+                SDM.set_auto_play_recordings(1 if checked else 0),
+                setattr(self, "MPS_autoplay_recordings", checked),
+                self.submenu_settings_unlock_restart()
+            )
+        )
+
+        self.audio_render_quality_choice = CenteredComboBox(self)
+        self.audio_render_quality_choice.setStyleSheet(GSS.audio_render_quality_choice())
+        (self.audio_render_quality_choice.view()).setSpacing(6)
+        self.audio_render_quality_choice.setFont(QFont("Arial", int(self.audio_render_quality_choice.height() / 2.5)))
+        self.audio_render_quality_choice.addItems(GTM.QComboBox_audio_render_quality_choice())
+        self.audio_render_quality_choice.setCurrentIndex(SDM.get_audio_render_quality())
+        self.audio_render_quality_choice.currentIndexChanged.connect(
+            lambda: (SDM.set_audio_render_quality(self.audio_render_quality_choice.currentIndex()),
+                     self.submenu_settings_unlock_restart()))
 
         self.menu_home()
+
+    def shutdown_for_restart(self):
+        if hasattr(self, "player"):
+            self.player.stop()
+
+        for t in getattr(self, "_timers", []):
+            t.stop()
+
+        for th in getattr(self, "_threads", []):
+            th.requestInterruption()
+            th.quit()
+            th.wait(1000)
 
     # Window Behaviour *************************************************************************************************
     def headline_mouse_press(self, event):
@@ -646,6 +763,11 @@ class MainWindow(QWidget):
 
         self.checkbox_copyright_home.hide()
         self.checkbox_copyright_headline.hide()
+
+        self.checkbox_remember_faf.hide()
+        self.checkbox_remember_mps.hide()
+        self.checkbox_autoplay_recordings.hide()
+        self.audio_render_quality_choice.hide()
 
     # Main Menu Layouts ************************************************************************************************
     def menu_info(self):
@@ -982,7 +1104,7 @@ class MainWindow(QWidget):
         QTimer.singleShot(1000, lambda: self.animation_label_fade(
             in_or_out="in", label_object=self.label_text_1, duration=1000))
 
-    def menu_settings(self):
+    def menu_settings(self, submenu=0):
         self.system_status = "menu_settings"
         self.hide_all_menu_internal_elements()
         self.disconnect_main_menu_buttons(connect_instead=True, current_menu="settings")
@@ -1031,21 +1153,21 @@ class MainWindow(QWidget):
         self.button_assistance_1.setStyleSheet(GSS.button_assistance_1(selected=False, settings=True))
         self.button_assistance_1.setText(GTM.button_assistance_1(menu="settings"))
         self.button_assistance_1.disconnect()
-        self.button_assistance_1.clicked.connect(lambda: self.submenus_settings(setting=1))
+        self.button_assistance_1.clicked.connect(lambda: self.menu_settings(submenu=1))
         self.button_assistance_1.show()
 
         self.button_assistance_2.setGeometry(135, 385, 300, 80)
         self.button_assistance_2.setStyleSheet(GSS.button_assistance_2(selected=False, settings=True))
         self.button_assistance_2.setText(GTM.button_assistance_2(menu="settings"))
         self.button_assistance_2.disconnect()
-        self.button_assistance_2.clicked.connect(lambda: self.submenus_settings(setting=2))
+        self.button_assistance_2.clicked.connect(lambda: self.menu_settings(submenu=2))
         self.button_assistance_2.show()
 
         self.button_assistance_3.setGeometry(135, 495, 300, 80)
         self.button_assistance_3.setStyleSheet(GSS.button_assistance_3(selected=False, settings=True))
         self.button_assistance_3.setText(GTM.button_assistance_3(menu="settings"))
         self.button_assistance_3.disconnect()
-        self.button_assistance_3.clicked.connect(lambda: self.submenus_settings(setting=3))
+        self.button_assistance_3.clicked.connect(lambda: self.menu_settings(submenu=3))
         self.button_assistance_3.show()
 
         self.button_assistance_4.setGeometry(135, 650, 300, 80)
@@ -1058,6 +1180,8 @@ class MainWindow(QWidget):
             self.button_assistance_4.setStyleSheet(GSS.button_assistance_4(deactivated=True, settings=True))
             self.button_assistance_4.setEnabled(False)
         self.button_assistance_4.show()
+
+        self.submenus_settings(setting=submenu)
 
     # Animations *******************************************************************************************************
     def animation_label_fade(self, in_or_out, label_object: QLabel, duration=800):
@@ -1806,6 +1930,9 @@ class MainWindow(QWidget):
             self.audio_played_completely_manually_before = False
             self.audio_loaded = True
 
+            if self.MPS_auto_play_recordings:
+                self.submenu_recordings_play_and_pause_audio()
+
     def submenu_recordings_play_and_pause_audio(self):
 
         if self.system_status.startswith("menu_recordings"):
@@ -1904,9 +2031,13 @@ class MainWindow(QWidget):
 
     def submenus_settings(self, setting=0):
         if self.system_status.startswith("menu_settings"):
-            self.system_status = "menu_settings_1"
-            if setting == 1:
 
+            if self.restart_option_unlocked:
+                self.animation_label_fade(in_or_out="in", label_object=self.label_text_5, duration=0)
+                self.label_text_5.show()
+
+            if setting == 1:
+                self.system_status = "menu_settings_1"
                 self.button_assistance_1.setStyleSheet(GSS.button_assistance_1(selected=True, settings=True))
                 self.button_assistance_2.setStyleSheet(GSS.button_assistance_2(selected=False, settings=True))
                 self.button_assistance_3.setStyleSheet(GSS.button_assistance_3(selected=False, settings=True))
@@ -1916,24 +2047,24 @@ class MainWindow(QWidget):
                 self.label_text_6.show()
 
                 # text for colour choice
-                self.label_text_7.setGeometry(705, 355, 450, 90)
-                self.label_text_7.setStyleSheet(GSS.label_text(settings=True))
+                self.label_text_7.setGeometry(705, 370, 400, 80)
+                self.label_text_7.setStyleSheet(GSS.label_text(settings=True, var=1))
                 self.label_text_7.setText(GTM.label_text_7(menu="settings"))
                 self.label_text_7.show()
 
-                self.colour_theme_choice.setGeometry(925, 370, 200, 60)
+                self.colour_theme_choice.setGeometry(925, 370, 200, 80)
                 self.colour_theme_choice.setUpdatesEnabled(False)
                 self.colour_theme_choice.setCurrentIndex(SDM.get_colour_theme())
                 self.colour_theme_choice.setUpdatesEnabled(True)
                 self.colour_theme_choice.show()
 
                 # text for language choice
-                self.label_text_8.setGeometry(705, 475, 450, 90)
-                self.label_text_8.setStyleSheet(GSS.label_text(settings=True))
+                self.label_text_8.setGeometry(705, 490, 400, 80)
+                self.label_text_8.setStyleSheet(GSS.label_text(settings=True, var=1))
                 self.label_text_8.setText(GTM.label_text_8(menu="settings", var=1))
                 self.label_text_8.show()
 
-                self.language_choice.setGeometry(925, 490, 200, 60)
+                self.language_choice.setGeometry(925, 490, 200, 80)
                 self.language_choice.setUpdatesEnabled(False)
                 self.language_choice.setCurrentIndex(SDM.get_current_language())
                 self.language_choice.setUpdatesEnabled(True)
@@ -1945,17 +2076,78 @@ class MainWindow(QWidget):
                 self.button_assistance_2.setStyleSheet(GSS.button_assistance_2(selected=True, settings=True))
                 self.button_assistance_3.setStyleSheet(GSS.button_assistance_3(selected=False, settings=True))
 
+                # headline
+                self.label_text_6.setText(GTM.label_text_6(menu="settings", var=2))
+                self.label_text_6.show()
+
+                self.checkbox_copyright_home.setGeometry(690, 345, 600, 90)
+                self.checkbox_copyright_home.setChecked(True) if SDM.get_show_home_statement() else (
+                    self.checkbox_copyright_home.setChecked(False))
+                self.checkbox_copyright_home.show()
+
+                self.checkbox_copyright_headline.setGeometry(690, 445, 600, 90)
+                self.checkbox_copyright_headline.setChecked(True) if SDM.get_show_headline_statement() else (
+                    self.checkbox_copyright_headline.setChecked(False))
+                self.checkbox_copyright_headline.show()
+
+            elif setting == 3:
+                self.system_status = "menu_settings_3"
+                self.button_assistance_1.setStyleSheet(GSS.button_assistance_1(selected=False, settings=True))
+                self.button_assistance_2.setStyleSheet(GSS.button_assistance_2(selected=False, settings=True))
+                self.button_assistance_3.setStyleSheet(GSS.button_assistance_3(selected=True, settings=True))
+
+                # headline
+                self.label_text_6.setText(GTM.label_text_6(menu="settings", var=3))
+                self.label_text_6.show()
+
+                self.checkbox_remember_faf.setGeometry(675, 285, 600, 90)
+                self.checkbox_remember_faf.setChecked(True) if SDM.get_remember_filtered_audio_files() else (
+                    self.checkbox_remember_faf.setChecked(False))
+                self.checkbox_remember_faf.show()
+
+                self.checkbox_remember_mps.setGeometry(675, 355, 600, 90)
+                self.checkbox_remember_mps.setChecked(True) if SDM.get_remember_media_player_settings() else (
+                    self.checkbox_remember_mps.setChecked(False))
+                self.checkbox_remember_mps.show()
+
+                self.checkbox_autoplay_recordings.setGeometry(675, 425, 600, 90)
+                self.checkbox_autoplay_recordings.setChecked(True) if SDM.get_auto_play_recordings() else (
+                    self.checkbox_autoplay_recordings.setChecked(False))
+                self.checkbox_autoplay_recordings.show()
+
+                # text for audio render quality choice
+                self.label_text_8.setGeometry(635, 540, 320, 80)
+                self.label_text_8.setStyleSheet(GSS.label_text(settings=True, var=3))
+                self.label_text_8.setText(GTM.label_text_8(menu="settings", var=3))
+                self.label_text_8.show()
+
+                self.audio_render_quality_choice.setGeometry(935, 540, 300, 80)
+                self.audio_render_quality_choice.setUpdatesEnabled(False)
+                self.audio_render_quality_choice.setCurrentIndex(SDM.get_audio_render_quality())
+                self.audio_render_quality_choice.setUpdatesEnabled(True)
+                self.audio_render_quality_choice.show()
+
     def submenu_settings_unlock_restart(self):
         if self.system_status.startswith("menu_settings_"):
             self.restart_option_unlocked = True
             self.button_assistance_4.setEnabled(True)
             self.button_assistance_4.setStyleSheet(GSS.button_assistance_4(deactivated=False, settings=True))
+            self.label_text_5.show()
+            self.animation_label_fade(in_or_out="in", label_object=self.label_text_5, duration=2000)
 
     def submenu_settings_execute_restart(self):
-        if self.system_status.startswith("menu_settings"):
-            python = sys.executable
-            args = sys.argv[:]
-            os.execv(python, [python] + args)
+        if not self.system_status.startswith("menu_settings"):
+            return
+        else:
+
+            # avoid overloading by double clicking etc.
+            if getattr(self, "restart_in_progress", False):
+                return
+            self.restart_in_progress = True
+
+            # terminate all background processes
+            self.shutdown_for_restart()
+            RestartManager.arm_restart()
 
 
 app = QApplication(sys.argv)

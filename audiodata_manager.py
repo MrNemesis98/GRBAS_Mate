@@ -126,13 +126,3 @@ def get_param_recs(parameter=None,
 
 
 files, paths = get_param_recs(parameter="B", severity_level=2, gender=None, articulation=None)
-
-"""
-for file in files:
-    print(file)
-for file in paths:
-    print(file)
-    """
-
-# articulation filter is established but yet there are no single v or s files,
-# only audiofiles that combine vs

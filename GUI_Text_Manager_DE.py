@@ -45,13 +45,13 @@ def label_main_headline_background(with_copyright=False):
 
 def label_menu_title(menu):
     if menu.lower() == "info":
-        return "Information Center"
+        return "Info-Center"
 
     elif menu.lower() == "copyright":
         return "Copyright Information"
 
     elif menu.lower() == "faq":
-        return "User Guide"
+        return "Benutzerhandbuch"
 
     elif menu.lower() == "home":
         return "Home"
@@ -78,7 +78,7 @@ def label_text_1(menu, var_1=0, software_version=""):
         if var_1 == 1:
             text = f"""
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Currently installed version of this software:\t{software_version}
+                    Aktuell installierte Version dieser Software:\t{software_version}
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     This first version contains detailed descriptions for every parameter belonging to the commonly used
@@ -175,7 +175,7 @@ def label_text_1(menu, var_1=0, software_version=""):
                     There is also the possibility to jump straight to the dedicated recordings for the parameter 
                     you’ve selected by clicking on the headphones in the right corner.
                     </p>
-                    
+
                     """
         elif var_1 == 2:
             text = """
@@ -251,7 +251,7 @@ def label_text_1(menu, var_1=0, software_version=""):
                     rough or scratchy.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    
+
                     </p>
                     """
         elif var_1 == 7:
@@ -290,7 +290,7 @@ def label_text_1(menu, var_1=0, software_version=""):
                     which affects the vocal cords and is therefore audible in the voice.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    
+
                     </p>
                     """
         else:
@@ -422,7 +422,6 @@ def label_text_3(menu):
 
 
 def label_text_4(menu, var_1=0):
-
     if menu.lower() == "info":
         return "Information Center"
 
@@ -520,8 +519,8 @@ def label_text_5(menu):
     elif menu.lower() == "home":
         text = """
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial; color: #DB8004;">
-                    Note: Before using this software please have a look at the copyright statement (first top right 
-                    menu).
+                    Hinweis: Bei Erstverwendung dieser App bitte die Copyright Bestimmungen im Info-Center einsehen 
+                    (erstes Menü oben rechts).
                 </p>
                 """
         return text
@@ -574,7 +573,7 @@ def label_text_6(menu, var=0):
                     </p>"""
         elif var == 2:
             return """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 30px; color: #FFFFFF;">
-                            Manage Copyright Notices within GRBAS_Mate
+                                    Manage Copyright Notices within GRBAS_Mate
                       </p>"""
         elif var == 3:
             return """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 30px; color: #FFFFFF;">
@@ -709,6 +708,7 @@ def label_text_10(menu):
 
     else:
         return "Unkown Value!"
+
 
 def label_text_11(menu):
     if menu.lower() == "info":
