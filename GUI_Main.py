@@ -87,10 +87,10 @@ elif SDM.get_current_language() == 4:
     import GUI_Text_Manager_EN as GTM
 # Polski
 elif SDM.get_current_language() == 5:
-    import GUI_Text_Manager_EN as GTM
+    import GUI_Text_Manager_PL as GTM
 # Türkçe
 elif SDM.get_current_language() == 6:
-    import GUI_Text_Manager_EN as GTM
+    import GUI_Text_Manager_TK as GTM
 else:
     # assume default settings
     SDM.set_current_language(0)
