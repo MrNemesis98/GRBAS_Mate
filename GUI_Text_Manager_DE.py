@@ -57,16 +57,16 @@ def label_menu_title(menu):
         return "Home"
 
     elif menu.lower() == "description":
-        return "Parameter Descriptions"
+        return "Parameter Beschreibungen"
 
     elif menu.lower() == "recordings":
-        return "Parameter Recordings"
+        return "Parameter Hörbeispiele"
 
     elif menu.lower() == "training":
-        return "Training Mode"
+        return "Trainingsmodus"
 
     elif menu.lower() == "settings":
-        return "Settings"
+        return "Einstellungen"
 
     else:
         return "Unkown Value!"
@@ -81,31 +81,34 @@ def label_text_1(menu, var_1=0, software_version=""):
                     Aktuell installierte Version dieser Software:\t{software_version}
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    This first version contains detailed descriptions for every parameter belonging to the commonly used
-                    GRBAS scale, including its extension to IF-GRBAS. Furthermore, open access sample recordings are 
-                    provided for every parameter with a choice of different severity levels.
+                    Diese erste Softwareversion umfasst detaillierte Beschreibungen einzelner Parameter der 
+                    standardisierten GRBAS-Skala, inklusive ihrer Erweiterung zu IF-GRBAS. Darüber hinaus werden 
+                    Audio-Hörbeispiele für jeden Parameter mit Filtern zur Schweregrad-Differenzierung zur 
+                    Verfügung gestellt.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    This software as well as its open access material shall serve as a contribution to the research 
-                    field of clinical phonetics and as a tool in study context, for home assessment or even 
-                    ENT diagnostics.
+                    Diese Software, sowie all ihre frei zugänglichen Komponenten, sollen als wissenschaftlicher Beitrag 
+                    im Bereich der klinischen Phonetik dienen. Ebenso als Werkzeug für Selbststudien oder ggf. 
+                    professionelle Diagnosen.
                 </p>"""
             return text
         # Future Outlook
         elif var_1 == 2:
             text = """<p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                        GRBAS_Mate is still under development. Future versions will be be equipped with more sample 
-                        recordings for the IF-GRBAS scale. Inclusions of alternative scales and measure systems, such as 
-                        CAPE-V, are possible as well.
+                        GRBAS_Mate befindet sich in stetiger Entwicklung. In zukünftigen Versionen werden mehr auditive 
+                        Hörbeispiele bereit gestellt. Auch die Inklusion weiterer Skalen zur Stimmbewertung, wie z.B. 
+                        CAPE-V, wäre möglich.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                        There is also planned a training mode where one can listen to recordings and evaluate them 
-                        according to the IF-GRBAS scale. This can be considered as a challenge of the user´s ability to 
-                        recognize the seven parameters in recordings with real dysphonic voices.
+                        Grundsätzlich ist auch ein Trainingsmodus geplant, in welchem aktiv Hörbeispiele zur IF-GRBAS 
+                        Skala vom Nutzer bewertet werden können. Auf diese Weise können die eigenen Fähigkeiten in 
+                        Sachen Parametererkennung und Festlegung des Schweregrads anhand realer Patientenaufnahmen
+                        auf die Probe gestellt werden.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                        The final step will be a tool for automatic voice quality analysis, integrated into this 
-                        software. This will be part of a Masters thesis project and is planned for autumn 2026.
+                        Die finale Phase wird ein Interface zur Automatisierten Stimmdiagnose ausmachen, welches fest
+                        in diese Software integriert werden soll. Dies wird Teil eines Mater Projektes sein und ist für 
+                        den Herbst 2026 geplant.
                     </p>"""
             return text
         # Copyright
