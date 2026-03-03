@@ -34,10 +34,14 @@ identified as belonging to a third party.
 
 import os, sys
 from pathlib import Path
+from urllib.parse import quote
 
 
 def resource_path(rel: str) -> str:
-    base = getattr(sys, "_MEIPASS", os.path.abspath("."))
+    if hasattr(sys, "_MEIPASS"):
+        base = sys._MEIPASS
+    else:
+        base = os.path.dirname(os.path.abspath(sys.argv[0]))  # stabiler als "."
     return os.path.join(base, rel)
 
 

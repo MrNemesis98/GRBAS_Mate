@@ -50,7 +50,7 @@ def label_main_headline_background(with_copyright=False):
 
 def label_menu_title(menu):
     if menu.lower() == "info":
-        return "Centrum Informacji"
+        return "Informacje"
 
     elif menu.lower() == "copyright":
         return "Prawa autorskie"
@@ -65,7 +65,7 @@ def label_menu_title(menu):
         return "Opisy parametrów"
 
     elif menu.lower() == "recordings":
-        return "Nagrania parametrów"
+        return "Nagrania"
 
     elif menu.lower() == "training":
         return "Tryb treningowy"
@@ -74,7 +74,7 @@ def label_menu_title(menu):
         return "Ustawienia"
 
     else:
-        return "Nieznana wartość!"
+        return "Błąd!"
 
 
 def label_text_1(menu, var_1=0, software_version=""):
@@ -86,27 +86,27 @@ def label_text_1(menu, var_1=0, software_version=""):
                     Aktualnie zainstalowana wersja:	{software_version}
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Ta pierwsza wersja zawiera opisy wszystkich parametrów skali GRBAS,
-                    wraz z jej rozszerzeniem IF-GRBAS. Dodatkowo dostępne są otwarte nagrania
-                    referencyjne dla każdego parametru w kilku poziomach nasilenia.
+                    Pierwsza wersja programu zawiera opisy wszystkich parametrów skali GRBAS,
+                    wraz z jej rozszerzeniem o dwa parametry, tzw. IF-GRBAS. Dodatkowo dostępne są otwarte nagrania
+                    referencyjne dla każdego parametru w kilku poziomach nasilenia dysfunkcji głosu.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Program i materiały open access mają wspierać fonetykę kliniczną
-                    oraz służyć do nauki, oceny domowej i (w razie potrzeby) diagnostyki laryngologicznej.
+                    Program i materiały Open Access powstały aby wspierać badania w obszarze fonetyki klinicznej
+                    oraz służyć do nauki i (w razie potrzeby) wsparcia diagnostyki.
                 </p>"""
             return text
         # Future Outlook
         elif var_1 == 2:
             text = """<p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                         GRBAS_Mate jest nadal rozwijany. Kolejne wersje będą zawierały więcej nagrań
-                        dla skali IF-GRBAS. Możliwe jest też dodanie innych skal, np. CAPE-V.
+                        dla skali IF-GRBAS. Możliwe jest też dodanie innych skal oceny głosu, np. CAPE-V.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                         Planowany jest także tryb treningowy: odsłuch nagrań i ocena wg IF-GRBAS.
-                        To będzie test umiejętności rozpoznawania siedmiu parametrów w głosach dysfonicznych.
+                        Moduł ten zawierać będzie test umiejętności rozpoznawania siedmiu parametrów w głosach dysfonicznych.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                        Ostatnim krokiem ma być automatyczna analiza jakości głosu, zintegrowana z programem.
+                        Ostatnim krokiem będzie automatyczna analiza jakości głosu, zintegrowana z programem.
                         Będzie to część projektu pracy magisterskiej (plan: jesień 2026).
                     </p>"""
             return text
@@ -149,12 +149,12 @@ def label_text_1(menu, var_1=0, software_version=""):
         text = """
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     To darmowa aplikacja, która pozwala odsłuchiwać liczne przykłady zaburzeń głosu
-                    i porównywać je z eksperckim wzorcem.
+                    i porównywać je z eksperckim wzorcem diagnostycznym.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                Powstała z myślą o nauce, ale może też wspierać ocenę domową oraz praktykę kliniczną.
+                Aplikacja powstała z myślą o nauce, ale może też wspierać praktykę kliniczną.
                 </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                Ta wersja udostępnia nagrania parametrów skali GRBAS w różnych poziomach nasilenia.
+                Ta wersja zawiera nagrania parametrów skali GRBAS na różnych poziomach nasilenia dysfunkcji.
                 </p>
                 """
         return text
@@ -163,16 +163,16 @@ def label_text_1(menu, var_1=0, software_version=""):
         if var_1 == 1:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    W tym menu znajdziesz jasne, zwięzłe <span style="font-weight:bold;color:#0B839C;">
+                    W tym menu znajdziesz jasne <span style="font-weight:bold;color:#0B839C;">
                     opisy</span> wszystkich parametrów IF-GRBAS.
                     Użyj strzałek, aby przechodzić między stronami, albo wybierz temat z listy poniżej.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Jeśli chcesz pominąć opisy, przykładowe nagrania znajdziesz w menu nagrań
-                    (trzecia opcja na lewym pasku nawigacji).
+                    Jeśli chcesz pominąć opisy - przykładowe nagrania znajdziesz w menu nagrań
+                    (trzecia opcja w pasku nawigacji po lewej stronie).
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Możesz też przejść bezpośrednio do nagrań wybranego parametru, klikając słuchawki
+                    Możesz też przejść bezpośrednio do nagrań wybranego parametru, klikając na słuchawki
                     w prawym rogu.
                     </p>
 
@@ -186,11 +186,11 @@ def label_text_1(menu, var_1=0, software_version=""):
                     Oznacza stopień nieregularności i wahań stabilności głosu.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Głos niestabilny brzmi „chwiejnie” i może silnie zmieniać głośność oraz wysokość.
+                    Głos niestabilny brzmi „chwiejnie” i może silnie zmieniać natężenie oraz wysokość.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Niestabilność nie należy do <span style="font-weight:bold;color:#0B839C;">oryginalnej</span>
-                     skali GRBAS, ale może ją <span style="font-weight:bold;color:#7030A0;">rozszerzać</span>.
+                    Wprawdzie niestabilność nie należy do <span style="font-weight:bold;color:#0B839C;">oryginalnej</span>
+                     skali GRBAS, ale można ją <span style="font-weight:bold;color:#7030A0;">rozszerzać</span> o dodatkowe parametry.
                     </p>
                     """
         elif var_1 == 3:
@@ -202,18 +202,18 @@ def label_text_1(menu, var_1=0, software_version=""):
                     Odnosi się do tego, jak gładko i swobodnie brzmi głos podczas mówienia.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Dotyczy głównie rytmu mowy, pauz oraz ciągłości wypowiedzi.
+                    Dotyczy głównie rytmu mowy, pauz na oddech oraz ciągłości wypowiedzi.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Płynność nie należy do <span style="font-weight:bold;color:#0B839C;">oryginalnej</span>
-                     skali GRBAS, ale może ją <span style="font-weight:bold;color:#7030A0;">rozszerzać</span>.
+                    Wprawdzie płynność nie należy do <span style="font-weight:bold;color:#0B839C;">oryginalnej</span>
+                     skali GRBAS, ale może ją <span style="font-weight:bold;color:#7030A0;">rozszerzać o datkowe parametry</span>.
                     </p>
                     """
         elif var_1 == 4:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     <span style="font-weight:bold;color:#7030A0;">Rozszerzenie</span> skali GRBAS wprowadzono,
-                    aby bardziej szczegółowo opisać cechy głosu dysfonicznego i zwiększyć czułość skali
+                    aby bardziej szczegółowo opisać cechy głosu dysfonicznego i zwiększyć skuteczność procesu diagnostycznego
                     wobec wybranych objawów.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
@@ -233,10 +233,10 @@ def label_text_1(menu, var_1=0, software_version=""):
                     <span style="font-weight:bold;color:#0B839C;">Stopień</span> chrypki w głosie.   
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Chrypka składa się z kilku cech, m.in. szorstkości, oddechowości i napięcia.
+                    Chrypka składa się z kilku cech, między innymi, szorstkości i wrażenia oddechowości.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Można ją opisać jako ogólne wrażenie głosu wynikające z tych parametrów. 
+                    Można ją opisać jako ogólne wrażenie ochrypłego głosu. 
                     </p>
                     """
         elif var_1 == 6:
@@ -246,7 +246,7 @@ def label_text_1(menu, var_1=0, software_version=""):
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     To wrażenie nieregularnych drgań fałdów głosowych, przez co głos brzmi
-                    szorstko lub „drapiąco”.
+                    szorstko lub „drapiąco”. Może też sprawiać wrażenie zwiększonego wysiłku przy mówieniu.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
 
@@ -283,8 +283,8 @@ def label_text_1(menu, var_1=0, software_version=""):
                     Wrażenie napięcia głosu.  
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    <span style="font-weight:bold;color:#0B839C;">\nNapięcie</span> opisuje stopień hiperfunkcji
-                    lub nadmiernego wysiłku mięśni krtani,
+                    <span style="font-weight:bold;color:#0B839C;">\nNapięcie</span> opisuje stopień
+                    nadmiernego wysiłku mięśni krtani,
                     co wpływa na fałdy głosowe i jest słyszalne w głosie.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
@@ -331,7 +331,7 @@ def label_text_1(menu, var_1=0, software_version=""):
 
 def label_text_2(menu):
     if menu.lower() == "info":
-        return "Centrum Informacji"
+        return "Informacje"
 
     elif menu.lower() == "copyright":
         return "Prawa autorskie"
@@ -343,16 +343,16 @@ def label_text_2(menu):
         text = """
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     Skala GRBAS służy do oceny zaburzeń głosu.
-                    Często stosuje się ją do oceny nasilenia dysfonii, dokumentowania efektów terapii
-                    oraz jako wsparcie w stawianiu diagnozy.
+                    Często stosuje się ją do diagnostyki dysfonii, dokumentowania efektów terapii
+                    oraz jako wsparcie terapeutyczne.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                Skrót GRBAS oznacza pięć cech: Stopień (G), Szorstkość (R), Oddechowość (B),
+                Skrót GRBAS oznacza pięć cech angielskich nazw: Stopień (G), Szorstkość (R), Oddechowość (B),
                 Asthenia (A) oraz Napięcie (S).
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                 Ocena opiera się na skali punktowej od 0 (brak odchyleń od normy)
-                do 3 (silne odchylenie).
+                do 3 (silne odchylenie od normy).
                 </p>
                 """
         return text
@@ -375,7 +375,7 @@ def label_text_2(menu):
 
 def label_text_3(menu):
     if menu.lower() == "info":
-        return "Centrum Informacji"
+        return "Informacje"
 
     elif menu.lower() == "faq":
         return "Instrukcja użytkownika"
@@ -387,10 +387,9 @@ def label_text_3(menu):
         text = """
             <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
               Oprócz pięciu podstawowych parametrów, program udostępnia też nagrania i opisy
-              cech Niestabilność (I) oraz Płynność (F).
+              cech Niestabilność (I / Instability) oraz Płynność (F / Fluency).
             </p>
-            <p>Obie cechy rozszerzają skalę do IF-GRBAS, co bywa użyteczne w ocenie dysfonii,
-            zwłaszcza w dysfonii spastycznej.
+            <p>Obie cechy rozszerzają skalę do IF-GRBAS, co bywa użyteczne w ocenie dysfonii.
             <p>
             <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
               Uzasadnienie tego rozszerzenia znajdziesz w poniższym opracowaniu:
@@ -421,7 +420,7 @@ def label_text_3(menu):
 def label_text_4(menu, var_1=0):
 
     if menu.lower() == "info":
-        return "Centrum Informacji"
+        return "Informacje"
 
     elif menu.lower() == "copyright":
         return "Prawa autorskie"
@@ -479,7 +478,7 @@ def label_text_4(menu, var_1=0):
 
 def label_text_5(menu):
     if menu.lower() == "info":
-        return "Informacje o wersji"
+        return "Informacje o wersji programu"
 
     elif menu.lower() == "copyright":
         text = """<p style="text-align: justify; line-height: 1.5; font-family: Arial;">
@@ -533,7 +532,7 @@ def label_text_5(menu):
 
     elif menu.lower() == "settings":
         text = """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 22px; color: #8B0000;">
-                    Uwaga: Aby zastosować zmiany, aplikację trzeba uruchomić ponownie.
+                    Uwaga: Aby zastosować zmiany, uruchom ponownie aplikację.
                 </p>"""
         return text
 
@@ -543,7 +542,7 @@ def label_text_5(menu):
 
 def label_text_6(menu, var=0):
     if menu.lower() == "info":
-        return "Centrum Informacji"
+        return "Informacje"
 
     elif menu.lower() == "copyright":
         return "Prawa autorskie"
@@ -583,7 +582,7 @@ def label_text_6(menu, var=0):
 
 def label_text_7(menu):
     if menu.lower() == "info":
-        return "Centrum Informacji"
+        return "Informacje"
 
     elif menu.lower() == "copyright":
         return "Prawa autorskie"
@@ -614,7 +613,7 @@ def label_text_7(menu):
 
 def label_text_8(menu, var=0):
     if menu.lower() == "info":
-        return "Centrum Informacji"
+        return "Informacje"
 
     elif menu.lower() == "copyright":
         return "Prawa autorskie"
@@ -642,7 +641,7 @@ def label_text_8(menu, var=0):
                       </p>"""
         elif var == 3:
             return """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 25px; color: #FFFFFF;">
-                                Jakość renderu audio:
+                                Rendering audio:
                       </p>"""
 
     else:
@@ -651,7 +650,7 @@ def label_text_8(menu, var=0):
 
 def label_text_9(menu):
     if menu.lower() == "info":
-        return "Centrum Informacji"
+        return "Informacje"
 
     elif menu.lower() == "copyright":
         return "Prawa autorskie"
@@ -680,7 +679,7 @@ def label_text_9(menu):
 
 def label_text_10(menu):
     if menu.lower() == "info":
-        return "Centrum Informacji"
+        return "Informacje"
 
     elif menu.lower() == "copyright":
         return "Prawa autorskie"
@@ -709,7 +708,7 @@ def label_text_10(menu):
 
 def label_text_11(menu):
     if menu.lower() == "info":
-        return "Centrum Informacji"
+        return "Informacje"
 
     elif menu.lower() == "copyright":
         return "Prawa autorskie"
@@ -880,11 +879,11 @@ def QComboBox_language_choice():
 
 
 def QCheckbox_copyright_home():
-    return "   Pokaż prawa aut. w Home"
+    return "   Pokaż prawa autorskie w Home"
 
 
 def QCheckbox_copyright_headline():
-    return "   Pokaż prawa aut. w nagłówku"
+    return "   Pokaż prawa autorskie w nagłówku"
 
 
 def QCheckbox_remember_faf():

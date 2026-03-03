@@ -39,13 +39,12 @@ from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QApplication
 
 
-def resource_path(relative_path):
-    base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
-    return os.path.join(base_path, relative_path)
-
-
-with open(resource_path("src/sys/restart.log"), "w", encoding="utf-8") as f:
-    f.write("Restart initiated\n")
+def resource_path(rel: str) -> str:
+    if hasattr(sys, "_MEIPASS"):
+        base = sys._MEIPASS
+    else:
+        base = os.path.dirname(os.path.abspath(sys.argv[0]))  # stabiler als "."
+    return os.path.join(base, rel)
 
 
 class RestartManager:
@@ -71,26 +70,47 @@ class RestartManager:
 
         RestartManager._armed = True
         RestartManager._cmd = RestartManager._build_command()
-        RestartManager._cwd = os.getcwd()
+        if getattr(sys, "frozen", False):
+            RestartManager._cwd = os.path.dirname(sys.executable)
+        else:
+            main_mod = sys.modules.get("__main__")
+            main_file = getattr(main_mod, "__file__", None)
+            RestartManager._cwd = os.path.dirname(os.path.abspath(main_file)) if main_file else os.getcwd()
 
         app = QApplication.instance()
 
         def spawn():
             creationflags = 0
+            startupinfo = None
             if os.name == "nt":
                 creationflags = (
-                    subprocess.DETACHED_PROCESS
-                    | subprocess.CREATE_NEW_PROCESS_GROUP
+                        subprocess.CREATE_NO_WINDOW
+                        | subprocess.DETACHED_PROCESS
+                        | subprocess.CREATE_NEW_PROCESS_GROUP
                 )
+
+                startupinfo = subprocess.STARTUPINFO()
+                startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+                startupinfo.wShowWindow = 0  # SW_HIDE
+
+            env = os.environ.copy()
+
+            # 1) Wichtig: erzwingt, dass PyInstaller onefile NICHT den parent-extract wiederverwendet
+            env["PYINSTALLER_RESET_ENVIRONMENT"] = "1"
+
+            # 2) optional, aber ich empfehle es: PyInstaller-Home-Dir aus der Parent-Env entfernen
+            # (die Namen können je nach Version variieren; schadet nicht)
+            for k in ("_MEIPASS2", "_PYI_APPLICATION_HOME_DIR"):
+                env.pop(k, None)
 
             subprocess.Popen(
                 RestartManager._cmd,
                 cwd=RestartManager._cwd,
                 close_fds=True,
-                creationflags=creationflags
+                creationflags=creationflags,
+                startupinfo=startupinfo,
+                env=env,
             )
 
         app.aboutToQuit.connect(spawn)
         QTimer.singleShot(0, app.quit)
-        with open(resource_path("src/sys/restart.log"), "w", encoding="utf-8") as f:
-            f.write("Restart executed.\n")
