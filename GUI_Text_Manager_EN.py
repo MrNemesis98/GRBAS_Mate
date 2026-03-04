@@ -150,7 +150,7 @@ def label_text_1(menu, var_1=0, software_version=""):
                     dysfunctions and associate them with expert benchmark.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                It is created for study contexts, but can serve as an assistance tool for home assessment or for 
+                It is created as study material for lectures oder self-studies, but can serve as an assistance tool for 
                 professional context, too.
                 </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                 This first version provides sample recordings of several parameters according to the commonly used 

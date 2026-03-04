@@ -60,15 +60,45 @@ Settings list for GRBAS_Mate:
                                                                    Ultra: 100 FPS (10ms)    (4)
 """
 
+from pathlib import Path
+import os, sys
 
-def resource_path(relative_path):
-    base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
+
+def resource_path(relative_path: str) -> str:
+    base_path = sys._MEIPASS if hasattr(sys, "_MEIPASS") else os.path.dirname(os.path.abspath(sys.argv[0]))
     return os.path.join(base_path, relative_path)
 
 
-sd = open(resource_path("src/sys/savedata.txt"), "r")
-raw_data = sd.readlines()
-sd.close()
+def user_data_dir(app_name: str = "GRBAS_Mate") -> Path:
+    # Windows: %APPDATA%\GRBAS_Mate
+    appdata = os.getenv("APPDATA")
+    if appdata:
+        return Path(appdata) / app_name
+    # fallback (z.B. Linux/macOS)
+    return Path.home() / f".{app_name.lower()}"
+
+
+def savedata_path() -> Path:
+    d = user_data_dir()
+    d.mkdir(parents=True, exist_ok=True)
+    return d / "savedata.txt"
+
+
+# Ensure savedata exists in persistent location
+sp = savedata_path()
+if not sp.exists():
+    bundled = Path(resource_path("src/sys/savedata.txt"))
+    # 1) wenn im Bundle vorhanden: kopieren
+    if bundled.exists():
+        sp.write_text(bundled.read_text(encoding="utf-8"), encoding="utf-8")
+    else:
+        # 2) sonst: defaults schreiben (oder set_all_settings_to_default() aufrufen)
+        sp.write_text("GUI/theme:1/lang:0/\nCRS/home:1/hdln:1/\nMPS/rmmbr_faf:0/rmmbr_mps:0/apr:0/arq:2/\n",
+                      encoding="utf-8")
+
+
+with open(savedata_path(), "r", encoding="utf-8") as sd:
+    raw_data = sd.readlines()
 
 # Sector 1: Load GUI Settings ------------------------------------------------------------------------------------------
 GUI_savedata = raw_data[0]
@@ -112,7 +142,7 @@ def update_savedata():
     global audio_render_quality
 
     # write savedata.txt
-    sd = open(resource_path("src/sys/savedata.txt"), "w")
+    sd = open(savedata_path(), "w", encoding="utf-8")
     text = ("GUI" +
             "/theme:" + str(colour_theme) +
             "/lang:" + str(current_language) + "/\n" +
@@ -241,7 +271,6 @@ def set_audio_render_quality(value):
     global audio_render_quality
     audio_render_quality = value if value in [0, 1, 2, 3, 4] else 2
     update_savedata()
-
 
 # Refreshing settings for next release:
 # set_all_settings_to_default()
