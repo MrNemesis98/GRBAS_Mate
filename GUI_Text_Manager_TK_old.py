@@ -74,7 +74,7 @@ def label_menu_title(menu):
         return "Ayarlar"
 
     else:
-        return "Bilinmeyen Komut!"
+        return "Bilinmeyen Değer!"
 
 
 def label_text_1(menu, var_1=0, software_version=""):
@@ -82,35 +82,32 @@ def label_text_1(menu, var_1=0, software_version=""):
         # Sürüm Bilgisi
         if var_1 == 1:
             text = f"""<p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Bu yazılımın güncel yüklü sürümü:	{software_version}
+                    Bu yazılımın yüklü sürümü:	{software_version}
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-          
-                    Bu ilk sürüm, yaygın olarak kullanılan GRBAS ölçeğine ve bu ölçeğin IF-GRBAS uzantısına ait her 
-                    bir parametre için ayrıntılı açıklamalar içermektedir. Ayrıca, her parametre için farklı şiddet
-                    seviyelerinde açık erişimli örnek kayıtlar sunulmaktadır.
+                    Bu ilk sürüm, yaygın kullanılan GRBAS ölçeğine ait tüm parametreler için ayrıntılı açıklamalar
+                    (IF-GRBAS genişletmesi dahil) içerir. Ayrıca her parametre için farklı şiddet düzeylerinde
+                    açık erişimli örnek kayıtlar sunulmuştur.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Bu yazılım ve beraberindeki açık erişimli materyaller; klinik fonetik araştırma alanına bir katkı 
-                    sağlamayı, eğitim süreçlerinde bir araç olmayı, evde değerlendirme yapmayı ve hatta KBB teşhislerine 
-                    destek olmayı amaçlamaktadır..
+                    Bu yazılım ve açık erişimli materyaller; klinik fonetik araştırmalarına katkı ve eğitim,
+                    evde değerlendirme ya da KBB tanısında yardımcı bir araç olarak tasarlanmıştır.
                 </p>"""
             return text
         # Gelecek Planı
         elif var_1 == 2:
             text = """<p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                        GRBAS_Mate hâlâ geliştirilme aşamasındadır. Gelecek sürümler IF-GRBAS ölçeği için daha fazla
-                        örnek kayıt içerecektir. CAPE-V gibi alternatif ölçek ve ölçüm sistemlerinin eklenmesi de planlar 
-                        arasındadır.
+                        GRBAS_Mate hâlâ geliştirme aşamasındadır. Gelecek sürümler IF-GRBAS ölçeği için daha fazla
+                        örnek kayıt içerecektir. CAPE-V gibi alternatif ölçek ve ölçüm sistemleri de eklenebilir.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                        Ayrıca, kayıtları dinleyip IF-GRBAS’a göre değerlendirmenizi sağlayan bir eğitim modu da
-                        tasarlanmaktadır. Bu mod, gerçek disfonik seslerdeki yedi parametreyi ayırt etme becerinize
+                        Ayrıca, kayıtları dinleyip IF-GRBAS’a göre değerlendirmenizi sağlayan bir eğitim modu
+                        planlanmaktadır. Bu, gerçek disfonik seslerde yedi parametreyi ayırt etme becerinize
                         yönelik bir meydan okuma olarak düşünülebilir.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                         Son adım, bu yazılıma entegre edilecek otomatik ses kalitesi analiz aracıdır. Bu kısım bir
-                        yüksek lisans tez projesinin parçası olacaktır ve 2026 sonbaharında kullanıma sunulması planlanmaktadır.
+                        yüksek lisans tez projesinin parçası olacaktır ve 2026 sonbaharı için planlanmaktadır.
                     </p>"""
             return text
         # Telif
@@ -119,26 +116,19 @@ def label_text_1(menu, var_1=0, software_version=""):
                   Telif © MrNemesis98, GitHub, 2026
                 </p>
                 <p style="text-align: justify; line-height: 1.1; font-family: Arial;">
-                Bu yazılım, aşağıda belirtilen MIT Lisansı kapsamında yayınlanmıştır:
-                İşbu belge ile, bu yazılımın ve ilgili dokümantasyon dosyalarının bir kopyasını edinen herhangi bir kişiye;
-                yazılımı kullanma, kopyalama, değiştirme, birleştirme, yayınlama, dağıtma, alt lisanslama ve/veya yazılımın
-                kopyalarını satma hakları dahil olmak üzere ancak bunlarla sınırlı kalmaksızın, yazılım üzerinde kısıtlama
-                olmaksızın işlem yapma ve yazılımın sağlandığı kişilere de aşağıdaki koşullara tabi olmak kaydıyla bu hakları
-                tanıma izni ücretsiz olarak verilmiştir:
+                Bu yazılım MIT Lisansı ile yayımlanmıştır. Yazılımın bir kopyasını edinen herkese, yazılımı kullanma,
+                kopyalama, değiştirme, birleştirme, yayımlama, dağıtma, alt lisanslama ve satma izni ücretsiz olarak verilir.
                 </p>
                 <p style="text-align: justify; line-height: 1.1; font-family: Arial;">
-                  Yukarıdaki telif hakkı bildirimi ve işbu izin bildirimi, yazılımın tüm kopyalarına veya önemli bölümlerine
-                    dahil edilmelidir. Yazılım; ticarete elverişlilik, belirli bir amaca uygunluk ve ihlal bulunmadığına
-                    dair garantiler de dahil olmak üzere ancak bunlarla sınırlı olmamak kaydıyla, açık veya zımni hiçbir
-                    garanti verilmeksizin “olduğu gibi” sunulmaktadır. Yazarlar veya telif hakkı sahipleri; sözleşme davası,
-                        haksız fiil veya başka bir sebeple ortaya çıkan, yazılımla veya yazılımın kullanımıyla veya diğer işlemlerle
-                        bağlantılı herhangi bir iddia, tazminat veya diğer yükümlülüklerden hiçbir durumda sorumlu tutulamaz.
+                  Telif bildirimi ve bu izin metni, yazılımın tüm kopyalarına veya önemli bölümlerine eklenmelidir.
+                  Yazılım “olduğu gibi” sağlanır; açık veya zımni hiçbir garanti verilmez. Yazar(lar) ve hak sahipleri,
+                  yazılımın kullanımından doğabilecek zararlardan sorumlu değildir.
                 </p>
                 <p style="text-align: justify; line-height: 1.1; font-family: Arial; color: #DB8004;">
-                  GRBAS_Mate’i veya bileşenlerini kullanarak bu koşulları kabul etmiş olursunuz.
+                  GRBAS_Mate’i veya bileşenlerini kullanarak bu koşulları kabul etmiş olursun.
                 </p>
                 <p style="text-align: justify; line-height: 1.1; font-family: Arial;">
-                İpucu: Ayarlar menüsündeki telif seçeneklerine göz atın!
+                İpucu: Ayarlar menüsündeki telif seçeneklerine göz at!
                 </p>"""
             return text
 
@@ -154,11 +144,11 @@ def label_text_1(menu, var_1=0, software_version=""):
                     ilişkilendirmenizi sağlayan ücretsiz bir arayüzdür.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                Temelde eğitim ve çalışma süreçleri için tasarlanmış olsa da, evde yapılan değerlendirmelerde veya profesyonel
-                bağlamlarda da yardımcı bir araç olarak hizmet verebilir..
+                Çalışma/öğrenim amaçlı tasarlanmıştır; ancak evde değerlendirme ve profesyonel kullanım için de
+                yardımcı olabilir.
                 </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                 Bu ilk sürüm, yaygın kullanılan GRBAS ölçeğine göre çeşitli parametreler için farklı şiddet
-                düzeylerinde örnek kayıtlar sunmaktadır.
+                düzeylerinde örnek kayıtlar sunar.
                 </p>
                 """
         return text
@@ -166,18 +156,17 @@ def label_text_1(menu, var_1=0, software_version=""):
     elif menu.lower() == "description":
         if var_1 == 1:
             text = """<p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Bu menüde her bir IF-GRBAS parametresi için net ve öz <span style="font-weight:bold;color:#0B839C;">
+                    Bu menüde her bir IF-GRBAS parametresi için açık ve kısa <span style="font-weight:bold;color:#0B839C;">
                     açıklamalar</span> bulabilirsin.
-                    Sayfalar arasında geçiş yapmak için ok tuşlarını kullanabilir veya aşağıdaki genel bakış listesinden
-                    doğrudan seçim yapabilirsiniz.
+                    Ok tuşlarıyla sayfalar arasında gezinebilir veya aşağıdaki genel görünümden doğrudan seçim yapabilirsin.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Eğer açıklamaları atlamak isterseniz, kayıtlar menüsü (sol gezinti çubuğundaki üçüncü seçenek) üzerinden
-                    örnek seslere erişebilirsiniz..
+                    Açıklamaları atlamak istersen, örnek seslere Kayıtlar menüsünden ulaşabilirsin
+                    (soldaki gezinme çubuğunda üçüncü seçenek).
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Ayrıca sağ köşedeki kulaklık simgesine tıklayarak seçtiğiniz parametreye ait kayıtlara
-                    doğrudan geçebilirsiniz.
+                    Ayrıca sağ köşedeki kulaklık simgesine tıklayarak seçtiğin parametreye ait kayıtlara
+                    doğrudan geçebilirsin.
                     </p>
 
                     """
@@ -186,13 +175,13 @@ def label_text_1(menu, var_1=0, software_version=""):
                     Seste <span style="font-weight:bold;color:#7030A0;">Kararsızlık</span>.
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Bu, sesin dengesindeki düzensizlik ve dalgalanmaların derecesini ifade eder.
+                    Bu, sesin stabilitesindeki düzensizlik ve dalgalanmaların derecesini ifade eder.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Dengesiz bir ses, tını olarak kararsız duyulur; ses, şiddeti ve perdesi açısından büyük ölçüde değişkenlik gösterebilir.
+                    Kararsız bir ses dengesiz duyulur; şiddet ve perde açısından belirgin biçimde değişebilir.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Bu dengesizlik, <span style="font-weight:bold;color:#0B839C;">orijinal</span>
+                    Kararsızlık, <span style="font-weight:bold;color:#0B839C;">orijinal</span>
                      GRBAS ölçeğinde yer almaz; ancak onu <span style="font-weight:bold;color:#7030A0;">genişletmek</span> için kullanılabilir.
                     </p>
                     """
@@ -201,14 +190,14 @@ def label_text_1(menu, var_1=0, software_version=""):
                     Bir sesin <span style="font-weight:bold;color:#7030A0;">Akıcılığı</span>, konuşmanın akışına benzer.
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Bu, konuşma sırasında sesin ne kadar pürüzsüz ve akıcı duyulduğunu ifade eder.
+                    Konuşurken sesin ne kadar pürüzsüz ve akışkan duyulduğunu ifade eder.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Esas olarak konuşma ritmi, duraklama yapısı ve süreklilik ile ilgilidir.
+                    Daha çok konuşma ritmi, duraklamaların yapısı ve süreklilikle ilgilidir.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     Akıcılık, <span style="font-weight:bold;color:#0B839C;">orijinal</span>
-                     Akıcılık, orijinal GRBAS ölçeğinin bir parçası değildir ancak ölçeği <span style="font-weight:bold;color:#7030A0;">genişletmek</span> için kullanılabilir.
+                     GRBAS ölçeğinde yer almaz; ancak onu <span style="font-weight:bold;color:#7030A0;">genişletmek</span> için kullanılabilir.
                     </p>
                     """
         elif var_1 == 4:
@@ -218,11 +207,11 @@ def label_text_1(menu, var_1=0, software_version=""):
                     artırmak için yapılmıştır.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Ölçek, ilgili araştırmanın bağlamına ve hedeflerine bağlı olarak, disfonik seslerin özelliklerini daha
-                    iyi ele alan parametreleri içerecek şekilde sıklıkla genişletilir.
+                    Ölçek, bağlama ve araştırma hedeflerine göre, disfonik seslerin özelliklerini daha iyi tanımlayan
+                    ek parametrelerle genişletilebilir.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Bu ölçek genişletmesinin gerekçesi için aşağıdaki çalışmaya lütfen göz atın:
+                    Bu ölçek genişletmesinin gerekçesi için aşağıdaki çalışmaya göz at:
                         <a href="https://osf.io/dxc2e/?view_only=7e25f2b0991a4322997dd4ce99858262"
                             style="text-decoration:none; color:#1a73e8;">
                             Voice Quality and Dysphonia (OSF projesi - yalnızca görüntüleme)
@@ -230,7 +219,7 @@ def label_text_1(menu, var_1=0, software_version=""):
                     </p>"""
         elif var_1 == 5:
             text = """                    <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Sesteki kısıklığın <span style="font-weight:bold;color:#0B839C;">Derecesi</span>.
+                    Seste kısıklığın <span style="font-weight:bold;color:#0B839C;">Derecesi</span>.
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     Kısıklık; pürüzlülük, nefeslilik ve gerginlik gibi çeşitli özelliklerin bileşimidir.
@@ -268,7 +257,7 @@ def label_text_1(menu, var_1=0, software_version=""):
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     <span style="font-weight:bold;color:#0B839C;">
-                    Asteni</span>, sesin ne kadar zayıf veya kısık
+Asteni</span>, sesin ne kadar zayıf veya kısık
                     algılandığını tanımlar.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
@@ -305,13 +294,13 @@ def label_text_1(menu, var_1=0, software_version=""):
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                 Bu modda, disfonik ses kayıtlarını değerlendirerek beceri ve bilginizi test edebileceksiniz.
-                Bir ses materyali seti verildiğinde doğru parametreyi ve şiddet düzeyini seçmeniz gerekecektir.
+                Bir ses materyali seti verildiğinde doğru parametreyi ve şiddet düzeyini seçmeniz gerekecek.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                Bu mod, aşağıdaki çalışmanın çevrimiçi deneyinde kullanılan kategori testi fikrine dayanmaktadır:
+                Bu mod, aşağıdaki çalışmanın çevrimiçi deneyindeki kategori testi fikrine dayanır:
                 <a href="https://osf.io/dxc2e/?view_only=7e25f2b0991a4322997dd4ce99858262"
                  style="text-decoration:none; color:#1a73e8;">
-                 Voice Quality and Dysphonia (OSF projesi - salt okunur)
+                 Voice Quality and Dysphonia (OSF projesi - yalnızca görüntüleme)
                 </a>
                 .
                 </p>
@@ -386,10 +375,10 @@ def label_text_3(menu):
             değerlendirme bağlamında faydalıdır.
             <p>
             <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-              Bu ölçek genişletmesinin gerekçesi için aşağıdaki çalışmaya bakınız:
+              Bu ölçek genişletmesinin gerekçesi için aşağıdaki çalışmaya bak:
               <a href="https://osf.io/dxc2e/?view_only=7e25f2b0991a4322997dd4ce99858262"
                  style="text-decoration:none; color:#1a73e8;">
-                 Voice Quality and Dysphonia (OSF projesi - salt okunur)
+                 Voice Quality and Dysphonia (OSF projesi - yalnızca görüntüleme)
               </a>
             </p>"""
 
@@ -488,10 +477,10 @@ def label_text_5(menu):
                   yazılımın kullanımından doğabilecek zararlardan sorumlu değildir.
                 </p>
                 <p style="text-align: justify; line-height: 1.5; font-family: Arial; color: #DB8004;">
-                  GRBAS_Mate’i veya bileşenlerini kullanarak bu koşulları kabul etmiş sayılırsınız.
+                  GRBAS_Mate’i veya bileşenlerini kullanarak bu koşulları kabul etmiş olursun.
                 </p>
                 <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
-                İpucu: Ayarlar menüsündeki telif seçeneklerine göz atınız!
+                İpucu: Ayarlar menüsündeki telif seçeneklerine göz at!
                 </p>
                 """
         return text
@@ -501,7 +490,7 @@ def label_text_5(menu):
 
     elif menu.lower() == "home":
         text = """                <p style="text-align: justify; line-height: 1.2; font-family: Arial; color: #DB8004;">
-                    Not: Bu yazılımı kullanmadan önce telif beyanını inceleyiniz. (sağ üstteki ilk menü).
+                    Not: Bu yazılımı kullanmadan önce telif beyanını incele (sağ üstteki ilk menü).
                 </p>
                 """
         return text
