@@ -34,16 +34,14 @@ identified as belonging to a third party.
 import os
 import sys
 
+from pathlib import Path
+
 from PyQt5.QtGui import QFont, QPalette
-from PyQt5.QtMultimedia import QMediaPlayer
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QGraphicsOpacityEffect, QComboBox, \
-    QStyledItemDelegate, QStyleOptionComboBox, QStylePainter, QStyle, QListWidget, QScrollArea, QFrame, QSizePolicy, \
-    QSlider, QCheckBox
-from PyQt5.QtCore import QPropertyAnimation, QRect, QEasingCurve, QAbstractAnimation, QEventLoop, QVariantAnimation, \
-    QSignalBlocker, QProcess
+from PyQt5.QtWidgets import (QApplication, QWidget, QLabel, QPushButton, QGraphicsOpacityEffect, QComboBox,
+                             QStyleOptionComboBox, QStylePainter, QStyle, QListWidget, QScrollArea, QFrame, QSizePolicy,
+                             QSlider, QCheckBox)
+from PyQt5.QtCore import QPropertyAnimation, QRect, QEasingCurve, QAbstractAnimation, QEventLoop
 from PyQt5.QtCore import Qt, QTimer, QPoint
-from PyQt5.QtWidgets import QGraphicsColorizeEffect
-from PyQt5.QtCore import QSequentialAnimationGroup, QPauseAnimation
 from PyQt5.QtGui import QColor
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl
@@ -57,44 +55,61 @@ import audiodata_visualizer as ADV
 
 from restart_manager import RestartManager
 
+def resource_path(rel: str) -> str:
+    base = getattr(sys, "_MEIPASS", os.path.abspath("."))
+    return os.path.join(base, rel)
+
+
+def qss_path(rel: str) -> str:
+    return Path(resource_path(rel)).resolve().as_posix()
+
+
 # GUI COLOUR THEME (2 Options)
+GSS_path = qss_path("src/gui/GSS_scripts/")
 # light theme
 if SDM.get_colour_theme() == 0:
-    import GUI_Style_Sheets_LGHT as GSS
+    from src.gui.GSS_scripts import GUI_Style_Sheets_LGHT as GSS
+
 # dark theme
 elif SDM.get_colour_theme() == 1:
-    import GUI_Style_Sheets_DRK as GSS
+    from src.gui.GSS_scripts import GUI_Style_Sheets_DRK as GSS
 else:
     # assume default_settings
     SDM.set_colour_theme(1)
-    import GUI_Style_Sheets_DRK as GSS
+    from src.gui.GSS_scripts import GUI_Style_Sheets_DRK as GSS
 
-# GUI LANGUAGE (7 Options)
+# GUI LANGUAGE (9 Options)
 # English
 if SDM.get_current_language() == 0:
-    import GUI_Text_Manager_EN as GTM
+    from src.gui.GTM_scripts import GUI_Text_Manager_EN as GTM
 # Deutsch
 elif SDM.get_current_language() == 1:
-    import GUI_Text_Manager_DE as GTM
+    from src.gui.GTM_scripts import GUI_Text_Manager_DE as GTM
 # Italiano
 elif SDM.get_current_language() == 2:
-    import GUI_Text_Manager_EN as GTM
+    from src.gui.GTM_scripts import GUI_Text_Manager_IT as GTM
 # Español
 elif SDM.get_current_language() == 3:
-    import GUI_Text_Manager_EN as GTM
+    from src.gui.GTM_scripts import GUI_Text_Manager_ES as GTM
 # Français
 elif SDM.get_current_language() == 4:
-    import GUI_Text_Manager_EN as GTM
-# Polski
+    from src.gui.GTM_scripts import GUI_Text_Manager_FR as GTM
+# Lëtzebuergesch
 elif SDM.get_current_language() == 5:
-    import GUI_Text_Manager_PL as GTM
-# Türkçe
+    from src.gui.GTM_scripts import GUI_Text_Manager_LU as GTM
+# Nederlands
 elif SDM.get_current_language() == 6:
-    import GUI_Text_Manager_TK as GTM
+    from src.gui.GTM_scripts import GUI_Text_Manager_NL as GTM
+# Polski
+elif SDM.get_current_language() == 7:
+    from src.gui.GTM_scripts import GUI_Text_Manager_PL as GTM
+# Türkçe
+elif SDM.get_current_language() == 8:
+    from src.gui.GTM_scripts import GUI_Text_Manager_TK as GTM
 else:
     # assume default settings
     SDM.set_current_language(0)
-    import GUI_Text_Manager_EN as GTM
+    from src.gui.GTM_scripts import GUI_Text_Manager_EN as GTM
 
 
 def wait_ms(ms: int):

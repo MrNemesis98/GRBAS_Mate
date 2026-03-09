@@ -39,13 +39,15 @@ import sys
 Settings list for GRBAS_Mate:
 
 1) GUI:     -> Colour Theme: Light (0), Dark (1, default))                                                       Restart
-            -> Language:    English     (0, default)                                                             Restart
-                            Deutsch     (1)
-                            Italiano    (2)
-                            Español     (3)
-                            Français    (4)
-                            Polski      (5)
-                            Türkçe      (6)
+            -> Language:    English         (0, default)                                                         Restart
+                            Deutsch         (1)
+                            Italiano        (2)
+                            Español         (3)
+                            Français        (4)
+                            Lëtzebuergesch  (5)
+                            Nederlands      (6)
+                            Polski          (7)
+                            Türkçe          (8)
 
 2) CRS (Copyright Settings):    -> Show_home_statement:       yes (1, default), no (0)                  
                                 -> Show_headline_statement:   yes (1, default), no (0)
@@ -201,7 +203,7 @@ def get_current_language():
 
 def set_current_language(value):
     global current_language
-    current_language = value if value in [0, 1, 2, 3, 4, 5, 6] else 0
+    current_language = value if value in [0, 1, 2, 3, 4, 5, 6, 7, 8] else 0
     update_savedata()
 
 

@@ -45,28 +45,28 @@ def label_main_headline_background(with_copyright=False):
 
 def label_menu_title(menu):
     if menu.lower() == "info":
-        return "Info-Center"
+        return "Information Center"
 
     elif menu.lower() == "copyright":
         return "Copyright Information"
 
     elif menu.lower() == "faq":
-        return "Benutzerhandbuch"
+        return "User Guide"
 
     elif menu.lower() == "home":
         return "Home"
 
     elif menu.lower() == "description":
-        return "Parameter Beschreibungen"
+        return "Parameter Descriptions"
 
     elif menu.lower() == "recordings":
-        return "Parameter Hörbeispiele"
+        return "Parameter Recordings"
 
     elif menu.lower() == "training":
-        return "Trainingsmodus"
+        return "Training Mode"
 
     elif menu.lower() == "settings":
-        return "Einstellungen"
+        return "Settings"
 
     else:
         return "Unkown Value!"
@@ -78,37 +78,34 @@ def label_text_1(menu, var_1=0, software_version=""):
         if var_1 == 1:
             text = f"""
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Aktuell installierte Version dieser Software:\t{software_version}
+                    Currently installed version of this software:\t{software_version}
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Diese erste Softwareversion umfasst detaillierte Beschreibungen einzelner Parameter der 
-                    standardisierten GRBAS-Skala, inklusive ihrer Erweiterung zu IF-GRBAS. Darüber hinaus werden 
-                    Audio-Hörbeispiele für jeden Parameter mit Filtern zur Schweregrad-Differenzierung zur 
-                    Verfügung gestellt.
+                    This first version contains detailed descriptions for every parameter belonging to the commonly used
+                    GRBAS scale, including its extension to IF-GRBAS. Furthermore, open access sample recordings are 
+                    provided for every parameter with a choice of different severity levels.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Diese Software, sowie all ihre frei zugänglichen Komponenten, sollen als wissenschaftlicher Beitrag 
-                    im Bereich der klinischen Phonetik dienen. Ebenso als Werkzeug für Selbststudien oder ggf. 
-                    professionelle Diagnosen.
+                    This software as well as its open access material shall serve as a contribution to the research 
+                    field of clinical phonetics and as a tool in study context, for home assessment or even 
+                    ENT diagnostics.
                 </p>"""
             return text
         # Future Outlook
         elif var_1 == 2:
             text = """<p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                        GRBAS_Mate befindet sich in stetiger Entwicklung. In zukünftigen Versionen werden mehr auditive 
-                        Hörbeispiele bereit gestellt. Auch die Inklusion weiterer Skalen zur Stimmbewertung, wie z.B. 
-                        CAPE-V, wäre möglich.
+                        GRBAS_Mate is still under development. Future versions will be be equipped with more sample 
+                        recordings for the IF-GRBAS scale. Inclusions of alternative scales and measure systems, such as 
+                        CAPE-V, are possible as well.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                        Grundsätzlich ist auch ein Trainingsmodus geplant, in welchem aktiv Hörbeispiele zur IF-GRBAS 
-                        Skala vom Nutzer bewertet werden können. Auf diese Weise können die eigenen Fähigkeiten in 
-                        Sachen Parametererkennung und Festlegung des Schweregrads anhand realer Patientenaufnahmen
-                        auf die Probe gestellt werden.
+                        There is also planned a training mode where one can listen to recordings and evaluate them 
+                        according to the IF-GRBAS scale. This can be considered as a challenge of the user´s ability to 
+                        recognize the seven parameters in recordings with real dysphonic voices.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                        Die finale Phase wird ein Interface zur Automatisierten Stimmdiagnose ausmachen, welches fest
-                        in diese Software integriert werden soll. Dies wird Teil eines Master Projektes sein und ist für 
-                        den Herbst 2026 geplant.
+                        The final step will be a tool for automatic voice quality analysis, integrated into this 
+                        software. This will be part of a Masters thesis project and is planned for autumn 2026.
                     </p>"""
             return text
         # Copyright
@@ -117,8 +114,8 @@ def label_text_1(menu, var_1=0, software_version=""):
                   Copyright © MrNemesis98, GitHub, 2026
                 </p>
                 <p style="text-align: justify; line-height: 1.1; font-family: Arial;">
-                 Diese Software ist unter der MIT Lizenz publiziert. Die originale Verfassung lautet:
-                 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
+                This software was published under MIT License, declared as follows:
+                  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
                   associated documentation files, to deal in the software without restriction, including without
                   limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
                   of the software, and to permit persons to whom the software is furnished to do so, subject to the 
@@ -133,10 +130,10 @@ def label_text_1(menu, var_1=0, software_version=""):
                   out of or in connection with the software or the use or other dealings in the software.
                 </p>
                 <p style="text-align: justify; line-height: 1.1; font-family: Arial; color: #DB8004;">
-                  Bei Nutzung von GRBAS_Mate oder einer beteiligten Komponenten stimmen Sie den genannten Bedingungen zu. 
+                  By using GRBAS_Mate or one of its components you agree to all these conditions. 
                 </p>
                 <p style="text-align: justify; line-height: 1.1; font-family: Arial;">
-                Tipp: Schauen Sie bei den Copyright Optionen in den Einstellungen vorbei!
+                Hint: Feel free to have a look at the copyright options in the settings menu!
                 </p>"""
             return text
 
@@ -144,21 +141,20 @@ def label_text_1(menu, var_1=0, software_version=""):
         return "Copyright"
 
     elif menu.lower() == "faq":
-        return "Benutzerhandbuch"
+        return "User Guide"
 
     elif menu.lower() == "home":
         text = """
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Dies ist eine kostenlose App, mit welcher Nutzer eine Vielzahl verschiedener Audioaufnahmen von
-                    Patienten mit Stimmstörungen anhören können, deren Klassifizierung zuvor professionellen Bewertungen
-                    unterlag.
+                    This is a free app interface that allows users to listen to numerous examples of different voice
+                    dysfunctions and associate them with expert benchmark.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                Die Software ist als Unterrichtsmaterial im Studium oder Selbststudium gedacht, kann aber ebenso als 
-                unterstützendes Werkzeug im professionellen Kontext dienen.
+                It is created as study material for lectures oder self-studies, but can serve as an assistance tool for 
+                professional context, too.
                 </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                Diese erste Version bietet Beispiel-Aufnahmen zu den Parametern der sogenannten GRBAS-Skala an,
-                unterteilt nach verschiedenen Schweregraden.
+                This first version provides sample recordings of several parameters according to the commonly used 
+                GRBAS scale with different severity levels.
                 </p>
                 """
         return text
@@ -167,46 +163,44 @@ def label_text_1(menu, var_1=0, software_version=""):
         if var_1 == 1:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    In diesem Menü können die <span style="font-weight:bold;color:#0B839C;">
-                    Beschreibungen</span> der einzelnen IF-GRBAS Parameter nachgeschlagen werden.
-                    Die Navigation zwischen den Seiten erfolgt über die Pfeile rechts.
-                    Alternativ kann ein Parameter direkt über die untere Auflistung aufgerufen werden.
+                    Within this menu you can explore clear, concise <span style="font-weight:bold;color:#0B839C;">
+                    descriptions</span> of every IF-GRBAS parameter.
+                    Use the arrow buttons to navigate between the single pages or choose directly from the overview below.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Wenn Sie direkt zu den Beispiel-Aufnahmen 
-                    übergehen möchten, wählen Sie das Aufnahmenmenü (dritte Option in linker Übersicht).
+                    If you want to skip the descriptions, you can access sample audio via the recordings menu
+                    (third option on the left navigational bar).
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Zusätzlich gibt es die Möglichkeit, über das Kopfhörersymbol rechts unten direkt die Aufnahmen für 
-                    den aktuellen Parameter aufzurufen.
+                    There is also the possibility to jump straight to the dedicated recordings for the parameter 
+                    you’ve selected by clicking on the headphones in the right corner.
                     </p>
-
+                    
                     """
         elif var_1 == 2:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    <span style="font-weight:bold;color:#7030A0;">Instabilität</span> in the voice.
+                    <span style="font-weight:bold;color:#7030A0;">Instability</span> in the voice.
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Damit ist der Grad an Unregelmäßigkeit / Fluktuation in der Stimme beschrieben.
+                    This refers to the degree of irregularity and fluctuations in the stability of the voice.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Eine instabile Stimme klingt unausgewogen und variiert stark in der sprechertypischen Lautstärke.
+                    An unstable voice sounds unbalanced and can vary greatly in volume and pitch.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Instabilität ist ist nicht Teil der <span style="font-weight:bold;color:#0B839C;">originalen</span>
-                     GRBAS-Skala, kann aber zu ihrer <span style="font-weight:bold;color:#7030A0;">Erweiterung</span>
-                     genutzt werden, abhängig vom Forschungsziel.
+                    Instability is not part of the <span style="font-weight:bold;color:#0B839C;">original</span>
+                     GRBAS-scale, but can be used to <span style="font-weight:bold;color:#7030A0;">extend</span> it.
                     </p>
                     """
         elif var_1 == 3:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Der <span style="font-weight:bold;color:#7030A0;">Fluss</span> einer Stimme ist vergleichbar mit 
-                    dem Redefluss eines Sprechers.
+                    The <span style="font-weight:bold;color:#7030A0;">Fluency</span> of a voice is comparable to the 
+                    flow of speech.
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Ähnlich wie Wasser kann eine Stimme in ihrer Erzeugung fließend oder stockend erscheinen.
+                    It refers to how smooth and fluid the voice sounds when speaking.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     This mainly concerns the rhythm of speech, the structure of pauses, and continuity.
@@ -257,7 +251,7 @@ def label_text_1(menu, var_1=0, software_version=""):
                     rough or scratchy.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-
+                    
                     </p>
                     """
         elif var_1 == 7:
@@ -296,7 +290,7 @@ def label_text_1(menu, var_1=0, software_version=""):
                     which affects the vocal cords and is therefore audible in the voice.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-
+                    
                     </p>
                     """
         else:
@@ -428,6 +422,7 @@ def label_text_3(menu):
 
 
 def label_text_4(menu, var_1=0):
+
     if menu.lower() == "info":
         return "Information Center"
 
@@ -525,8 +520,8 @@ def label_text_5(menu):
     elif menu.lower() == "home":
         text = """
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial; color: #DB8004;">
-                    Hinweis: Bei Erstverwendung dieser App bitte die Copyright Bestimmungen im Info-Center einsehen 
-                    (erstes Menü oben rechts).
+                    Note: Before using this software please have a look at the copyright statement (first top right 
+                    menu).
                 </p>
                 """
         return text
@@ -579,7 +574,7 @@ def label_text_6(menu, var=0):
                     </p>"""
         elif var == 2:
             return """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 30px; color: #FFFFFF;">
-                                    Manage Copyright Notices within GRBAS_Mate
+                            Manage Copyright Notices within GRBAS_Mate
                       </p>"""
         elif var == 3:
             return """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 30px; color: #FFFFFF;">
@@ -885,7 +880,15 @@ def QComboBox_colour_choice():
 
 
 def QComboBox_language_choice():
-    return ["English", "Deutsch", "Italiano", "Español", "Français", "Polski", "Türkçe"]
+    return ["English",
+            "Deutsch",
+            "Italiano",
+            "Español",
+            "Français",
+            "Lëtzebuergesch",
+            "Nederlands",
+            "Polski",
+            "Türkçe"]
 
 
 def QCheckbox_copyright_home():

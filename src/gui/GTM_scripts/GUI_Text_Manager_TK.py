@@ -120,19 +120,19 @@ def label_text_1(menu, var_1=0, software_version=""):
                 </p>
                 <p style="text-align: justify; line-height: 1.1; font-family: Arial;">
                 Bu yazılım, aşağıda belirtilen MIT Lisansı kapsamında yayınlanmıştır:
-                İşbu belge ile, bu yazılımın ve ilgili dokümantasyon dosyalarının bir kopyasını edinen herhangi bir kişiye;
-                yazılımı kullanma, kopyalama, değiştirme, birleştirme, yayınlama, dağıtma, alt lisanslama ve/veya yazılımın
-                kopyalarını satma hakları dahil olmak üzere ancak bunlarla sınırlı kalmaksızın, yazılım üzerinde kısıtlama
-                olmaksızın işlem yapma ve yazılımın sağlandığı kişilere de aşağıdaki koşullara tabi olmak kaydıyla bu hakları
-                tanıma izni ücretsiz olarak verilmiştir:
+                Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
+                  associated documentation files, to deal in the software without restriction, including without
+                  limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+                  of the software, and to permit persons to whom the software is furnished to do so, subject to the 
+                  following conditions:
                 </p>
                 <p style="text-align: justify; line-height: 1.1; font-family: Arial;">
-                  Yukarıdaki telif hakkı bildirimi ve işbu izin bildirimi, yazılımın tüm kopyalarına veya önemli bölümlerine
-                    dahil edilmelidir. Yazılım; ticarete elverişlilik, belirli bir amaca uygunluk ve ihlal bulunmadığına
-                    dair garantiler de dahil olmak üzere ancak bunlarla sınırlı olmamak kaydıyla, açık veya zımni hiçbir
-                    garanti verilmeksizin “olduğu gibi” sunulmaktadır. Yazarlar veya telif hakkı sahipleri; sözleşme davası,
-                        haksız fiil veya başka bir sebeple ortaya çıkan, yazılımla veya yazılımın kullanımıyla veya diğer işlemlerle
-                        bağlantılı herhangi bir iddia, tazminat veya diğer yükümlülüklerden hiçbir durumda sorumlu tutulamaz.
+                  The above copyright notice and this permission notice shall be included in all copies or substantial 
+                  portions of the software. The program is provided “as is”, without warranty of any kind, express or 
+                  implied, including but not limited to the warranties of merchantability, fitness for a particular 
+                  purpose and noninfringement. In no event shall the author(s) or copyright holder(s) be liable for any 
+                  claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, 
+                  out of or in connection with the software or the use or other dealings in the software.
                 </p>
                 <p style="text-align: justify; line-height: 1.1; font-family: Arial; color: #DB8004;">
                   GRBAS_Mate’i veya bileşenlerini kullanarak bu koşulları kabul etmiş olursunuz.
@@ -859,7 +859,15 @@ def QComboBox_colour_choice():
 
 
 def QComboBox_language_choice():
-    return ["English", "Deutsch", "Italiano", "Español", "Français", "Polski", "Türkçe"]
+    return ["English",
+            "Deutsch",
+            "Italiano",
+            "Español",
+            "Français",
+            "Lëtzebuergesch",
+            "Nederlands",
+            "Polski",
+            "Türkçe"]
 
 
 def QCheckbox_copyright_home():
