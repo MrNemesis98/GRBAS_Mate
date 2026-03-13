@@ -55,6 +55,7 @@ import audiodata_visualizer as ADV
 
 from restart_manager import RestartManager
 
+
 def resource_path(rel: str) -> str:
     base = getattr(sys, "_MEIPASS", os.path.abspath("."))
     return os.path.join(base, rel)
