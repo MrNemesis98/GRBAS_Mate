@@ -1101,7 +1101,7 @@ class MainWindow(QWidget):
         self.label_menu_title.setStyleSheet(GSS.label_menu_title(main_ctrl=False))
         self.label_menu_title.show()
 
-        self.label_text_4.setGeometry(550, 200, 200, 70)
+        self.label_text_4.setGeometry(475, 200, 350, 70)
         self.label_text_4.setStyleSheet(GSS.label_text(dark_background=True))
         self.label_text_4.setText(GTM.label_text_4(menu="training"))
 
