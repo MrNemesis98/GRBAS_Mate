@@ -645,7 +645,7 @@ def label_text_8(menu, var=0):
                       </p>"""
         elif var == 3:
             return """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 25px; color: 
-            #FFFFFF;">Framerate:</p>"""
+            #FFFFFF;">Audio Framerate:</p>"""
 
     else:
         return "Onbekende waarde!"
