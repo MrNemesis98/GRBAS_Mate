@@ -57,10 +57,10 @@ def label_menu_title(menu):
         return "Start"
 
     elif menu.lower() == "description":
-        return "Parameterbeschrijvingen"
+        return "Parameterbeschrijving"
 
     elif menu.lower() == "recordings":
-        return "Parameteropnames"
+        return "Voorbeeldopnames"
 
     elif menu.lower() == "training":
         return "Trainingsmodus"
@@ -95,16 +95,16 @@ def label_text_1(menu, var_1=0, software_version=""):
         elif var_1 == 2:
             text = """<p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                         GRBAS_Mate is nog in ontwikkeling. Toekomstige versies zullen worden uitgerust met meer
-                        voorbeeldopnames voor de IF-GRBAS-schaal. Ook het opnemen van alternatieve schalen en meetsystemen,
+                        voorbeeldopnames voor de IF-GRBAS-schaal. Ook het toevoegen van alternatieve schalen en meetsystemen,
                         zoals CAPE-V, is mogelijk.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                        Er is ook een trainingsmodus gepland waarin je naar opnames kunt luisteren en ze kunt beoordelen
-                        volgens de IF-GRBAS-schaal. Dit kan worden gezien als een uitdaging om te testen of de gebruiker
-                        de zeven parameters in opnames met echte dysfone stemmen kan herkennen.
+                        Er is ook een trainingsmodus gepland waarin er naar opnames geluisterd kan worden en ze beoordeeld
+                        kunnen worden volgens de IF-GRBAS-schaal. Op deze manier kan getest worden of
+                        de gebruiker de zeven parameters in opnames met echte dysfone stemmen kan herkennen.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                        De laatste stap wordt een hulpmiddel voor automatische analyse van stemkwaliteit, geïntegreerd in
+                        Als laatste zal een hulpmiddel voor automatische analyse van stemkwaliteit worden geïntegreerd in
                         deze software. Dit zal deel uitmaken van een masterthesisproject en is gepland voor de herfst van 2026.
                     </p>"""
             return text
@@ -146,14 +146,14 @@ def label_text_1(menu, var_1=0, software_version=""):
     elif menu.lower() == "home":
         text = """
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Dit is een gratis app-interface waarmee gebruikers naar talrijke voorbeelden van verschillende
+                    Dit is een gratis app-interface waarmee gebruikers naar voorbeelden van verschillende
                     stemstoornissen kunnen luisteren en deze kunnen koppelen aan een expert-benchmark.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                 De app is ontwikkeld als studiemateriaal voor colleges of zelfstudie, maar kan ook dienen als
                 ondersteunend hulpmiddel in een professionele context.
                 </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                Deze eerste versie biedt voorbeeldopnames van meerdere parameters volgens de veelgebruikte
+                Deze eerste versie bevat voorbeeldopnames van meerdere parameters volgens de veelgebruikte
                 GRBAS-schaal, met verschillende ernstniveaus.
                 </p>
                 """
@@ -163,17 +163,17 @@ def label_text_1(menu, var_1=0, software_version=""):
         if var_1 == 1:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    In dit menu kun je heldere, beknopte <span style="font-weight:bold;color:#0B839C;">
-                    beschrijvingen</span> van elke IF-GRBAS-parameter.
-                    Gebruik de pijlknoppen om tussen de pagina’s te navigeren of kies direct uit het overzicht hieronder.
+                    In dit menu kun je een heldere en beknopte <span style="font-weight:bold;color:#0B839C;">
+                    beschrijving</span> van elke IF-GRBAS-parameter raadplegen.
+                    Gebruik de pijltjestoetsen om door de pagina’s te navigeren of kies direct uit het overzicht hieronder.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     Als je de beschrijvingen wilt overslaan, kun je voorbeeldaudio openen via het menu Opnames
-                    (derde optie in de linkernavigatiebalk).
+                    (derde optie in de linkse navigatiebalk).
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Je kunt ook rechtstreeks naar de bijbehorende opnames springen voor de parameter 
-                    die je hebt geselecteerd door op de koptelefoon in de rechterhoek te klikken.
+                    Je kunt ook rechtstreeks springen naar de opnames voor de geselecteerde parameter 
+                    door op de koptelefoon in de rechterhoek te klikken.
                     </p>
                     """
         elif var_1 == 2:
@@ -185,12 +185,12 @@ def label_text_1(menu, var_1=0, software_version=""):
                     Dit verwijst naar de mate van onregelmatigheid en schommelingen in de stabiliteit van de stem.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Een instabiele stem klinkt onevenwichtig en kan sterk variëren in luidheid en toonhoogte.
+                    Een instabiele stem klinkt onevenwichtig en kan sterk variëren in volume en toonhoogte.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     Instabiliteit maakt geen deel uit van de <span style="font-weight:bold;color:#0B839C;">
                     oorspronkelijke</span>
-                     GRBAS-schaal, maar kan worden gebruikt om deze te <span style="font-weight:bold;color:#7030A0;">
+                     GRBAS-schaal, maar kan worden gebruikt om deze <span style="font-weight:bold;color:#7030A0;">
                      uit te breiden</span>.
                     </p>
                     """
@@ -198,7 +198,7 @@ def label_text_1(menu, var_1=0, software_version=""):
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     De <span style="font-weight:bold;color:#7030A0;">Vloeiendheid</span> van een stem is vergelijkbaar met de
-                    spraakvloei.
+                    vloeiendheid van spraak.
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     Het verwijst naar hoe soepel en vloeiend de stem klinkt tijdens het spreken.
@@ -208,14 +208,14 @@ def label_text_1(menu, var_1=0, software_version=""):
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     Vloeiendheid maakt geen deel uit van de <span style="font-weight:bold;color:#0B839C;">oorspronkelijke</span>
-                     GRBAS-schaal, maar kan worden gebruikt om deze te <span style="font-weight:bold;color:#7030A0;">uit te breiden</span>.
+                     GRBAS-schaal, maar kan worden gebruikt om deze <span style="font-weight:bold;color:#7030A0;">uit te breiden</span>.
                     </p>
                     """
         elif var_1 == 4:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     De <span style="font-weight:bold;color:#7030A0;">uitbreiding</span> van de GRBAS-schaal is ontwikkeld
-                    om dysfone stemkenmerken op een meer genuanceerde manier te beschrijven, en zo de gevoeligheid van de
+                    om dysfone stemkenmerken op een meer genuanceerde manier te kunnen beschrijven, en zo de gevoeligheid van de
                     schaal te vergroten bij het beoordelen van bepaalde symptomen.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
@@ -223,7 +223,7 @@ def label_text_1(menu, var_1=0, software_version=""):
                     afhankelijk van de context en de doelen van het betreffende onderzoek.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Voor een uitgebreide onderbouwing van deze schaaluitbreiding kun je de volgende studie bekijken:
+                    Voor een uitgebreide onderbouwing van deze schaaluitbreiding kun je de volgende studie raadplegen:
                         <a href="https://osf.io/dxc2e/?view_only=7e25f2b0991a4322997dd4ce99858262"
                             style="text-decoration:none; color:#1a73e8;">
                             Voice Quality and Dysphonia (OSF project - view-only)
@@ -245,11 +245,11 @@ def label_text_1(menu, var_1=0, software_version=""):
         elif var_1 == 6:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    <span style="font-weight:bold;color:#0B839C;">Roughness</span> of the voice.  
+                    <span style="font-weight:bold;color:#0B839C;">Ruwheid</span> van de stem.  
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    This describes the perception of irregular vibration of the vocal folds, causing the voice to sound  
-                    rough or scratchy.
+                    Dit beschrijft de ervaring van een onregelmatige vibratie van de stembanden, wat resulteert in een 
+                    ruw of rasperig stemgeluid.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     
@@ -261,10 +261,10 @@ def label_text_1(menu, var_1=0, software_version=""):
                     <span style="font-weight:bold;color:#0B839C;">Ademigheid</span> van de stem.  
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Dit verwijst naar het hoorbare ontsnappen van lucht in de stem.
+                    Dit verwijst naar het hoorbaar ontsnappen van lucht in de stem.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Dit kan wijzen op een onvolledige sluiting van de stemplooien.
+                    Dit kan wijzen op een onvolledige sluiting van de stembanden.
                     </p>
                     """
         elif var_1 == 8:
@@ -273,11 +273,11 @@ def label_text_1(menu, var_1=0, software_version=""):
                     Zwakte van de stem.  
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    <span style="font-weight:bold;color:#0B839C;">\nAsthenia</span> describes the extent to which the 
-                    voice appears weak or quiet.
+                    <span style="font-weight:bold;color:#0B839C;">\nAsthenie</span> beschrijft in welke mate het stemgeluid
+                    zwak of stil is.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    This characteristic is the result of reduced tension in the vocal cords.
+                    Dit kenmerk is het resultaat van verminderde spanning van de stembanden.
                     </p>
                     """
         elif var_1 == 9:
@@ -286,9 +286,9 @@ def label_text_1(menu, var_1=0, software_version=""):
                     Een gespannen indruk van de stem.  
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    <span style="font-weight:bold;color:#0B839C;">\nStrain</span> describes the degree of hyperfunction 
-                    or overexertion of the laryngeal muscles, 
-                    which affects the vocal cords and is therefore audible in the voice.
+                    <span style="font-weight:bold;color:#0B839C;">\nSpanning</span> beschrijft de mate van hyperfunctie 
+                    of overspanning van de spieren in het strottenhoofd.
+                    Dit beïnvloedt de stembanden en is dus hoorbaar in het stemgeluid.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     
@@ -346,11 +346,11 @@ def label_text_2(menu):
         text = """
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     De GRBAS-schaal is een instrument om stemstoornissen te beoordelen.
-                    Ze wordt vaak gebruikt om de ernst van dysfonie te evalueren, het succes van therapie te meten en te
+                    De schaal wordt vaak gebruikt om de ernst van dysfonie te evalueren, het succes van therapie te meten en te
                     documenteren, en experts te ondersteunen bij het stellen van een diagnose.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                De afkorting GRBAS staat voor de vijf kenmerken: Graad (G), Ruwheid (R), Ademigheid (B),
+                De afkorting GRBAS staat voor de vijf kenmerken: Graad (G), Ruwheid (R), Ademigheid (Breathyness) (B),
                 Asthenie (A) en Spanning (S).
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
@@ -364,7 +364,7 @@ def label_text_2(menu):
         return "Parameterbeschrijvingen"
 
     elif menu.lower() == "recordings":
-        return "Parameteropnames"
+        return "Voorbeeldopnames"
 
     elif menu.lower() == "training":
         return "Trainingsmodus"
@@ -390,13 +390,13 @@ def label_text_3(menu):
         text = """
             <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
               Naast de vijf standaardparameters biedt deze software ook audiomateriaal en beschrijvingen voor de
-              kenmerken Instabiliteit (I) en Vloeiendheid (F).
+              kenmerken Instabiliteit (I) en Vloeiendheid (Fluency) (F).
             </p>
-            <p>Beide breiden de oorspronkelijke schaal uit naar IF-GRBAS, wat nuttig is in de context van
+            <p>Deze kenmerken breiden de oorspronkelijke schaal uit naar IF-GRBAS, wat nuttig is in de context van
             dysfoniebeoordeling, vooral bij spasmodische dysfonie.
             <p>
             <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-              Voor een uitgebreide onderbouwing van deze schaaluitbreiding kun je de volgende studie bekijken:
+              Voor een uitgebreide onderbouwing van deze schaaluitbreiding kun je de volgende studie raadplegen:
               <a href="https://osf.io/dxc2e/?view_only=7e25f2b0991a4322997dd4ce99858262"
                  style="text-decoration:none; color:#1a73e8;">
                  Voice Quality and Dysphonia (OSF project - view-only)
@@ -409,7 +409,7 @@ def label_text_3(menu):
         return "Parameterbeschrijvingen"
 
     elif menu.lower() == "recordings":
-        return "Parameteropnames"
+        return "Voorbeeldopnames"
 
     elif menu.lower() == "training":
         return "Trainingsmodus"
@@ -434,11 +434,11 @@ def label_text_4(menu, var_1=0):
 
     elif menu.lower() == "home":
         if var_1 == 1:
-            text = "Introduction (1/3)"
+            text = "Introductie (1/3)"
         elif var_1 == 2:
-            text = "Introduction (2/3)"
+            text = "Introductie (2/3)"
         elif var_1 == 3:
-            text = "Introduction (3/3)"
+            text = "Introductie (3/3)"
         else:
             text = "N/V"
 
@@ -446,23 +446,23 @@ def label_text_4(menu, var_1=0):
 
     elif menu.lower() == "description":
         if var_1 == 1:
-            text = "Introduction (1/9)"
+            text = "Introductie (1/9)"
         elif var_1 == 2:
-            text = "Instability (2/9)"
+            text = "Instabiliteit (2/9)"
         elif var_1 == 3:
-            text = "Fluency (3/9)"
+            text = "Vloeiendheid (3/9)"
         elif var_1 == 4:
-            text = "Extension (4/9)"
+            text = "Uitbreiding (4/9)"
         elif var_1 == 5:
-            text = "Grade (5/9)"
+            text = "Graad (5/9)"
         elif var_1 == 6:
-            text = "Roughness (6/9)"
+            text = "Ruwheid (6/9)"
         elif var_1 == 7:
-            text = "Breathyness (7/9)"
+            text = "Ademigheid (7/9)"
         elif var_1 == 8:
-            text = "Asthenia (8/9)"
+            text = "Asthenie (8/9)"
         elif var_1 == 9:
-            text = "Strain (9/9)"
+            text = "Spanning (9/9)"
         else:
             text = "N/V"
         return text
@@ -490,7 +490,7 @@ def label_text_5(menu):
                   Copyright © MrNemesis98, GitHub, 2025
                 </p>
                 <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
-                This software was published under MIT License, declared as follows:
+                Deze software is gepubliceerd onder MIT-licentie, die als volgt is geformuleerd:
                   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
                   associated documentation files, to deal in the software without restriction, including without
                   limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
@@ -509,7 +509,7 @@ def label_text_5(menu):
                   By using GRBAS_Mate or one of its components you agree to all these conditions. 
                 </p>
                 <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
-                Hint: Feel free to have a look at the copyright options in the settings menu!
+                Tip: Bekijk gerust de copyrightopties in het instellingenmenu!
                 </p>
                 """
         return text
@@ -569,7 +569,7 @@ def label_text_6(menu, var=0):
     elif menu.lower() == "settings":
         if var == 1:
             return """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 30px; color: #FFFFF;">
-                        Bepaal het visuele uiterlijk van GRBAS_Mate
+                        Bepaal het uiterlijk van GRBAS_Mate
                     </p>"""
         elif var == 2:
             return """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 30px; color: #FFFFFF;">
@@ -577,7 +577,7 @@ def label_text_6(menu, var=0):
                       </p>"""
         elif var == 3:
             return """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 30px; color: #FFFFFF;">
-                                                Control the Behaviour of the Mediaspeler
+                                                Bepaal de Instellingen van de Mediaspeler
                       </p>"""
 
     else:
@@ -644,9 +644,8 @@ def label_text_8(menu, var=0):
                                 Taal:
                       </p>"""
         elif var == 3:
-            return """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 25px; color: #FFFFFF;">
-                                Audioweergavekwaliteit:
-                      </p>"""
+            return """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 25px; color: 
+            #FFFFFF;">Audio Framerate:</p>"""
 
     else:
         return "Onbekende waarde!"
@@ -743,7 +742,7 @@ def label_text_11(menu):
 
 def button_assistance_1(menu):
     if menu.lower() == "info":
-        return "Versiebeschrijving"
+        return "Versie-informatie"
 
     elif menu.lower() == "copyright":
         return "Copyright"
@@ -758,7 +757,7 @@ def button_assistance_1(menu):
         return "Parameterbeschrijvingen"
 
     elif menu.lower() == "recordings":
-        return "Parameteropnames"
+        return "Voorbeeldopnames"
 
     elif menu.lower() == "training":
         return "Trainingsmodus"
@@ -787,7 +786,7 @@ def button_assistance_2(menu):
         return "Parameterbeschrijvingen"
 
     elif menu.lower() == "recordings":
-        return "Parameteropnames"
+        return "Voorbeeldopnames"
 
     elif menu.lower() == "training":
         return "Trainingsmodus"
@@ -816,7 +815,7 @@ def button_assistance_3(menu):
         return "Parameterbeschrijvingen"
 
     elif menu.lower() == "recordings":
-        return "Parameteropnames"
+        return "Voorbeeldopnames"
 
     elif menu.lower() == "training":
         return "Trainingsmodus"
@@ -845,7 +844,7 @@ def button_assistance_4(menu):
         return "Parameterbeschrijvingen"
 
     elif menu.lower() == "recordings":
-        return "Parameteropnames"
+        return "Voorbeeldopnames"
 
     elif menu.lower() == "training":
         return "Trainingsmodus"
@@ -871,11 +870,11 @@ def QComboBox_gender_filter():
 
 
 def QComboBox_articulation_filter():
-    return ["Vowel", "Sentence", "Beide in één bestand", "Alle opties"]
+    return ["Klinker", "Zin", "Beiden in één bestand", "Alle opties"]
 
 
 def QComboBox_colour_choice():
-    return ["Light", "Dark"]
+    return ["Licht", "Donker"]
 
 
 def QComboBox_language_choice():
@@ -891,7 +890,7 @@ def QComboBox_language_choice():
 
 
 def QCheckbox_copyright_home():
-    return "   Show Copyright Notice in Start Menu"
+    return "   Toon copyrightmelding in startmenu"
 
 
 def QCheckbox_copyright_headline():
@@ -899,15 +898,15 @@ def QCheckbox_copyright_headline():
 
 
 def QCheckbox_remember_faf():
-    return "   Remember Gefilterde audiobestanden"
+    return "   Sla Gefilterde Audiobestanden op"
 
 
 def QCheckbox_remember_mps():
-    return "   Remember Mediaspeler Instellingen"
+    return "   Sla Instellingen van Mediaspeler op"
 
 
 def QCheckbox_autoplay_recordings():
-    return "   Play Opnames Automatically after Loading"
+    return "   Speel Opnames automatisch af"
 
 
 def QComboBox_audio_render_quality_choice():

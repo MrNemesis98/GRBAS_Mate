@@ -4,32 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e8a1b1a-7cc2-4927-8424-4d3eb0f31b62" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/gui/GSS_scripts/GUI_Style_Sheets_DRK.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/GSS_scripts/GUI_Style_Sheets_LGHT.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/GTM_scripts/GUI_Text_Manager_DE.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/GTM_scripts/GUI_Text_Manager_EN.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/GTM_scripts/GUI_Text_Manager_ES.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/GTM_scripts/GUI_Text_Manager_FR.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/GTM_scripts/GUI_Text_Manager_IT.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/GTM_scripts/GUI_Text_Manager_LU.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/GTM_scripts/GUI_Text_Manager_NL.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/GTM_scripts/GUI_Text_Manager_PL.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gui/GTM_scripts/GUI_Text_Manager_TK.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sys/ico_basic.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sys/ico_futuristic.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI_Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI_Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI_Style_Sheets_DRK.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI_Style_Sheets_LGHT.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI_Text_Manager_DE.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI_Text_Manager_EN.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI_Text_Manager_PL.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI_Text_Manager_TK.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI_Text_Manager_TK_old.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/savedata_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/savedata_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sys/GRBAS_Mate_Heptagon.ico" beforeDir="false" />
-    </list>
+    <list default="true" id="5e8a1b1a-7cc2-4927-8424-4d3eb0f31b62" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,28 +33,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Python.GUI_Main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.GUI_Style_Sheets.executor&quot;: &quot;Run&quot;,
-    &quot;Python.example_GUI.executor&quot;: &quot;Run&quot;,
-    &quot;Python.example_responsive_GUI.executor&quot;: &quot;Run&quot;,
-    &quot;Python.example_round_window.executor&quot;: &quot;Run&quot;,
-    &quot;Python.first_GUI_Layout.executor&quot;: &quot;Run&quot;,
-    &quot;Python.savedata_manager.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/tillp/Documents/Python_Scripts/Github_Projects/GRBAS_Mate&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Python.GUI_Main.executor": "Run",
+    "Python.GUI_Style_Sheets.executor": "Run",
+    "Python.example_GUI.executor": "Run",
+    "Python.example_responsive_GUI.executor": "Run",
+    "Python.example_round_window.executor": "Run",
+    "Python.first_GUI_Layout.executor": "Run",
+    "Python.savedata_manager.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/NEMESIS/Documents/PycharmProjects/Morph2Excel",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="GUI_Main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="GRBAS_Mate" />
@@ -141,6 +116,7 @@
       <workItem from="1759836105725" duration="4931000" />
       <workItem from="1772632150997" duration="698000" />
       <workItem from="1772634249164" duration="8758000" />
+      <workItem from="1774519419311" duration="42000" />
     </task>
     <servers />
   </component>

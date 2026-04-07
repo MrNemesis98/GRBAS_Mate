@@ -32,14 +32,17 @@ your use of the dataset. Note that further permission may be required for any co
 identified as belonging to a third party.
 """
 
+
 def window_title():
     return "GRBAS_Mate v1.0"
 
 
 def label_main_headline_background(with_copyright=False):
-    return ("   GRBAS_Mate   [ɡɹæps me͜ɪt̚]"
-            "\t\tCopyright © MrNemesis98, GitHub, 2026") \
-        if with_copyright else "   GRBAS_Mate   [ɡɹæps me͜ɪt̚]"
+    return (
+        ("   GRBAS_Mate   [ɡɹæps me͜ɪt̚]\t\tCopyright © MrNemesis98, GitHub, 2026")
+        if with_copyright
+        else "   GRBAS_Mate   [ɡɹæps me͜ɪt̚]"
+    )
 
 
 def label_menu_title(menu):
@@ -61,8 +64,8 @@ def label_menu_title(menu):
     elif menu.lower() == "recordings":
         return "Registrazioni dei parametri"
 
-    elif menu.lower() == "training":
-        return "Modalità di training"
+    elif menu.lower() == "allenamento":
+        return "Modalità Allenamento"
 
     elif menu.lower() == "settings":
         return "Impostazioni"
@@ -77,10 +80,11 @@ def label_text_1(menu, var_1=0, software_version=""):
         if var_1 == 1:
             text = f"""
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Versione attualmente installata di questo software:	{software_version}
+                    Versione di questo software attualmente installata
+                    :	{software_version}
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Questa prima versione contiene descrizioni dettagliate per ogni parametro della scala GRBAS, comunemente utilizzata, inclusa la sua estensione IF-GRBAS. Inoltre, sono disponibili registrazioni di esempio ad accesso libero per ogni parametro, con diversi livelli di gravità.
+                    Questa prima versione del softwarecontiene descrizioni dettagliate di ogni parametro della scala GRBAS comunemente utilizzata, inclusa la sua estensione IF-GRBAS. Inoltre, sono disponibili registrazioni open source di esempi per ogni parametro, a diversi livelli della scala. # what do you mean by "severity levels"
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     Questo software, insieme al suo materiale open access, intende contribuire al campo della fonetica clinica e fungere da strumento in contesti di studio, per l’autovalutazione a casa o persino per la diagnostica ORL.
@@ -89,17 +93,15 @@ def label_text_1(menu, var_1=0, software_version=""):
         # Future Outlook
         elif var_1 == 2:
             text = """<p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                        GRBAS_Mate è ancora in fase di sviluppo. Le versioni future saranno dotate di più registrazioni di esempio
-                        per la scala IF-GRBAS. È anche possibile includere scale e sistemi di misura alternativi, come CAPE-V.
+                        GRBAS_Mate è ancora in fase di sviluppo. Le versioni future saranno dotate di più registrazioni di esempi
+                        per la scala IF-GRBAS. Sarà anche possibile includere scale e sistemi di misura alternativi, come CAPE-V.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                        È prevista anche una modalità di training in cui si possono ascoltare registrazioni e valutarle
-                        secondo la scala IF-GRBAS. Questo può essere considerato una sfida per mettere alla prova la capacità dell’utente
-                        di riconoscere i sette parametri in registrazioni con voci realmente disfoniche.
+                        Nelle versioni future, è prevista anche una Modalità Allenamento in cui si potranno ascoltare registrazioni e valutarle
+                        basandosi sulla scala IF-GRBAS. Questa funzione servirà a mettera alla prova l'utente e ad affinare le sue capacità nell'individuare i sette parametri della scala in registrazioni con voci realmente disfoniche.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                        Il passo finale sarà uno strumento di analisi automatica della qualità vocale, integrato in questo software.
-                        Farà parte di un progetto di tesi magistrale ed è previsto per l’autunno 2026.
+                        La versione finale includerà uno strumento che permetterà l'analisi automatica della qualità vocale e sarà parte di un progetto di tesi magistrale ed è previsto per l’autunno 2026.
                     </p>"""
             return text
         # Copyright
@@ -109,25 +111,25 @@ def label_text_1(menu, var_1=0, software_version=""):
                 </p>
                 <p style="text-align: justify; line-height: 1.1; font-family: Arial;">
                 Questo software è stato pubblicato con licenza MIT, dichiarata come segue:
-                  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
+                  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
                   associated documentation files, to deal in the software without restriction, including without
                   limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-                  of the software, and to permit persons to whom the software is furnished to do so, subject to the 
+                  of the software, and to permit persons to whom the software is furnished to do so, subject to the
                   following conditions:
                 </p>
                 <p style="text-align: justify; line-height: 1.1; font-family: Arial;">
-                  The above copyright notice and this permission notice shall be included in all copies or substantial 
-                  portions of the software. The program is provided “as is”, without warranty of any kind, express or 
-                  implied, including but not limited to the warranties of merchantability, fitness for a particular 
-                  purpose and noninfringement. In no event shall the author(s) or copyright holder(s) be liable for any 
-                  claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, 
+                  The above copyright notice and this permission notice shall be included in all copies or substantial
+                  portions of the software. The program is provided “as is”, without warranty of any kind, express or
+                  implied, including but not limited to the warranties of merchantability, fitness for a particular
+                  purpose and noninfringement. In no event shall the author(s) or copyright holder(s) be liable for any
+                  claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from,
                   out of or in connection with the software or the use or other dealings in the software.
                 </p>
                 <p style="text-align: justify; line-height: 1.1; font-family: Arial; color: #DB8004;">
-                  Utilizzando GRBAS_Mate o uno dei suoi componenti, l'utente accetta tutte queste condizioni. 
+                  Utilizzando GRBAS_Mate o uno dei suoi componenti, l'utente accetta tutte queste condizioni.
                 </p>
                 <p style="text-align: justify; line-height: 1.1; font-family: Arial;">
-                Suggerimento: dai un'occhiata alle opzioni relative al copyright nel menu delle impostazioni!
+                Suggerimento: dai un'occhiata alle opzioni relative al copyright nel menù impostazioni!
                 </p>"""
             return text
 
@@ -140,15 +142,15 @@ def label_text_1(menu, var_1=0, software_version=""):
     elif menu.lower() == "home":
         text = """
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Questa è un’app gratuita che consente agli utenti di ascoltare numerosi esempi di diverse
-                    disfunzioni vocali e associarli a riferimenti di esperti.
+                    Questa è un'app gratuita che consente agli utenti di ascoltare numerosi esempi di diverse
+                    disfunzioni vocali e associarli a delle scale di riferimento standard.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                 È stata creata come materiale di studio per lezioni o autoapprendimento, ma può anche fungere da strumento di supporto
                 in un contesto professionale.
                 </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                Questa prima versione fornisce registrazioni di esempio di diversi parametri secondo la scala GRBAS comunemente utilizzata,
-                con differenti livelli di gravità.
+                Questa prima versione fornisce esempi di registrazioni di diversi parametri della scala GRBAS,
+                a diversi livelli.
                 </p>
                 """
         return text
@@ -157,19 +159,19 @@ def label_text_1(menu, var_1=0, software_version=""):
         if var_1 == 1:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    In questo menu puoi esplorare <span style="font-weight:bold;color:#0B839C;">descrizioni</span> chiare e concise
+                    In questo menù puoi esplorare le<span style="font-weight:bold;color:#0B839C;">descrizioni</span>
                     di ogni parametro IF-GRBAS.
-                    Utilizza i pulsanti freccia per navigare tra le pagine o scegli direttamente dalla panoramica qui sotto.
+                    Utilizza i pulsanti freccia per navigare tra le pagine o sceglile direttamente dalla panoramica qui sotto.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Se vuoi saltare le descrizioni, puoi accedere a campioni audio tramite il menu delle registrazioni
+                    Se vuoi saltare le descrizioni, puoi anche accedere a campioni audio tramite il menù registrazioni
                     (terza opzione nella barra di navigazione a sinistra).
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    È anche possibile passare direttamente alle registrazioni dedicate del parametro selezionato
-                    facendo clic sulle cuffie nell’angolo destro.
+                    È anche possibile passare direttamente alle registrazioni del parametro selezionato
+                    facendo clic sull'icona a forma di cuffie nell’angolo destro.
                     </p>
-                    
+
                     """
         elif var_1 == 2:
             text = """
@@ -190,17 +192,17 @@ def label_text_1(menu, var_1=0, software_version=""):
         elif var_1 == 3:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    La <span style="font-weight:bold;color:#7030A0;">fluenza</span> di una voce è paragonabile al
+                    La <span style="font-weight:bold;color:#7030A0;">fluidità</span> di una voce si riferisce al
                     flusso del parlato.
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    Si riferisce a quanto la voce suoni scorrevole e fluida durante il parlato.
+                    Fa rifereimento a quanto la voce suoni scorrevole e fluida durante il parlato.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     Riguarda principalmente il ritmo del parlato, la struttura delle pause e la continuità.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    La fluenza non fa parte della scala GRBAS <span style="font-weight:bold;color:#0B839C;">originale</span>,
+                    La fluidità non fa parte della scala GRBAS <span style="font-weight:bold;color:#0B839C;">originale</span>,
                      ma può essere usata per <span style="font-weight:bold;color:#7030A0;">estenderla</span>.
                     </p>
                     """
@@ -208,7 +210,7 @@ def label_text_1(menu, var_1=0, software_version=""):
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     L’<span style="font-weight:bold;color:#7030A0;">estensione</span> della scala GRBAS è stata introdotta
-                    per catturare le caratteristiche delle voci disfoniche in modo più sfumato, migliorando la sensibilità della scala
+                    per includere le caratteristiche delle voci disfoniche in modo più accurato, migliorando la capacità della scala
                     nel descrivere determinati sintomi.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
@@ -228,7 +230,7 @@ def label_text_1(menu, var_1=0, software_version=""):
                     Il <span style="font-weight:bold;color:#0B839C;">grado</span> di raucedine nella voce.
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    La raucedine è composta da diverse caratteristiche, tra cui rugosità, soffiosità e sforzo.
+                    La raucedine è composta da diverse caratteristiche, tra cui la sonorizzazione aspirata e lo sforzo.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     Può essere descritta come l’impressione complessiva della voce in funzione di questi parametri individuali.
@@ -237,20 +239,20 @@ def label_text_1(menu, var_1=0, software_version=""):
         elif var_1 == 6:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    <span style="font-weight:bold;color:#0B839C;">Rugosità</span> della voce.
+                    <span style="font-weight:bold;color:#0B839C;">Raucedine</span>.
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     Descrive la percezione di una vibrazione irregolare delle pliche vocali, facendo sì che la voce suoni
                     ruvida o «graffiante».
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    
+
                     </p>
                     """
         elif var_1 == 7:
             text = """
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    <span style="font-weight:bold;color:#0B839C;">Soffiosità</span> della voce.
+                    <span style="font-weight:bold;color:#0B839C;">Sonorizzazione aspirata</span> della voce.
                     </p>
                     </p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                     Si riferisce alla fuoriuscita udibile di aria nella voce.
@@ -285,7 +287,7 @@ Sforzo</span> descrive il grado di iperfunzione
                     che influisce sulle corde vocali ed è quindi udibile nella voce.
                     </p>
                     <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                    
+
                     </p>
                     """
         else:
@@ -297,19 +299,19 @@ Sforzo</span> descrive il grado di iperfunzione
         return text
 
     elif menu.lower() == "recordings":
-        return "Modalità di studio"
+        return "Modalità Allenamento"
 
-    elif menu.lower() == "training":
+    elif menu.lower() == "allenamento":
         text = """
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                La modalità di training è attualmente in sviluppo.
+                La modalità allenamento è attualmente in sviluppo.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
                 In questa modalità potrai mettere alla prova le tue competenze e conoscenze valutando registrazioni di voci disfoniche.
                 Dato un insieme di materiale audio, dovrai assegnare il parametro corretto e il livello di gravità corrispondente.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                Questa modalità si basa sull’idea del test di categoria dell’esperimento online dello studio
+                Questa modalità si basa sull'idea del test di categoria proposto nell'esperimento online dello studio
                 <a href="https://osf.io/dxc2e/?view_only=7e25f2b0991a4322997dd4ce99858262"
                  style="text-decoration:none; color:#1a73e8;">
                  Voice Quality and Dysphonia (OSF project - view-only)
@@ -344,7 +346,7 @@ def label_text_2(menu):
                     e assistere gli esperti nella formulazione di una diagnosi.
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
-                L’abbreviazione GRBAS indica cinque caratteristiche: Grado (G), Rugosità (R), Soffiosità (B),
+                L’abbreviazione GRBAS indica cinque caratteristiche: Grado (G), Raucedine (R), Sonorizzazione aspirata o "Breathiness" (B),
                 Astenia (A) e Sforzo (S).
                 </p>
                 <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
@@ -360,8 +362,8 @@ def label_text_2(menu):
     elif menu.lower() == "recordings":
         return "Registrazioni dei parametri"
 
-    elif menu.lower() == "training":
-        return "Modalità di training"
+    elif menu.lower() == "allenamento":
+        return "Modalità Allenamento"
 
     elif menu.lower() == "settings":
         return "Impostazioni"
@@ -384,7 +386,7 @@ def label_text_3(menu):
         text = """
             <p style="text-align: justify; line-height: 1.2; font-family: Arial;">
               Oltre ai cinque parametri standard, questo software fornisce anche materiale audio e
-              descrizioni per le caratteristiche Instabilità (I) e Fluenza (F).
+              descrizioni per le caratteristiche Instabilità (I) e Fluidità (F).
             </p>
             <p>Entrambe estendono la scala originale a IF-GRBAS, utile nel contesto della valutazione della disfonia,
             soprattutto nella disfonia spasmodica.
@@ -405,8 +407,8 @@ def label_text_3(menu):
     elif menu.lower() == "recordings":
         return "Registrazioni dei parametri"
 
-    elif menu.lower() == "training":
-        return "Modalità di training"
+    elif menu.lower() == "allenamento":
+        return "Modalità Allenamento"
 
     elif menu.lower() == "settings":
         return "Impostazioni"
@@ -444,15 +446,15 @@ def label_text_4(menu, var_1=0):
         elif var_1 == 2:
             text = "Instabilità (2/9)"
         elif var_1 == 3:
-            text = "Fluenza (3/9)"
+            text = "Fluidità (3/9)"
         elif var_1 == 4:
             text = "Estensione (4/9)"
         elif var_1 == 5:
             text = "Grado (5/9)"
         elif var_1 == 6:
-            text = "Rugosità (6/9)"
+            text = "Raucedine (6/9)"
         elif var_1 == 7:
-            text = "Soffiosità (7/9)"
+            text = "Sonorizzazione aspirata (7/9)"
         elif var_1 == 8:
             text = "Astenia (8/9)"
         elif var_1 == 9:
@@ -464,7 +466,7 @@ def label_text_4(menu, var_1=0):
     elif menu.lower() == "recordings":
         return "Selezione filtri"
 
-    elif menu.lower() == "training":
+    elif menu.lower() == "allenamento":
         return "Prossimamente:"
 
     elif menu.lower() == "settings":
@@ -485,22 +487,22 @@ def label_text_5(menu):
                 </p>
                 <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
                 This software was published under MIT License, declared as follows:
-                  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
+                  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
                   associated documentation files, to deal in the software without restriction, including without
                   limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-                  of the software, and to permit persons to whom the software is furnished to do so, subject to the 
+                  of the software, and to permit persons to whom the software is furnished to do so, subject to the
                   following conditions:
                 </p>
                 <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
-                  The above copyright notice and this permission notice shall be included in all copies or substantial 
-                  portions of the software. The program is provided “as is”, without warranty of any kind, express or 
-                  implied, including but not limited to the warranties of merchantability, fitness for a particular 
-                  purpose and noninfringement. In no event shall the author(s) or copyright holder(s) be liable for any 
-                  claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, 
+                  The above copyright notice and this permission notice shall be included in all copies or substantial
+                  portions of the software. The program is provided “as is”, without warranty of any kind, express or
+                  implied, including but not limited to the warranties of merchantability, fitness for a particular
+                  purpose and noninfringement. In no event shall the author(s) or copyright holder(s) be liable for any
+                  claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from,
                   out of or in connection with the software or the use or other dealings in the software.
                 </p>
                 <p style="text-align: justify; line-height: 1.5; font-family: Arial; color: #DB8004;">
-                  By using GRBAS_Mate or one of its components you agree to all these conditions. 
+                  By using GRBAS_Mate or one of its components you agree to all these conditions.
                 </p>
                 <p style="text-align: justify; line-height: 1.5; font-family: Arial;">
                 Hint: Feel free to have a look at the copyright options in the settings menu!
@@ -525,8 +527,8 @@ def label_text_5(menu):
     elif menu.lower() == "recordings":
         return "File audio filtrati"
 
-    elif menu.lower() == "training":
-        return "Modalità di training"
+    elif menu.lower() == "allenamento":
+        return "Modalità Allenamento"
 
     elif menu.lower() == "settings":
         text = """<p style="text-align: center; line-height: 1.2; font-family: Robo; font-size: 22px; color: #8B0000;">
@@ -557,8 +559,8 @@ def label_text_6(menu, var=0):
     elif menu.lower() == "recordings":
         return "Lettore multimediale"
 
-    elif menu.lower() == "training":
-        return "Modalità di training"
+    elif menu.lower() == "allenamento":
+        return "Modalità Allenamento"
 
     elif menu.lower() == "settings":
         if var == 1:
@@ -597,8 +599,8 @@ def label_text_7(menu):
     elif menu.lower() == "recordings":
         return "Parametro"
 
-    elif menu.lower() == "training":
-        return "Modalità di training"
+    elif menu.lower() == "allenamento":
+        return "Modalità Allenamento"
 
     elif menu.lower() == "settings":
         return """<p style="text-align: left; qproperty-alignment: AlignVCenter; line-height: 1.2; font-family: Robo; font-size: 25px; color: #FFFFFF;">
@@ -628,12 +630,12 @@ def label_text_8(menu, var=0):
     elif menu.lower() == "recordings":
         return "Gravità"
 
-    elif menu.lower() == "training":
-        return "Modalità di training"
+    elif menu.lower() == "allenamento":
+        return "Modalità Allenamento"
 
     elif menu.lower() == "settings":
         if var == 1:
-            return """<p style="text-align: left; qproperty-alignment: AlignVCenter; line-height: 1.2; 
+            return """<p style="text-align: left; qproperty-alignment: AlignVCenter; line-height: 1.2;
             font-family: Robo; font-size: 25px; color: #FFFFFF;">
                                 Lingua:
                       </p>"""
@@ -665,8 +667,8 @@ def label_text_9(menu):
     elif menu.lower() == "recordings":
         return "Genere del parlante"
 
-    elif menu.lower() == "training":
-        return "Modalità di training"
+    elif menu.lower() == "allenamento":
+        return "Modalità Allenamento"
 
     elif menu.lower() == "settings":
         return "Impostazioni"
@@ -694,8 +696,8 @@ def label_text_10(menu):
     elif menu.lower() == "recordings":
         return "Tipo di articolazione"
 
-    elif menu.lower() == "training":
-        return "Modalità di training"
+    elif menu.lower() == "allenamento":
+        return "Modalità Allenamento"
 
     elif menu.lower() == "settings":
         return "Impostazioni"
@@ -723,8 +725,8 @@ def label_text_11(menu):
     elif menu.lower() == "recordings":
         return "Registrazioni"
 
-    elif menu.lower() == "training":
-        return "Modalità di training"
+    elif menu.lower() == "allenamento":
+        return "Modalità Allenamento"
 
     elif menu.lower() == "settings":
         return "Impostazioni"
@@ -734,6 +736,7 @@ def label_text_11(menu):
 
 
 # Textual input for buttons --------------------------------------------------------------------------------------------
+
 
 def button_assistance_1(menu):
     if menu.lower() == "info":
@@ -754,8 +757,8 @@ def button_assistance_1(menu):
     elif menu.lower() == "recordings":
         return "Registrazioni dei parametri"
 
-    elif menu.lower() == "training":
-        return "Modalità di training"
+    elif menu.lower() == "allenamento":
+        return "Modalità Allenamento"
 
     elif menu.lower() == "settings":
         return "Generale / Interfaccia"
@@ -783,8 +786,8 @@ def button_assistance_2(menu):
     elif menu.lower() == "recordings":
         return "Registrazioni dei parametri"
 
-    elif menu.lower() == "training":
-        return "Modalità di training"
+    elif menu.lower() == "allenamento":
+        return "Modalità Allenamento"
 
     elif menu.lower() == "settings":
         return "Opzioni di copyright"
@@ -812,8 +815,8 @@ def button_assistance_3(menu):
     elif menu.lower() == "recordings":
         return "Registrazioni dei parametri"
 
-    elif menu.lower() == "training":
-        return "Modalità di training"
+    elif menu.lower() == "allenamento":
+        return "Modalità Allenamento"
 
     elif menu.lower() == "settings":
         return "Lettore multimediale"
@@ -841,8 +844,8 @@ def button_assistance_4(menu):
     elif menu.lower() == "recordings":
         return "Registrazioni dei parametri"
 
-    elif menu.lower() == "training":
-        return "Modalità di training"
+    elif menu.lower() == "allenamento":
+        return "Modalità Allenamento"
 
     elif menu.lower() == "settings":
         return "Riavvia ora"
@@ -852,12 +855,27 @@ def button_assistance_4(menu):
 
 
 def QComboBox_parameter_filter():
-    return ["(I) Instabilità", "(F) Fluenza", "(G) Grado", "(R) Rugosità",
-            "(B) Soffiosità", "(A) Astenia", "(S) Sforzo", "Tutte le opzioni"]
+    return [
+        "(I) Instabilità",
+        "(F) Fluidità",
+        "(G) Grado",
+        "(R) Raucedine",
+        "(B) Sonorizzazione aspirata",
+        "(A) Astenia",
+        "(S) Sforzo",
+        "Tutte le opzioni",
+    ]
 
 
 def QComboBox_severity_filter():
-    return ["Livello 0", "Livello 1", "Livello 2", "Livello 3", "Cresc. 0-3", "Tutte le opzioni"]
+    return [
+        "Livello 0",
+        "Livello 1",
+        "Livello 2",
+        "Livello 3",
+        "Cresc. 0-3",
+        "Tutte le opzioni",
+    ]
 
 
 def QComboBox_gender_filter():
@@ -873,15 +891,17 @@ def QComboBox_colour_choice():
 
 
 def QComboBox_language_choice():
-    return ["English",
-            "Deutsch",
-            "Italiano",
-            "Español",
-            "Français",
-            "Lëtzebuergesch",
-            "Nederlands",
-            "Polski",
-            "Türkçe"]
+    return [
+        "English",
+        "Deutsch",
+        "Italiano",
+        "Español",
+        "Français",
+        "Lëtzebuergesch",
+        "Nederlands",
+        "Polski",
+        "Türkçe",
+    ]
 
 
 def QCheckbox_copyright_home():
@@ -905,8 +925,10 @@ def QCheckbox_autoplay_recordings():
 
 
 def QComboBox_audio_render_quality_choice():
-    return ["Debug:\t\t1 FPS",
-            "Eco:\t\t10 FPS",
-            "Normale:\t33 FPS",
-            "Alta:\t\t60 FPS",
-            "Ultra:\t\t100 FPS"]
+    return [
+        "Debug:\t\t1 FPS",
+        "Eco:\t\t10 FPS",
+        "Normale:\t33 FPS",
+        "Alta:\t\t60 FPS",
+        "Ultra:\t\t100 FPS",
+    ]
